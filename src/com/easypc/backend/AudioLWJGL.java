@@ -11,6 +11,6 @@ public class AudioLWJGL
 	 */
 	public void Init()
 	{
-		
+		//TODO: http://lwjgl.org/wiki/index.php?title=OpenAL_Tutorial_1_-_Single_Static_Source
 	}	
 }

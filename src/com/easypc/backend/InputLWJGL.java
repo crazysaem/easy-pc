@@ -12,15 +12,6 @@ public class InputLWJGL {
 	 */
 	public void Init()
 	{
-		
-	}
-	
-	/**
-	 * Returns a special LWJGL Canvas Object which can be placed on the GUI.
-	 * @return AWTGLCanvas
-	 */	
-	public AWTGLCanvas getAWTGLCanvas()
-	{
-		return null;
+		//TODO: http://lwjgl.org/wiki/index.php?title=LWJGL_Basics_2_(Input)
 	}
 }

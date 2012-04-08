@@ -1,5 +1,7 @@
 package com.easypc.backend;
 
+import org.lwjgl.opengl.AWTGLCanvas;
+
 public class VideoLWJGL 
 {
 	/*----------------------------------------------------
@@ -13,4 +15,13 @@ public class VideoLWJGL
 	{
 		
 	}	
+	
+	/**
+	 * Returns a special LWJGL Canvas Object which can be placed on the GUI.
+	 * @return AWTGLCanvas
+	 */	
+	public AWTGLCanvas getAWTGLCanvas()
+	{
+		return null;
+	}
 }
