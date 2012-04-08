@@ -15,6 +15,8 @@ public class RAM {
 	
 	//The virtual RAM-memory
 	private int[] memory = new int[4096];
+	//Counts every memory access. Is used by the Analysis
+	public int[] memory_count = new int[4096];
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -27,7 +29,7 @@ public class RAM {
 	 */
 	public void write(int offset, int... data)
 	{
-		
+		//Also add every memory access to the count array
 	}
 	
 	/**
@@ -38,6 +40,7 @@ public class RAM {
 	 */
 	public int[] read(int offset, int count)
 	{
+		//Also add every memory access to the count array
 		return null;
 	}
 }

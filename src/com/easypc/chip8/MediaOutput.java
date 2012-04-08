@@ -10,9 +10,13 @@ public class MediaOutput {
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
 	
+	//Internal, Intermediate representation of the Display
+	//Will get read by the GameCanvas which will display this as the Black and White Video Output
+	public boolean[] display = new boolean[64*32];
+	
 	/**
 	 * Displays a n-long Sprite which is read from the virtual memory via the I-Pointer and XORed to the Screen
-	 * This Information is entirely suplied by the opCode
+	 * This Information is entirely supplied by the opCode
 	 * "If this causes any pixels to be erased, VF is set to 1, otherwise it is set to 0"
 	 * @param x The x Coordinate for the Sprite
 	 * @param y The y Coordinate for the Sprite

@@ -8,12 +8,6 @@ package com.easypc.controller;
 public class Controller 
 {
 	/*----------------------------------------------------
-	 * Attribute Section.
-	 *--------------------------------------------------*/
-	
-	
-
-	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
 	
@@ -74,5 +68,4 @@ public class Controller
 	/*----------------------------------------------------
 	 * Private Method Section. Shows the Methods used internally.
 	 *--------------------------------------------------*/
-
 }

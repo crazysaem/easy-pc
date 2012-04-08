@@ -1,5 +1,10 @@
 package com.easypc.backend;
 
+/**
+ * Wrapper for the Audio Part of the LWJGL
+ * @author crazysaem
+ *
+ */
 public class AudioLWJGL 
 {
 	/*----------------------------------------------------
