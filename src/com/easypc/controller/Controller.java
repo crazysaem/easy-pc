@@ -5,7 +5,8 @@ package com.easypc.controller;
  * @author crazysaem
  *
  */
-public class Controller {
+public class Controller 
+{
 	/*----------------------------------------------------
 	 * Attribute Section.
 	 *--------------------------------------------------*/
@@ -20,7 +21,8 @@ public class Controller {
 	 * Gets called from the View when the Player "turns the Game off", via the reset Button.
 	 * The Function the resets e.g. The RAM, All Registers etc. and will then tell the Main-View to display the list of available Games.
 	 */
-	public void resetGame() {
+	public void resetGame() 
+	{
 		//TODO: Add logic.
 	}
 	
@@ -28,7 +30,8 @@ public class Controller {
 	 * Gets called when the Player chooses a Game from the list of available Games.
 	 * The Controller will load the ROM into the RAM and tell the Main View to display a blank screen.
 	 */
-	public void loadGame() {
+	public void loadGame() 
+	{
 		//TODO: Add logic.
 	}
 	
@@ -36,7 +39,8 @@ public class Controller {
 	 * Gets called when the Player presses the "Play" button. The Controller will then loop at the normal speed of a Chip-8 Emulator through
 	 * the opCodes to allow the player to play the Game as normal.
 	 */
-	public void playGame() {
+	public void playGame() 
+	{
 		//TODO: Add logic.		
 	}
 
@@ -44,7 +48,8 @@ public class Controller {
 	 * Gets called when the Player pauses a Game. The Controller will pause the Emulation loop, allowing it to continue as normal later.
 	 * Or, if chosen via other functions, to step back, or forward.
 	 */
-	public void pauseGame() {
+	public void pauseGame() 
+	{
 		//TODO: Add logic.
 	}
 
@@ -52,7 +57,8 @@ public class Controller {
 	 * Gets called when the Player presses the Step Forward Button. The Controller will then Step one, or multiple opCodes foward in an instant,
 	 * depending on the level of abstraction displayed in the upper view (The CPU-Instruction View)
 	 */
-	public void stepForward() {
+	public void stepForward() 
+	{
 		//TODO: Add logic.
 	}
 		
@@ -60,7 +66,8 @@ public class Controller {
 	 * Gets called when the Player presses the Step Backward Button. The Controller will then Step one, or multiple opCodes backward in an instant,
 	 * depending on the level of abstraction displayed in the upper view (The CPU-Instruction View)
 	 */
-	public void stepBackward() {
+	public void stepBackward() 
+	{
 		//TODO: Add logic.		
 	}
 	
