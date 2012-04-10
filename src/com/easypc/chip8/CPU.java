@@ -22,7 +22,7 @@ public class CPU {
 	private int sound;
 	//Internal Registers:
 		//Program Counter, points to the position in the RAM which should be executed next
-		private int PC=0;
+		private int PC=0x200; //500d - The ROM will be loaded into the RAM with the starting address 0x200h/500d
 		//The Stack will be used to save the PC when a function was called. The PC will be restored after a RET statement from the Chip 8 Program
 		private ArrayList<Integer> PCstack = new ArrayList<Integer>();
 	
@@ -47,6 +47,10 @@ public class CPU {
 	 */
 	public void executeOpCode(int c0, int c1, int c2, int c3)
 	{
+		//The CPU Speed, which will be controlled by the Controller when played normally, is 18.2Hz = 18.2 Instructions per Second
+		//Meaning after every Instruction the Controller will wait ~ (1/18.2Hz) Seconds = 0,050 Seconds = 50 ms
+		//Thead.Sleep(50) or similar ...
+		//The delay and sound timer will be decremented 3 times after each instruction to match the 60Hz decration speed
 		switch (c0)
 		{
 			case 0:
@@ -61,7 +65,9 @@ public class CPU {
 			break;
 		
 		}
-	
+		
+		if(delay>0) {delay=delay-3;} if(delay<0) {delay=0;}
+		if(sound>0) {sound=sound-3;} if(sound<0) {sound=0;}
 	}
 	
 	/**
