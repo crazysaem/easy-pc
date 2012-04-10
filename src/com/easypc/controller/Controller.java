@@ -42,7 +42,7 @@ public class Controller
 	 * Gets called when the Player pauses a Game. The Controller will pause the Emulation loop, allowing it to continue as normal later.
 	 * Or, if chosen via other functions, to step back, or forward.
 	 */
-	public void pauseGame() 
+	public void pauseGame()
 	{
 		//TODO: Add logic.
 	}

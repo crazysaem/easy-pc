@@ -28,6 +28,23 @@ public class MediaOutput {
 	}
 	
 	/**
+	 * Clears the GameCanvas and shows only Black
+	 */
+	public void clearScreen()
+	{
+		
+	}
+	
+	/**
+	 * Shows the list of available ROMs inside the GameCanvas
+	 * TODO: Maybe use a SWING overlay to make it easier ? Or use a LWJGL GUI Library: http://twl.l33tlabs.org/ or http://nifty-gui.lessvoid.com/
+	 */
+	public void showGames()
+	{
+		
+	}
+	
+	/**
 	 * Starts a Beep Sound
 	 */
 	public void startBeep()

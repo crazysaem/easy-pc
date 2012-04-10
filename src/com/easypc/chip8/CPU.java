@@ -32,6 +32,20 @@ public class CPU {
 	 */
 	public void executeOpCode(int c0, int c1, int c2, int c3)
 	{
+		switch (c0)
+		{
+			case 0:
+				if((c1==0) && (c2==0xE) && (c3==0))
+				{
+					//Clear Screen;
+				}
+			break;
+			
+			default:
+				System.err.println("ERROR: Unregocnised Command: " + c0 + c1 + c2 + c3);
+			break;
+		
+		}
 	
 	}
 	
