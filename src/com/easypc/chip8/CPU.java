@@ -1,5 +1,7 @@
 package com.easypc.chip8;
 
+import java.util.ArrayList;
+
 /**
  * The virtual CPU of the Chip-8 System
  * @author crazysaem
@@ -12,6 +14,17 @@ public class CPU {
 	
 	//The Registers V0-VF for the CPU:
 	private int[] V = new int[16];
+	//A Pointer which can be set to an arbitrary address in the virtual RAM by the Chip 8 program
+	private int I=0;
+	//A timer, which counts to zero (if it is non-zero) at a rate of 60Hz
+	private int delay;
+	//The same as the delay timer, and will additionally output a beep-sound as long as the timer is non-zero
+	private int sound;
+	//Internal Registers:
+		//Program Counter, points to the position in the RAM which should be executed next
+		private int PC=0;
+		//The Stack will be used to save the PC when a function was called. The PC will be restored after a RET statement from the Chip 8 Program
+		private ArrayList<Integer> PCstack = new ArrayList<Integer>();
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -35,7 +48,7 @@ public class CPU {
 		switch (c0)
 		{
 			case 0:
-				if((c1==0) && (c2==0xE) && (c3==0))
+				if((c1==0) && (c2==0xE) && (c3==0))	//00E0
 				{
 					//Clear Screen;
 				}
