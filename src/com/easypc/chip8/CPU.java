@@ -40,8 +40,10 @@ public class CPU {
 	
 	/**
 	 * Executes a Chip-8 OpCode
-	 * @param c0 First Byte of the opCode
-	 * @param c1 Second Byte of the opCode
+	 * @param c0 The 1st 4 Bit of the opCode 
+	 * @param c1 The 2nd 4 Bit of the opCode
+	 * @param c2 The 3rd 4 Bit of the opCode
+	 * @param c3 The 4th 4 Bit of the opCode
 	 */
 	public void executeOpCode(int c0, int c1, int c2, int c3)
 	{
