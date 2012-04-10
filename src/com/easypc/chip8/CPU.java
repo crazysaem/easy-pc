@@ -47,10 +47,7 @@ public class CPU {
 	 */
 	public void executeOpCode(int c0, int c1, int c2, int c3)
 	{
-		//The CPU Speed, which will be controlled by the Controller when played normally, is 18.2Hz = 18.2 Instructions per Second
-		//Meaning after every Instruction the Controller will wait ~ (1/18.2Hz) Seconds = 0,050 Seconds = 50 ms
-		//Thead.Sleep(50) or similar ...
-		//The delay and sound timer will be decremented 3 times after each instruction to match the 60Hz decration speed
+		//The CPU Speed is unknown, but the timer decreasing speed is fixed at 60hz
 		switch (c0)
 		{
 			case 0:
@@ -65,9 +62,6 @@ public class CPU {
 			break;
 		
 		}
-		
-		if(delay>0) {delay=delay-3;} if(delay<0) {delay=0;}
-		if(sound>0) {sound=sound-3;} if(sound<0) {sound=0;}
 	}
 	
 	/**
