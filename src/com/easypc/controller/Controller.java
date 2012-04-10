@@ -64,8 +64,4 @@ public class Controller
 	{
 		//TODO: Add logic.		
 	}
-	
-	/*----------------------------------------------------
-	 * Private Method Section. Shows the Methods used internally.
-	 *--------------------------------------------------*/
 }

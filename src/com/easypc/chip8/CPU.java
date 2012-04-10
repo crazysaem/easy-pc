@@ -83,4 +83,31 @@ public class CPU {
 	{
 		return -1;		
 	}
+	
+	/*----------------------------------------------------
+	 * Private Method Section. Shows the Methods used internally.
+	 *--------------------------------------------------*/
+	
+	/**
+	 * Converts 2x 4Bit Numbers into an 8Bit Number
+	 * @param i0 The 1st 4 Bit
+	 * @param i1 The 1st 4 Bit
+	 * @return the constructed 8 Bit Number
+	 */
+	private int get8BitValue(int i0, int i1)
+	{
+		return -1;		
+	}
+	
+	/**
+	 * Converts 3x 4Bit Numbers into an 12Bit Number (used for adressing)
+	 * @param i0 The 1st 4 Bit
+	 * @param i1 The 2nd 4 Bit
+	 * @param i2 The 3rd 4 Bit
+	 * @return the constructed 12 Bit Number
+	 */
+	private int get12BitValue(int i0, int i1, int i2)
+	{
+		return -1;		
+	}
 }
