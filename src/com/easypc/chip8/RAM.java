@@ -23,6 +23,14 @@ public class RAM {
 	 *--------------------------------------------------*/
 	
 	/**
+	 * Constructor of the Class - Initializes necessary start values
+	 */
+	public RAM()
+	{
+		//TODO: Put the Fonts 0-9 and A-F into the first 0x200h/500d Bytes of the RAM as seen here: http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.4
+	}
+	
+	/**
 	 * Writes an arbitrary amount of Data into the RAM at a specific address
 	 * @param offset The start Address
 	 * @param data An int Array of Data
