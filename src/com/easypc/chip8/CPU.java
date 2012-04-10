@@ -30,7 +30,7 @@ public class CPU {
 	 * @param c0 First Byte of the opCode
 	 * @param c1 Second Byte of the opCode
 	 */
-	public void executeOpCode(int c0, int c1)
+	public void executeOpCode(int c0, int c1, int c2, int c3)
 	{
 	
 	}
