@@ -48,6 +48,7 @@ public class CPU {
 	public void executeOpCode(int c0, int c1, int c2, int c3)
 	{
 		//The CPU Speed is unknown, but the timer decreasing speed is fixed at 60hz
+		//The best idea is probably to pick out the best Chip-8 Games and set a speed specific for each game to run it at an optimal speed
 		switch (c0)
 		{
 			case 0:
