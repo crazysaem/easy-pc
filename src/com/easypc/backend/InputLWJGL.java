@@ -59,4 +59,11 @@ public class InputLWJGL {
 	{
 		
 	}
+	/**
+	 * Waits until key is pressed and return the value of the key 
+	 */
+	public int waitforKey()
+	{
+		return 1;
+	}
 }

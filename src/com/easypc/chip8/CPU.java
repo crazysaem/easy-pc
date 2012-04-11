@@ -1,10 +1,9 @@
 package com.easypc.chip8;
 
 import java.util.ArrayList;
-import java.math.*;
-
 import com.easypc.backend.InputLWJGL;
 import com.easypc.chip8.MediaOutput;
+import com.easypc.chip8.RAM;;
 /**
  * The virtual CPU of the Chip-8 System
  * @author crazysaem
@@ -32,8 +31,12 @@ public class CPU {
 		//The MediaOutput Object
 		private MediaOutput media;
 		
-		//The MediaOutput Object
+		//The InputLWJGL Object
 		private InputLWJGL input;
+		
+		//The RAM Object
+		private RAM ram;
+
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -42,11 +45,13 @@ public class CPU {
 	/**
 	 * Initializes the CPU
 	 */
-	public CPU(MediaOutput media,InputLWJGL input)
+	public CPU(MediaOutput media,InputLWJGL input, RAM ram)
 	{
 		for(int i=0;i<16;i++) V[i] = 0;
 		
 		this.media = media;
+		this.input =input;
+		this.ram = ram;
 	}
 	
 	/**
@@ -67,7 +72,7 @@ public class CPU {
 			case 0:
 				if((c1==0) && (c2==0xE) && (c3==0))		//00E0 - CLS
 				{
-					//Clear Screen;
+					media.clearScreen();
 				}
 				
 				if((c1==0) && (c2==0xE) && (c3==0xE))	//00EE - RTN
@@ -196,7 +201,7 @@ public class CPU {
 					V[c1]=delay;
 				break;
 				case 0x0A:								//Fx0A - LD Vx, K
-					//TODO: Wait for a key press, store the value of the key in Vx.
+					V[c1]=input.waitforKey();
 				break;
 				case 0x15:								//Fx15 - LD DT, Vx
 					delay=V[c1];
@@ -214,10 +219,14 @@ public class CPU {
 					//TODO:Store BCD representation of Vx in memory locations I, I+1, and I+2.
 				break;
 				case 0x55:								//Fx55 - LD [I], Vx
-					//TODO:Store registers V0 through Vx in memory starting at location I.
+					for(int i=0;i<=c1;i++){
+						ram.write(I+i,V[i]);
+					}
 				break;
 				case 0x65:								//Fx65 - LD Vx, [I]
-					//TODO:Read registers V0 through Vx from memory starting at location I.
+					for(int i=0;i<=c1;i++){
+						ram.read(I+i,V[i]);
+					}				
 				break;
 				}
 			break;	
