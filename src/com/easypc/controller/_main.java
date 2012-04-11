@@ -22,6 +22,8 @@ public class _main
 	
 	public void samuelsFunktion()
 	{
-		//AWESOME STUFF
+		//asfpajsfpasmdpgasepognseoodvnsodnvsd
+		//asdfasfasf
+		//ascda
 	}
 }
