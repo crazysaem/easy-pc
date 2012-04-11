@@ -225,8 +225,9 @@ public class CPU {
 				break;
 				case 0x65:								//Fx65 - LD Vx, [I]
 					for(int i=0;i<=c1;i++){
-						ram.read(I+i,V[i]);
-					}				
+						ram.read(I, c1);				//TODO: Is this really correct?
+					}			
+					
 				break;
 				}
 			break;	
@@ -264,12 +265,11 @@ public class CPU {
 	/**
 	 * Converts 2x 4Bit Numbers into an 8Bit Number
 	 * @param i0 The 1st 4 Bit
-	 * @param i1 The 1st 4 Bit
+	 * @param i1 The 2nd 4 Bit
 	 * @return the constructed 8 Bit Number
 	 */
 	private int get8BitValue(int i0, int i1)
 	{
-		//Conversion needed, as seen here: http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#3.0
 		i0=i0<<4;
 		return (i0 & i1);	
 	}
@@ -286,7 +286,5 @@ public class CPU {
 		i0=i0<<8;
 		i1=i1<<4;
 		return (i0 & i1 & i2);
-		
-		//Conversion needed, as seen here: http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#3.0
 	}
 }
