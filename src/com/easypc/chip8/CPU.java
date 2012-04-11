@@ -1,7 +1,10 @@
 package com.easypc.chip8;
 
 import java.util.ArrayList;
+import java.math.*;
 
+import com.easypc.backend.InputLWJGL;
+import com.easypc.chip8.MediaOutput;
 /**
  * The virtual CPU of the Chip-8 System
  * @author crazysaem
@@ -25,6 +28,12 @@ public class CPU {
 		private int PC=0x200; //512d - The ROM will be loaded into the RAM with the starting address 0x200h/500d
 		//The Stack will be used to save the PC when a function was called. The PC will be restored after a RET statement from the Chip 8 Program
 		private ArrayList<Integer> PCstack = new ArrayList<Integer>();
+		
+		//The MediaOutput Object
+		private MediaOutput media;
+		
+		//The MediaOutput Object
+		private InputLWJGL input;
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -33,9 +42,11 @@ public class CPU {
 	/**
 	 * Initializes the CPU
 	 */
-	public void Init()
+	public CPU(MediaOutput media,InputLWJGL input)
 	{
 		for(int i=0;i<16;i++) V[i] = 0;
+		
+		this.media = media;
 	}
 	
 	/**
@@ -151,10 +162,64 @@ public class CPU {
 					break;
 				}
 			break;
+			case 9:										//9xy0 - SNE Vx, Vy
+				if(V[c1]!=V[c2])
+					PC+=2;
+			break;
+			case 0xA:									//Annn - LD I, addr
+				I=get12BitValue(c1, c2, c3);
+			break;
+			case 0xB:									//Bnnn - JP V0, addr
+				PC = get12BitValue(c1,c2,c3)+V[0];
+			break;
+			case 0xC:									//Cxkk - RND Vx, byte
+				V[c1]=(get8BitValue(c2,c3)&(int)(Math.random()*255));
+			break;
+			case 0xD:									//Dxyn - DRW Vx, Vy, nibble
+				media.displaySprite(V[c1],V[c2],c3);
+			break;
+			case 0xE:
+				switch (c2){
+					case 9:								//Ex9E - SKP Vx
+						if (input.checkKey(V[c1]))
+							PC+=2;
+					break;
+					case 0xA:							//ExA1 - SKNP Vx
+						
+					break;
+				}
+			break;
+			case 0xF:
+				switch (get8BitValue(c2, c3)){
+				case 0x07:								//Fx07 - LD Vx, DT
 					
-			
-			
-
+				break;
+				case 0x0A:								//Fx0A - LD Vx, K
+					
+				break;
+				case 0x15:								//Fx15 - LD DT, Vx
+					
+				break;
+				case 0x18:								//Fx18 - LD ST, Vx
+					
+				break;
+				case 0x1E:								//Fx1E - ADD I, Vx
+					
+				break;
+				case 0x29:								//Fx29 - LD F, Vx
+					
+				break;
+				case 0x33:								//Fx33 - LD B, Vx
+					
+				break;
+				case 0x55:								//Fx55 - LD [I], Vx
+					
+				break;
+				case 0x65:								//Fx65 - LD Vx, [I]
+					
+				break;
+				}
+			break;	
 			default:
 				System.err.println("ERROR: Unregocnised Command: " + c0 + c1 + c2 + c3);
 			break;
