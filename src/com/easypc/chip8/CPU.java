@@ -54,12 +54,12 @@ public class CPU {
 		switch (c0)
 		{
 			case 0:
-				if((c1==0) && (c2==0xE) && (c3==0))	//00E0
+				if((c1==0) && (c2==0xE) && (c3==0))		//00E0 - CLS
 				{
 					//Clear Screen;
 				}
 				
-				if((c1==0) && (c2==0xE) && (c3==0xE))	//00EE
+				if((c1==0) && (c2==0xE) && (c3==0xE))	//00EE - RTN
 				{
 					//Return from func
 					PC = PCstack.get(PCstack.size()-1);
@@ -67,15 +67,94 @@ public class CPU {
 				}
 			break;
 			
-			case 1:
+			case 1:										//1nnn - JP addr
 				PC = get12BitValue(c1,c2,c3);
 			break;
 			
-			case 2:
+			case 2:										//2nnn - CALL addr
 				PCstack.add(PC);
 				PC = get12BitValue(c1,c2,c3);
 			break;
+			case 3:										//3xkk - SE Vx, byte
+				if (V[c1] == get8BitValue(c2,c3))
+					PC+=2;
+			break;
+			case 4:										//4xkk - SNE Vx, byte
+				if (V[c1] != get8BitValue(c2,c3))
+					PC+=2;				
+			break;
+			case 5:										//5xy0 - SE Vx, Vy
+				if (V[c1] != V[c2])
+					PC+=2;	
+			break;
+			case 6:										//6xkk - LD Vx, byte
+				V[c1]=get8BitValue(c2,c3);
+			break;
+			case 7:										//7xkk - ADD Vx, byte
+				V[c1] = V[c1] + get8BitValue(c2,c3);
+			break;
+			case 8:
+				switch (c3){
+					case 0:								//8xy0 - LD Vx, Vy
+						V[c1]=V[c2];
+					break;
+					case 1:								//8xy1 - OR Vx, Vy
+						V[c1]=V[c1] | V[c2];
+					break;
+					case 2:								//8xy2 - AND Vx, Vy
+						V[c1]=V[c1] & V[c2];
+					break;
+					case 3:								//8xy3 - XOR Vx, Vy
+						V[c1]=V[c1] ^ V[c2];
+					break;
+					case 4:								//8xy4 - ADD Vx, Vy
+						V[c1]=V[c1] + V[c2];
+						if(V[c1]>255){
+							V[0xF]=1;
+							V[c1]=255;
+						}
+						else
+							V[0xF]=0;
+						
+					break;
+					case 5:								//8xy5 - SUB Vx, Vy
+														//TODO: maybe results to negative numbers
+						if (V[c1]>V[c2])
+							V[0xF]=1;
+						else
+							V[0xF]=0;
+						V[c1]=V[c1] - V[c2];		
+					break;
+					case 6:								// 8xy6 - SHR Vx {, Vy}
+						if((V[c1]&1)==1){
+							V[0xF]=1;
+						}
+						else
+							V[0xF]=0;
+						V[c1]=V[c1]>>1;			
+					break;
+					case 7:								//8xy7 - SUBN Vx, Vy
+														//TODO: maybe results to negative numbers
+						if (V[c1]<V[c2])
+							V[0xF]=1;
+						else
+							V[0xF]=0;
+						V[c1]=V[c2] - V[c1];			
+					break;
+					case 0xE:							//8xyE - SHL Vx {, Vy}
+						if((V[c1]&128)==128){
+							V[0xF]=1;
+						}
+						else
+							V[0xF]=0;
+						V[c1]=V[c1]<<1;	
+					break;
+				}
+			break;
+					
 			
+			
+
 			default:
 				System.err.println("ERROR: Unregocnised Command: " + c0 + c1 + c2 + c3);
 			break;
