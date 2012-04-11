@@ -44,4 +44,19 @@ public class InputLWJGL {
 
 	}
 	
+	/**
+	 * Checks whether the specified key is currently pressed 
+	 */
+	public boolean checkKey(int i)
+	{
+		return true;
+	}
+	
+	/**
+	 * Waits until the specified key is pressed 
+	 */
+	public void waitforKey(int i)
+	{
+		
+	}
 }

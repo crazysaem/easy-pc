@@ -23,20 +23,11 @@ public class _main
 	public static void main(String args[])
 	{
 <<<<<<< HEAD
+	
+=======
 		MediaOutput media = new MediaOutput();
 		CPU cpu = new CPU();
-	}
-	
-	public void samuelsFunktion()
-	{
-		//amazing stuff from niklas
-	}
-	
-	public void niklasfunktion()
-	{
-		//UBER AWESOME STUFF
-=======
 		
->>>>>>> ee5d30a48b4784675929803f9148c98f8fffe4d9
+>>>>>>> 236366d133c7c1c67a1623594ab9392c8b2bdc6b
 	}
 }
