@@ -19,4 +19,9 @@ public class _main
 	{
 		
 	}
+	
+	public void niklasfunktion()
+	{
+		//UBER AWESOME STUFF
+	}
 }
