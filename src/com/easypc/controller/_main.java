@@ -19,4 +19,9 @@ public class _main
 	{
 		//samuel
 	}
+	
+	public void samuelsFunktion()
+	{
+		//AWESOME STUFF
+	}
 }
