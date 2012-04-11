@@ -17,11 +17,10 @@ public class _main
 	 */
 	public static void main(String args[])
 <<<<<<< HEAD
-	{// Hallo
-		
+	{//seb
 =======
 	{
-		//asdasdasd
->>>>>>> a3f6bed35a72fd4837fa9d6e492843701d566427
+		//samuel
+>>>>>>> f62545f2d4fbbf4c7fcf7b36e2ba21b2373d219b
 	}
 }
