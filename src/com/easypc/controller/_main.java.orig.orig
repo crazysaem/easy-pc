@@ -1,6 +1,5 @@
 package com.easypc.controller;
 
-import com.easypc.backend.InputLWJGL;
 import com.easypc.chip8.CPU;
 import com.easypc.chip8.MediaOutput;
 
@@ -23,9 +22,12 @@ public class _main
 	 */
 	public static void main(String args[])
 	{
+<<<<<<< HEAD
+	
+=======
 		MediaOutput media = new MediaOutput();
-		InputLWJGL input = new InputLWJGL();
-		CPU cpu = new CPU(media,input);
+		CPU cpu = new CPU();
 		
+>>>>>>> 236366d133c7c1c67a1623594ab9392c8b2bdc6b
 	}
 }
