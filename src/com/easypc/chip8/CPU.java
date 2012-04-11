@@ -22,7 +22,7 @@ public class CPU {
 	private int sound;
 	//Internal Registers:
 		//Program Counter, points to the position in the RAM which should be executed next
-		private int PC=0x200; //500d - The ROM will be loaded into the RAM with the starting address 0x200h/500d
+		private int PC=0x200; //512d - The ROM will be loaded into the RAM with the starting address 0x200h/500d
 		//The Stack will be used to save the PC when a function was called. The PC will be restored after a RET statement from the Chip 8 Program
 		private ArrayList<Integer> PCstack = new ArrayList<Integer>();
 	
@@ -47,6 +47,8 @@ public class CPU {
 	 */
 	public void executeOpCode(int c0, int c1, int c2, int c3)
 	{
+		PC+=2;
+		
 		//The CPU Speed is unknown, but the timer decreasing speed is fixed at 60hz
 		//The best idea is probably to pick out the best Chip-8 Games and set a speed specific for each game to run it at an optimal speed
 		switch (c0)
@@ -56,6 +58,22 @@ public class CPU {
 				{
 					//Clear Screen;
 				}
+				
+				if((c1==0) && (c2==0xE) && (c3==0xE))	//00EE
+				{
+					//Return from func
+					PC = PCstack.get(PCstack.size()-1);
+					PCstack.remove(PCstack.size()-1);
+				}
+			break;
+			
+			case 1:
+				PC = get12BitValue(c1,c2,c3);
+			break;
+			
+			case 2:
+				PCstack.add(PC);
+				PC = get12BitValue(c1,c2,c3);
 			break;
 			
 			default:
