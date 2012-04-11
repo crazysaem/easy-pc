@@ -16,6 +16,12 @@ public class _main
 	 * @param args - Not used
 	 */
 	public static void main(String args[])
-	{//seb
+<<<<<<< HEAD
+	{// Hallo
+		
+=======
+	{
+		//asdasdasd
+>>>>>>> a3f6bed35a72fd4837fa9d6e492843701d566427
 	}
 }
