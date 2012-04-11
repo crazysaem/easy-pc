@@ -116,7 +116,8 @@ public class CPU {
 	private int get8BitValue(int i0, int i1)
 	{
 		//Conversion needed, as seen here: http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#3.0
-		return -1;		
+		i0=i0<<4;
+		return (i0 & i1);	
 	}
 	
 	/**
