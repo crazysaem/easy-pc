@@ -1,5 +1,101 @@
 <class-diagram version="1.0.7" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
   associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="com.easypc.gui.Gui" project="easy-pc" 
+    file="/easy-pc/src/com/easypc/gui/Gui.java" binary="false">    
+    <position height="-1" width="-1" x="1043" y="334"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="com.easypc.controller.Controller" project="easy-pc" 
+    file="/easy-pc/src/com/easypc/controller/Controller.java" binary="false">    
+    <position height="-1" width="-1" x="168" y="366"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="com.easypc.controller._main" project="easy-pc" 
+    file="/easy-pc/src/com/easypc/controller/_main.java" binary="false">    
+    <position height="-1" width="-1" x="456" y="368"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="com.easypc.chip8.RAM" project="easy-pc" 
+    file="/easy-pc/src/com/easypc/chip8/RAM.java" binary="false">    
+    <position height="-1" width="-1" x="1766" y="88"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="com.easypc.chip8.MediaOutput" project="easy-pc" 
+    file="/easy-pc/src/com/easypc/chip8/MediaOutput.java" binary="false">    
+    <position height="-1" width="-1" x="420" y="88"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="com.easypc.chip8.GameCanvas" project="easy-pc" 
+    file="/easy-pc/src/com/easypc/chip8/GameCanvas.java" binary="false">    
+    <position height="-1" width="-1" x="628" y="110"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="com.easypc.chip8.CPU" project="easy-pc" 
+    file="/easy-pc/src/com/easypc/chip8/CPU.java" binary="false">    
+    <position height="-1" width="-1" x="909" y="366"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="com.easypc.backend.InputLWJGL" project="easy-pc" 
+    file="/easy-pc/src/com/easypc/backend/InputLWJGL.java" binary="false">    
+    <position height="-1" width="-1" x="1523" y="100"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="com.easypc.backend.AudioLWJGL" project="easy-pc" 
+    file="/easy-pc/src/com/easypc/backend/AudioLWJGL.java" binary="false">    
+    <position height="88" width="97" x="1215" y="183"/>    
+    <display autosize="false" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="com.easypc.analysis.RAMAnalysisC" project="easy-pc" 
+    file="/easy-pc/src/com/easypc/analysis/RAMAnalysisC.java" binary="false">    
+    <position height="-1" width="-1" x="1405" y="314"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="com.easypc.analysis.CPUAnalysisC" project="easy-pc" 
+    file="/easy-pc/src/com/easypc/analysis/CPUAnalysisC.java" binary="false">    
+    <position height="-1" width="-1" x="326" y="382"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
   <classifier-display autosize="true" package="true" initial-value="true" signature="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    
     <operations public="true" package="true" protected="true" private="true"/>  
