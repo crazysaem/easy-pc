@@ -17,7 +17,12 @@ public class _main
 	 */
 	public static void main(String args[])
 	{
-		
+		//samuel
+	}
+	
+	public void samuelsFunktion()
+	{
+		//AWESOME STUFF
 	}
 	
 	public void niklasfunktion()
