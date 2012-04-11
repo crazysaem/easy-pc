@@ -185,38 +185,39 @@ public class CPU {
 							PC+=2;
 					break;
 					case 0xA:							//ExA1 - SKNP Vx
-						
+						if (!input.checkKey(V[c1]))
+							PC+=2;
 					break;
 				}
 			break;
 			case 0xF:
 				switch (get8BitValue(c2, c3)){
 				case 0x07:								//Fx07 - LD Vx, DT
-					
+					V[c1]=delay;
 				break;
 				case 0x0A:								//Fx0A - LD Vx, K
-					
+					//TODO: Wait for a key press, store the value of the key in Vx.
 				break;
 				case 0x15:								//Fx15 - LD DT, Vx
-					
+					delay=V[c1];
 				break;
 				case 0x18:								//Fx18 - LD ST, Vx
-					
+					sound=V[c1];
 				break;
 				case 0x1E:								//Fx1E - ADD I, Vx
-					
+					I = I + V[c1];
 				break;
 				case 0x29:								//Fx29 - LD F, Vx
-					
+					//TODO:Set I = location of sprite for digit Vx.
 				break;
 				case 0x33:								//Fx33 - LD B, Vx
-					
+					//TODO:Store BCD representation of Vx in memory locations I, I+1, and I+2.
 				break;
 				case 0x55:								//Fx55 - LD [I], Vx
-					
+					//TODO:Store registers V0 through Vx in memory starting at location I.
 				break;
 				case 0x65:								//Fx65 - LD Vx, [I]
-					
+					//TODO:Read registers V0 through Vx from memory starting at location I.
 				break;
 				}
 			break;	
