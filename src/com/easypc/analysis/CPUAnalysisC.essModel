@@ -1,0 +1,38 @@
+[Diagram:]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=1
+
+[Diagram:]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=0
+
+[Box:  - ::com.easypc.analysis]
+X=840
+Y=40
+
+[Box:  - ::com.easypc.backend]
+X=635
+Y=40
+
+[Box:  - ::com.easypc.chip8]
+X=430
+Y=40
+
+[Box:  - ::com.easypc.controller]
+X=225
+Y=40
+
+[Box:  - ::com.easypc.gui]
+X=20
+Y=40
+
+[Diagram: ]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=0
+
