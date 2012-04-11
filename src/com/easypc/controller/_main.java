@@ -22,7 +22,7 @@ public class _main
 	
 	public void samuelsFunktion()
 	{
-		//AWESOME STUFF
+		//amazing stuff from niklas
 	}
 	
 	public void niklasfunktion()
