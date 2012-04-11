@@ -17,21 +17,6 @@ public class _main
 	 */
 	public static void main(String args[])
 	{
-		//samuel
-	}
-	
-	public void samuelsFunktion()
-	{
-		//amazing stuff from niklas
-		//asfpajsfpasmdpgasepognseoodvnsodnvsd
-		//asdfasfasf
-		//ascda
-		//AWESOME STUFF
 
-	}
-		
-	public void niklasfunktion()
-	{
-		//UBER AWESOME STUFF
 	}
 }
