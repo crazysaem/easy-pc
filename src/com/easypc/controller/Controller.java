@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.easypc.chip8.CPU;
+import com.easypc.chip8.RAM;
 
 /**
  * The following Class represents the Controller of the Program, which - for the most part - will control the Application
@@ -20,6 +21,8 @@ public class Controller
 	
 	//The CPU which executes the CHIP-8 opCodes
 	private CPU cpu;
+	private RAM ram;
+	
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -29,10 +32,12 @@ public class Controller
 	 * The Controller Constructor
 	 * @param cpu
 	 */
-	public Controller(CPU cpu)
+	public Controller(CPU cpu, RAM ram)
 	{
 		this.cpu = cpu;
+		this.ram = ram;
 	}
+
 	
 	/**
 	 * Gets called from the View when the Player "turns the Game off", via the reset Button.
@@ -55,10 +60,14 @@ public class Controller
 	/**
 	 * Gets called when the Player presses the "Play" button. The Controller will then loop at the normal speed of a Chip-8 Emulator through
 	 * the opCodes to allow the player to play the Game as normal.
+	 * @throws InterruptedException 
 	 */
-	public void playGame() 
+	public void playGame() throws InterruptedException 
 	{
-		//TODO: Add logic.		
+		while(true){
+			ram.read(cpu.getPC(), 2);
+			wait(10);				
+		}
 	}
 
 	/**
@@ -67,7 +76,14 @@ public class Controller
 	 */
 	public void pauseGame()
 	{
-		//TODO: Add logic.
+		while(true){
+			try {
+				wait(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -77,6 +93,7 @@ public class Controller
 	public void stepForward() 
 	{
 		//TODO: Add logic.
+		ram.read(cpu.getPC(), 2);
 	}
 		
 	/**
@@ -85,7 +102,8 @@ public class Controller
 	 */
 	public void stepBackward() 
 	{
-		//TODO: Add logic.		
+		//TODO: Add logic.	
+		ram.read(cpu.getPC()-2, 2);
 	}
 	
 	/**

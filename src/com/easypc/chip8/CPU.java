@@ -25,6 +25,9 @@ public class CPU {
 	//Internal Registers:
 		//Program Counter, points to the position in the RAM which should be executed next
 		private int PC=0x200; //512d - The ROM will be loaded into the RAM with the starting address 0x200h/500d
+		
+		
+
 		//The Stack will be used to save the PC when a function was called. The PC will be restored after a RET statement from the Chip 8 Program
 		private ArrayList<Integer> PCstack = new ArrayList<Integer>();
 		
@@ -216,10 +219,13 @@ public class CPU {
 					I = I + V[c1];
 				break;
 				case 0x29:								//Fx29 - LD F, Vx
-					//TODO:Set I = location of sprite for digit Vx.
+					I = V[c1] * 5;
 				break;
 				case 0x33:								//Fx33 - LD B, Vx
-					//TODO:Store BCD representation of Vx in memory locations I, I+1, and I+2.
+					ArrayList<Integer> temp = getBCDValue(V[c1]);
+					ram.write(I, temp.get(0));
+					ram.write(I+1, temp.get(1));
+					ram.write(I+2, temp.get(2));
 				break;
 				case 0x55:								//Fx55 - LD [I], Vx
 					for(int i=0;i<=c1;i++){
@@ -249,7 +255,19 @@ public class CPU {
 	 */
 	public void setRegister(int regNumber, int value)
 	{
-		
+		if(regNumber<16)
+			V[regNumber]=value;
+		else if(regNumber==16)
+			I=value;
+		else if(regNumber==17)
+			delay=value;
+		else if(regNumber==18)
+			sound=value;
+		else if(regNumber==19)
+			PC=value;
+		else 
+			System.err.println("ERROR: Can not set Register (Undefined Register Number: "+regNumber+")");
+
 	}
 	
 	/**
@@ -259,7 +277,24 @@ public class CPU {
 	 */
 	public int getRegister(int regNumber)
 	{
-		return -1;		
+		if(regNumber<16)
+			return V[regNumber];
+		else if(regNumber==16)
+			return I;
+		else if(regNumber==17)
+			return delay;
+		else if(regNumber==18)
+			return sound;
+		else if(regNumber==19)
+			return PC;
+		else {
+			System.err.println("ERROR: Can not get Register (Undefined Register Number: "+regNumber+")");
+			return -1;
+		}
+				
+	}
+	public int getPC() {
+		return PC;
 	}
 	
 	/*----------------------------------------------------
@@ -279,7 +314,7 @@ public class CPU {
 	}
 	
 	/**
-	 * Converts 3x 4Bit Numbers into an 12Bit Number (used for adressing)
+	 * Converts 3x 4Bit Numbers into an 12Bit Number (used for addressing)
 	 * @param i0 The 1st 4 Bit
 	 * @param i1 The 2nd 4 Bit
 	 * @param i2 The 3rd 4 Bit
@@ -290,5 +325,19 @@ public class CPU {
 		i0=i0<<8;
 		i1=i1<<4;
 		return (i0 & i1 & i2);
+	}
+	
+	/**
+	 * Converts a 3 digit number into its BCD form
+	 * @param i the decimal value
+	 * @return (temp) BCD Value in ArrayList
+	 */
+	private ArrayList<Integer> getBCDValue(int i)
+	{
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		temp.add(i/100);
+		temp.add(i/10-temp.get(0)*10);
+		temp.add(i-temp.get(0)*100-temp.get(1)*10);
+		return temp;
 	}
 }
