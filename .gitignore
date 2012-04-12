@@ -8,3 +8,5 @@ bin/
 target/
 
 #Ignore javadocs and class diagram overhead
+Class_diag.ucls
+doc/
