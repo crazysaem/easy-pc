@@ -1,5 +1,8 @@
 package com.easypc.chip8;
 
+import java.io.File;
+import java.util.Arrays;
+
 /**
  * An Easy Wrapper for the GUI Output / Backend to Display Stuff for the Chip-8 System
  * @author crazysaem
@@ -41,6 +44,9 @@ public class MediaOutput {
 	 */
 	public void showGames()
 	{
+		String[] entries = new File( "." ).list(); 
+		System.out.println( Arrays.toString(entries) );
+		
 		
 	}
 	
