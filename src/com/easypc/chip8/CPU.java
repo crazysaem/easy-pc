@@ -216,10 +216,13 @@ public class CPU {
 					I = I + V[c1];
 				break;
 				case 0x29:								//Fx29 - LD F, Vx
-					//TODO:Set I = location of sprite for digit Vx.
+					I = V[c1] * 5;
 				break;
 				case 0x33:								//Fx33 - LD B, Vx
-					//TODO:Store BCD representation of Vx in memory locations I, I+1, and I+2.
+					ArrayList<Integer> temp = getBCDValue(V[c1]);
+					ram.write(I, temp.get(0));
+					ram.write(I+1, temp.get(1));
+					ram.write(I+2, temp.get(2));
 				break;
 				case 0x55:								//Fx55 - LD [I], Vx
 					for(int i=0;i<=c1;i++){
@@ -290,5 +293,19 @@ public class CPU {
 		i0=i0<<8;
 		i1=i1<<4;
 		return (i0 & i1 & i2);
+	}
+	
+	/**
+	 * Converts a 3 digit number into its BCD form
+	 * @param i the decimal value
+	 * @return temp BCD Value in ArrayList
+	 */
+	private ArrayList<Integer> getBCDValue(int i)
+	{
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		temp.add(i/100);
+		temp.add(i/10-temp.get(0)*10);
+		temp.add(i-temp.get(0)*100-temp.get(1)*10);
+		return temp;
 	}
 }

@@ -28,6 +28,6 @@ public class _main
 
 		CPU cpu = new CPU(media,input,ram);
 		
-		Controller controller = new Controller(cpu);		
+		Controller controller = new Controller(cpu);
 	}
 }
