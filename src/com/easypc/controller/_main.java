@@ -1,7 +1,12 @@
 package com.easypc.controller;
 
+import org.lwjgl.LWJGLException;
+
+import com.easypc.analysis.CPUAnalysisC;
+import com.easypc.analysis.RAMAnalysisC;
 import com.easypc.backend.InputLWJGL;
 import com.easypc.chip8.CPU;
+import com.easypc.chip8.GameCanvas;
 import com.easypc.chip8.MediaOutput;
 import com.easypc.chip8.RAM;
 import com.easypc.gui.Gui;
@@ -32,6 +37,17 @@ public class _main
 		
 		Controller controller = new Controller(cpu,ram);
 		
-		Gui gui = new Gui(controller);
+		CPUAnalysisC cpuAnalysisC = null;
+		RAMAnalysisC ramAnalysisC = null;
+		GameCanvas gamecanvas = null;
+		try {
+			cpuAnalysisC = new CPUAnalysisC();
+			ramAnalysisC = new RAMAnalysisC();
+			gamecanvas = new GameCanvas();
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+		}		
+		
+		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas);
 	}
 }

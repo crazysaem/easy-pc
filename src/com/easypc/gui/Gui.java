@@ -2,6 +2,9 @@ package com.easypc.gui;
 
 import java.awt.Color;
 
+import com.easypc.analysis.CPUAnalysisC;
+import com.easypc.analysis.RAMAnalysisC;
+import com.easypc.chip8.GameCanvas;
 import com.easypc.controller.Controller;
 
 /**
@@ -27,12 +30,12 @@ public class Gui {
 	 * Initializes the entire GUI and takes the controller Object
 	 * @param controller
 	 */
-	public Gui(Controller controller)
+	public Gui(Controller controller, CPUAnalysisC cpuAnalysisC, RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas)
 	{
 		this.controller = controller;
 		
 		guiFrame = new GuiFrame();
 		guiFrame.getContentPane().setBackground(Color.BLACK);
-		guiFrame.setVisible(true);		
+		guiFrame.setVisible(true);
 	}
 }
