@@ -33,7 +33,7 @@ public class MediaOutput {
 			{
 				change = display[x+i][y+j];
 				display[x+i][y+j] = (byte) (display[x+i][y+j] ^ ((data[j]>>i) & 1));
-				if(change != display[x+i][y+j])
+				if((change != display[x+i][y+j]) && (display[x+i][y+j]==0))
 				{
 					ret = true;
 				}
