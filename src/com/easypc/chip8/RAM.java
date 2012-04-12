@@ -102,6 +102,9 @@ public class RAM {
 		
 	}
 
+	/**
+	 * Reset Memory(RAM) data
+	 */
 	public void reset() {
 		for(int i=0; i<MAX_LENGTH;i++){
 			memory_count_read[i]=0;
