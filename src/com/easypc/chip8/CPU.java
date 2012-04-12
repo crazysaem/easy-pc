@@ -294,10 +294,6 @@ public class CPU {
 		}
 				
 	}
-	public int getPC() {
-		return PC;
-	}
-	
 	/*----------------------------------------------------
 	 * Private Method Section. Shows the Methods used internally.
 	 *--------------------------------------------------*/
@@ -340,5 +336,14 @@ public class CPU {
 		temp.add(i/10-temp.get(0)*10);
 		temp.add(i-temp.get(0)*100-temp.get(1)*10);
 		return temp;
+	}
+
+	public void reset() {
+		for(int i=0;i<16;i++)
+			V[i] = 0;
+		I = 0;
+		delay = 0;
+		sound = 0;
+		PC = 0x200; 
 	}
 }
