@@ -25,6 +25,9 @@ public class CPU {
 	//Internal Registers:
 		//Program Counter, points to the position in the RAM which should be executed next
 		private int PC=0x200; //512d - The ROM will be loaded into the RAM with the starting address 0x200h/500d
+		
+		
+
 		//The Stack will be used to save the PC when a function was called. The PC will be restored after a RET statement from the Chip 8 Program
 		private ArrayList<Integer> PCstack = new ArrayList<Integer>();
 		
@@ -260,6 +263,9 @@ public class CPU {
 	public int getRegister(int regNumber)
 	{
 		return -1;		
+	}
+	public int getPC() {
+		return PC;
 	}
 	
 	/*----------------------------------------------------
