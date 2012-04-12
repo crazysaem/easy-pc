@@ -15,7 +15,7 @@ public class MediaOutput {
 	
 	//Internal, Intermediate representation of the Display
 	//Will get read by the GameCanvas which will display this as the Black and White Video Output
-	public boolean[] display = new boolean[64*32];
+	public byte[][] display = new byte[64][32];
 	
 	/**
 	 * Displays a n-long Sprite which is read from the virtual memory via the I-Pointer and XORed to the Screen
@@ -25,9 +25,25 @@ public class MediaOutput {
 	 * @param y The y Coordinate for the Sprite
 	 * @param n The Read Count for the Pointer
 	 */
-	public void displaySprite(int x, int y, int n)
+	public boolean displaySprite(int x, int y, Integer... data)
 	{
+		boolean ret=false;
+		byte change;
 		
+		for(int j=0;j<data.length;j++)
+		{		
+			for(int i=0;i<8;i++)
+			{
+				change = display[x+i][y+j];
+				display[x+i][y+j] = (byte) (display[x+i][y+j] ^ ((data[j]>>i) & 1));
+				if((change != display[x+i][y+j]) && (display[x+i][y+j]==0))
+				{
+					ret = true;
+				}
+			}
+		}
+		
+		return ret;
 	}
 	
 	/**

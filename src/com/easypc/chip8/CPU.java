@@ -186,8 +186,9 @@ public class CPU {
 			case 0xC:									//Cxkk - RND Vx, byte
 				V[c1]=(get8BitValue(c2,c3)&(int)(Math.random()*255));
 			break;
-			case 0xD:									//Dxyn - DRW Vx, Vy, nibble
-				media.displaySprite(V[c1],V[c2],c3);
+			case 0xD:									//Dxyn - DRW Vx, Vy, nibble		
+				Integer[] t = (Integer[]) ram.read(I, c3).toArray();
+				media.displaySprite(V[c1],V[c2],t);
 			break;
 			case 0xE:
 				switch (c2){
@@ -293,10 +294,6 @@ public class CPU {
 		}
 				
 	}
-	public int getPC() {
-		return PC;
-	}
-	
 	/*----------------------------------------------------
 	 * Private Method Section. Shows the Methods used internally.
 	 *--------------------------------------------------*/
@@ -339,5 +336,14 @@ public class CPU {
 		temp.add(i/10-temp.get(0)*10);
 		temp.add(i-temp.get(0)*100-temp.get(1)*10);
 		return temp;
+	}
+
+	public void reset() {
+		for(int i=0;i<16;i++)
+			V[i] = 0;
+		I = 0;
+		delay = 0;
+		sound = 0;
+		PC = 0x200; 
 	}
 }
