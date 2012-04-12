@@ -4,7 +4,7 @@ import com.easypc.backend.InputLWJGL;
 import com.easypc.chip8.CPU;
 import com.easypc.chip8.MediaOutput;
 import com.easypc.chip8.RAM;
-import com.easypc.gui.GuiFrame;
+import com.easypc.gui.Gui;
 
 /**
  * Initializes the Application, e.g. creates and displays GUIs, and starts the Controller.
@@ -32,7 +32,6 @@ public class _main
 		
 		Controller controller = new Controller(cpu,ram);
 		
-		GuiFrame gui = new GuiFrame();
-		gui.setVisible(true);
+		Gui gui = new Gui(controller);
 	}
 }
