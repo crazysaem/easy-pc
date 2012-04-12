@@ -70,6 +70,21 @@ public class RAM {
 	}
 	
 	/**
+	 * Writes an arbitrary amount of Data into the RAM at a specific address
+	 * @param offset The start Address
+	 * @param data An byte Array of Data
+	 */
+	public void write(int offset, byte... data)
+	{
+		for(int i=0;i<data.length; i++){
+			memory[offset+i]=data[i];
+			memory_count_write[offset+i]++;
+			
+		}
+		//Also add every memory access to the count array
+	}
+	
+	/**
 	 * Reads an arbitrary amount of Data from the RAM and returns it as an int array
 	 * @param offset The start Address
 	 * @param count The number of bytes to read

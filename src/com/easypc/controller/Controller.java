@@ -23,6 +23,8 @@ public class Controller
 	private CPU cpu;
 	private RAM ram;
 	
+	//CPU Cycle running flag
+	private boolean isRunning;
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -54,7 +56,14 @@ public class Controller
 	 */
 	public void loadGame() 
 	{
-		//TODO: Add logic.
+		byte[] rom = null;
+		try {
+			rom = getBytesFromFile(null /*TODO: Load the right rom which was choosen from the user*/);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		ram.write(512, rom);
 	}
 	
 	/**
@@ -64,7 +73,7 @@ public class Controller
 	 */
 	public void playGame() throws InterruptedException 
 	{
-		while(true){
+		while(isRunning){
 			ram.read(cpu.getPC(), 2);
 			wait(10);				
 		}
@@ -76,14 +85,7 @@ public class Controller
 	 */
 	public void pauseGame()
 	{
-		while(true){
-			try {
-				wait(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		isRunning = false;
 	}
 
 	/**
@@ -92,7 +94,6 @@ public class Controller
 	 */
 	public void stepForward() 
 	{
-		//TODO: Add logic.
 		ram.read(cpu.getPC(), 2);
 	}
 		
@@ -102,7 +103,6 @@ public class Controller
 	 */
 	public void stepBackward() 
 	{
-		//TODO: Add logic.	
 		ram.read(cpu.getPC()-2, 2);
 	}
 	
