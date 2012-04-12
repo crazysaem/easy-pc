@@ -5,3 +5,4 @@
 
 #Ignore build files and folder
 bin/
+target/
