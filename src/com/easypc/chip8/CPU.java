@@ -255,7 +255,19 @@ public class CPU {
 	 */
 	public void setRegister(int regNumber, int value)
 	{
-		
+		if(regNumber<16)
+			V[regNumber]=value;
+		else if(regNumber==16)
+			I=value;
+		else if(regNumber==17)
+			delay=value;
+		else if(regNumber==18)
+			sound=value;
+		else if(regNumber==19)
+			PC=value;
+		else 
+			System.err.println("ERROR: Can not set Register (Undefined Register Number: "+regNumber+")");
+
 	}
 	
 	/**
@@ -265,7 +277,21 @@ public class CPU {
 	 */
 	public int getRegister(int regNumber)
 	{
-		return -1;		
+		if(regNumber<16)
+			return V[regNumber];
+		else if(regNumber==16)
+			return I;
+		else if(regNumber==17)
+			return delay;
+		else if(regNumber==18)
+			return sound;
+		else if(regNumber==19)
+			return PC;
+		else {
+			System.err.println("ERROR: Can not get Register (Undefined Register Number: "+regNumber+")");
+			return -1;
+		}
+				
 	}
 	public int getPC() {
 		return PC;
@@ -288,7 +314,7 @@ public class CPU {
 	}
 	
 	/**
-	 * Converts 3x 4Bit Numbers into an 12Bit Number (used for adressing)
+	 * Converts 3x 4Bit Numbers into an 12Bit Number (used for addressing)
 	 * @param i0 The 1st 4 Bit
 	 * @param i1 The 2nd 4 Bit
 	 * @param i2 The 3rd 4 Bit
@@ -304,7 +330,7 @@ public class CPU {
 	/**
 	 * Converts a 3 digit number into its BCD form
 	 * @param i the decimal value
-	 * @return temp BCD Value in ArrayList
+	 * @return (temp) BCD Value in ArrayList
 	 */
 	private ArrayList<Integer> getBCDValue(int i)
 	{
