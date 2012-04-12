@@ -51,7 +51,7 @@ public class RAM {
 				0xF0,0x80,0xF0,0x80,0xF0,		//E
 				0xF0,0x80,0xF0,0x80,0x80		//F
 		);
-		//TODO: Put the Fonts 0-9 and A-F into the first 0x200h/500d Bytes of the RAM as seen here: http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.4
+		
 	}
 	
 	/**
