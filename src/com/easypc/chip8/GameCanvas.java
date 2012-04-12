@@ -31,6 +31,7 @@ public class GameCanvas extends VideoLWJGL {
 	 */
 	@Override
 	public void drawOpenGl() {
+		glViewport(0, 0, 64, 32); //64*32 is the exact display size of the Chip-8 System
 		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         glMatrixMode(GL_PROJECTION);

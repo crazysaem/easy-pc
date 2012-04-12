@@ -31,6 +31,7 @@ public class RAMAnalysisC extends VideoLWJGL {
 	 */
 	@Override
 	public void drawOpenGl() {
+		glViewport(0, 0, 64, 64); //46*46=4096
 		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         glMatrixMode(GL_PROJECTION);

@@ -41,9 +41,7 @@ public class VideoLWJGL extends AWTGLCanvas {
             if (getWidth() != width || getHeight() != height) {
             	width = getWidth();
             	height = getHeight();
-                //glViewport(0, 0, current_width, current_height);
-            }			            
-            glViewport(0, 0, getWidth(), getHeight());
+            }			
          
             drawOpenGl();
 
