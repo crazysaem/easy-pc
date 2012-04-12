@@ -16,11 +16,11 @@ public class RAM {
 	public static final int MAX_LENGTH = 4096;
 	
 	//The virtual RAM-memory
-	private int[] memory = new int[4096];
+	private int[] memory = new int[MAX_LENGTH];
 	//Counts every read memory access. Is used by the Analysis
-	public int[] memory_count_read = new int[4096];
+	public int[] memory_count_read = new int[MAX_LENGTH];
 	//Counts every write memory access. Is used by the Analysis
-	public int[] memory_count_write = new int[4096];
+	public int[] memory_count_write = new int[MAX_LENGTH];
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -99,6 +99,17 @@ public class RAM {
 		memory_count_read[offset+f]++;
 		}
 		return data;
+		
+	}
+
+	public void reset() {
+		for(int i=0; i<MAX_LENGTH;i++){
+			memory_count_read[i]=0;
+			memory_count_write[i]=0;
+		}
+		for(int i=512; i<MAX_LENGTH;i++){		
+			memory[i]=0; 
+		}
 		
 	}
 }
