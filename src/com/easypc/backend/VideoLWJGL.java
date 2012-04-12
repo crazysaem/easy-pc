@@ -18,8 +18,6 @@ public class VideoLWJGL extends AWTGLCanvas {
 	
 	//The width and height of the AWTGLCanvas
 	private int width, height;
-	//A trigger which will tell the AWTGLCanvas to repaint itself once, and set the trigger to false immediatly afterwards
-	boolean paint=true;
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -39,9 +37,7 @@ public class VideoLWJGL extends AWTGLCanvas {
 	 */
 	@Override
 	public void paintGL() {
-    	if(paint)
     	try {
-    		paint=false;
             if (getWidth() != width || getHeight() != height) {
             	width = getWidth();
             	height = getHeight();
@@ -57,14 +53,6 @@ public class VideoLWJGL extends AWTGLCanvas {
             throw new RuntimeException(e);
         }
     }
-	
-	/**
-	 * Repaints the entire canvas
-	 */
-	public void rePaint()
-	{
-		paint=true;
-	}
 	
 	/**
 	 * Override this to draw openGl stuff onto the canvas

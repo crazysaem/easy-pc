@@ -37,5 +37,20 @@ public class Gui {
 		guiFrame = new GuiFrame();
 		guiFrame.getContentPane().setBackground(Color.BLACK);
 		guiFrame.setVisible(true);
+		
+		cpuAnalysisC.setBounds(409, 7, 777-409, 185-7);
+		cpuAnalysisC.addMouseListener(guiFrame);
+		cpuAnalysisC.addMouseMotionListener(guiFrame);   
+		guiFrame.add(cpuAnalysisC);
+		
+		ramAnalysisC.setBounds(5, 241, 373-5, 419-241);
+		ramAnalysisC.addMouseListener(guiFrame);
+		ramAnalysisC.addMouseMotionListener(guiFrame);   
+		guiFrame.add(ramAnalysisC);
+		
+		gamecanvas.setBounds(385, 230, 416, 200);
+		gamecanvas.addMouseListener(guiFrame);
+		gamecanvas.addMouseMotionListener(guiFrame);   
+		guiFrame.add(gamecanvas);
 	}
 }
