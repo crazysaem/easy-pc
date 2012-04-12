@@ -294,6 +294,7 @@ public class CPU {
 		}
 				
 	}
+	
 	/*----------------------------------------------------
 	 * Private Method Section. Shows the Methods used internally.
 	 *--------------------------------------------------*/
@@ -337,6 +338,7 @@ public class CPU {
 		temp.add(i-temp.get(0)*100-temp.get(1)*10);
 		return temp;
 	}
+	
 	/**
 	 * Reset all CPU Register
 	 */
