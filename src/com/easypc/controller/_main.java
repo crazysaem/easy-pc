@@ -16,8 +16,6 @@ public class _main
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
 	
-	
-	
 	/**
 	 * The Main Entry Point into the Application
 	 * @param args - Not used
@@ -30,5 +28,6 @@ public class _main
 
 		CPU cpu = new CPU(media,input,ram);
 		
+		Controller controller = new Controller(cpu);		
 	}
 }

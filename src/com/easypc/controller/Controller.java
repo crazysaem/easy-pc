@@ -1,5 +1,7 @@
 package com.easypc.controller;
 
+import com.easypc.chip8.CPU;
+
 /**
  * The following Class represents the Controller of the Program, which - for the most part - will control the Application
  * @author crazysaem
@@ -8,8 +10,24 @@ package com.easypc.controller;
 public class Controller 
 {
 	/*----------------------------------------------------
+	 * Attribute Section.
+	 *--------------------------------------------------*/
+	
+	//The CPU which executes the CHIP-8 opCodes
+	private CPU cpu;
+	
+	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
+	
+	/**
+	 * The Controller Constructor
+	 * @param cpu
+	 */
+	public Controller(CPU cpu)
+	{
+		this.cpu = cpu;
+	}
 	
 	/**
 	 * Gets called from the View when the Player "turns the Game off", via the reset Button.

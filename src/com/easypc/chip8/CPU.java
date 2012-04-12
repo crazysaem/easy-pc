@@ -44,6 +44,9 @@ public class CPU {
 	
 	/**
 	 * Initializes the CPU
+	 * @param media The MediaOutput Object
+	 * @param input The InputLWJGL Object
+	 * @param ram The RAM Object
 	 */
 	public CPU(MediaOutput media,InputLWJGL input, RAM ram)
 	{
