@@ -6,3 +6,5 @@
 #Ignore build files and folder
 bin/
 target/
+
+#Ignore javadocs and class diagram overhead
