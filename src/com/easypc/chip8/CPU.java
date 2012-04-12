@@ -186,8 +186,9 @@ public class CPU {
 			case 0xC:									//Cxkk - RND Vx, byte
 				V[c1]=(get8BitValue(c2,c3)&(int)(Math.random()*255));
 			break;
-			case 0xD:									//Dxyn - DRW Vx, Vy, nibble
-				media.displaySprite(V[c1],V[c2],c3);
+			case 0xD:									//Dxyn - DRW Vx, Vy, nibble		
+				Integer[] t = (Integer[]) ram.read(I, c3).toArray();
+				media.displaySprite(V[c1],V[c2],t);
 			break;
 			case 0xE:
 				switch (c2){
