@@ -24,7 +24,7 @@ public class Gui {
 	//the main gui frame
 	private GuiFrame guiFrame;
 	//The listview containing all Games
-	private JList gameList;
+	private JList gameList;	//TODO: handle the Input from the list correctly, a.k.a: Load the chosen Game and re-attach the gameCanvas after a game was chosen
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -67,6 +67,7 @@ public class Gui {
 		//TODO: mage the gamecanvas invisible and show a JList http://docs.oracle.com/javase/tutorial/uiswing/components/list.html
 		//	which contains the list array
 		//use the gameList Attribute from this class
+		//TIP: http://docs.oracle.com/javase/tutorial/uiswing/components/list.html
 	}
 	
 	/**

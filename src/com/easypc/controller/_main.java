@@ -43,7 +43,7 @@ public class _main
 		try {
 			cpuAnalysisC = new CPUAnalysisC();
 			ramAnalysisC = new RAMAnalysisC();
-			gamecanvas = new GameCanvas();
+			gamecanvas = new GameCanvas(media);
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}		

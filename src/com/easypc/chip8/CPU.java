@@ -26,20 +26,17 @@ public class CPU {
 		//Program Counter, points to the position in the RAM which should be executed next
 		private int PC=0x200; //512d - The ROM will be loaded into the RAM with the starting address 0x200h/500d
 		
-		
-
 		//The Stack will be used to save the PC when a function was called. The PC will be restored after a RET statement from the Chip 8 Program
 		private ArrayList<Integer> PCstack = new ArrayList<Integer>();
 		
-		//The MediaOutput Object
-		private MediaOutput media;
-		
-		//The InputLWJGL Object
-		private InputLWJGL input;
-		
-		//The RAM Object
-		private RAM ram;
-
+	//The MediaOutput Object
+	private MediaOutput media;
+	
+	//The InputLWJGL Object
+	private InputLWJGL input;
+	
+	//The RAM Object
+	private RAM ram;
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
