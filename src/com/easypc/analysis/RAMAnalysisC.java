@@ -40,7 +40,7 @@ public class RAMAnalysisC extends VideoLWJGL {
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
         
-      //TODO: Add openGL specific drawing code here
+        //TODO: Add openGL specific drawing code here
                         
         glPopMatrix();
 	}

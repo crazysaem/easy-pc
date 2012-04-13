@@ -1,6 +1,8 @@
 package com.easypc.gui;
 
 import java.awt.Color;
+import java.io.File;
+import java.util.Arrays;
 
 import javax.swing.JList;
 
@@ -59,15 +61,19 @@ public class Gui {
 	}
 	
 	/**
-	 * Replaces the gamecanvas and shows a JList instead containing all entries from list	
-	 * @param list the entries to be shown inside the JList
+	 * Replaces the gamecanvas and shows a JList instead containing all games from a folder
 	 */
-	private void showList(String[] list)
+	private void showList()
 	{		
 		//TODO: mage the gamecanvas invisible and show a JList http://docs.oracle.com/javase/tutorial/uiswing/components/list.html
 		//	which contains the list array
 		//use the gameList Attribute from this class
 		//TIP: http://docs.oracle.com/javase/tutorial/uiswing/components/list.html
+		
+		//TODO: Use the code-snippet below from Fritz to display all files from a given folder
+		//The dot "." will get you all the files in a folder, e.g. "bin/." should get you all files within the bin folder when used like below
+		//String[] entries = new File( "." ).list(); 
+		//System.out.println( Arrays.toString(entries) );
 	}
 	
 	/**
@@ -77,4 +83,5 @@ public class Gui {
 	{
 		//TODO: The attached JList (gameList) from the above function should become invisible and the gamecanvas should replace it
 	}
+	
 }

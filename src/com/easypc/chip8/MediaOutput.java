@@ -51,19 +51,7 @@ public class MediaOutput {
 	 */
 	public void clearScreen()
 	{
-		
-	}
-	
-	/**
-	 * Shows the list of available ROMs inside the GameCanvas
-	 * TODO: Maybe use a SWING overlay to make it easier ? Or use a LWJGL GUI Library: http://twl.l33tlabs.org/ or http://nifty-gui.lessvoid.com/
-	 */
-	public void showGames()
-	{
-		String[] entries = new File( "." ).list(); 
-		System.out.println( Arrays.toString(entries) );
-		
-		
+		//TODO: reset the display array to 0s everywhere
 	}
 	
 	/**

@@ -231,7 +231,7 @@ public class CPU {
 					}
 				break;
 				case 0x65:								//Fx65 - LD Vx, [I]
-					ArrayList<Integer> templist = ram.read(I, c1);				//TODO: Is this really correct? NO						
+					ArrayList<Integer> templist = ram.read(I, c1);					
 					for(int i=0;i<templist.size();i++)
 					{
 						V[i] = templist.get(i);					
