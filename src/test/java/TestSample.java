@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 
-public class FailTest {
+public class TestSample {
 
 	@Test
 	public void test() {
-		fail("This will fail");
+		//fail("This will fail");
 	}
 
 }

@@ -7,12 +7,12 @@
     <artifactId>easy-PC</artifactId>
 	<packaging>jar</packaging>
     <version>0.2</version>
-
+	<name>easy-PC</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <natives.version>0.0.6</natives.version>
         <lwjgl.version>2.8.3</lwjgl.version>
-        <junit.version>4.10</junit.version>
+        <junit.version>4.8.2</junit.version>
 		<main.class>com.easypc.controller._main</main.class>
 		<finalName>${project.artifactId}-${project.version}.jar</finalName>
 		<natives>${basedir}/target/natives/</natives>
@@ -50,7 +50,7 @@
     </dependencies>
 
     <build>
-    <sourceDirectory>src/</sourceDirectory>	
+    <sourceDirectory>src/com/</sourceDirectory>	
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
