@@ -2,6 +2,8 @@ package com.easypc.gui;
 
 import java.awt.Color;
 
+import javax.swing.JList;
+
 import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.analysis.RAMAnalysisC;
 import com.easypc.chip8.GameCanvas;
@@ -21,6 +23,8 @@ public class Gui {
 	private Controller controller;	
 	//the main gui frame
 	private GuiFrame guiFrame;
+	//The listview containing all Games
+	private JList gameList;
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -52,5 +56,24 @@ public class Gui {
 		gamecanvas.addMouseListener(guiFrame);
 		gamecanvas.addMouseMotionListener(guiFrame);   
 		guiFrame.add(gamecanvas);
+	}
+	
+	/**
+	 * Replaces the gamecanvas and shows a JList instead containing all entries from list	
+	 * @param list the entries to be shown inside the JList
+	 */
+	private void showList(String[] list)
+	{		
+		//TODO: mage the gamecanvas invisible and show a JList http://docs.oracle.com/javase/tutorial/uiswing/components/list.html
+		//	which contains the list array
+		//use the gameList Attribute from this class
+	}
+	
+	/**
+	 * Removes the JList game list, and shows the gamecanvas again	
+	 */
+	private void showGameCanvas()
+	{
+		//TODO: The attached JList (gameList) from the above function should become invisible and the gamecanvas should replace it
 	}
 }
