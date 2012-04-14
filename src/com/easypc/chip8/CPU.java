@@ -65,13 +65,19 @@ public class CPU {
 	
 	/**
 	 * Executes a Chip-8 OpCode
-	 * @param c0 The 1st 4 Bit of the opCode 
-	 * @param c1 The 2nd 4 Bit of the opCode
-	 * @param c2 The 3rd 4 Bit of the opCode
-	 * @param c3 The 4th 4 Bit of the opCode
+	 * @param c0 The 1st 4 Bit of the opCode (Has to be between 0 and 15)
+	 * @param c1 The 2nd 4 Bit of the opCode (Has to be between 0 and 15)
+	 * @param c2 The 3rd 4 Bit of the opCode (Has to be between 0 and 15)
+	 * @param c3 The 4th 4 Bit of the opCode (Has to be between 0 and 15)
 	 */
 	public void executeOpCode(int c0, int c1, int c2, int c3)
 	{
+		if(c0<0 || c0>15 || c1<0 || c1>15 || c2<0 || c2>15 || c3<0 || c3>15)
+		{
+			System.err.println("The Parameters have to be between 0 and 15");
+			return;
+		}
+		
 		PC+=2;
 		
 		//The CPU Speed is unknown, but the timer decreasing speed is fixed at 60hz
