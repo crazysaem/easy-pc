@@ -80,7 +80,7 @@ public class TestOpCodes {
     {
     	//The interpreter sets the program counter to nnn.    	
     	cpu.executeOpCode(1, 1, 2, 3);     	
-    	int check = 1<<8 & 2<<4 & 3;    	
+    	int check = 1<<8 | 2<<4 | 3;    	
     	assertEquals(check, cpu.getRegister(19));
     	
         System.out.println("@Test - testOpCode_1nnn");
@@ -91,10 +91,10 @@ public class TestOpCodes {
     {
     	//The interpreter increments the stack pointer, 
     	//then puts the current PC on the top of the stack. 
-    	//The PC is then set to nnn.    	
+    	//The PC is then set to nnn.
     	cpu.executeOpCode(2, 1, 2, 3); 
 		//TODO: can/must I check this: cpu.PCstack.get(cpu.PCstack.size()) ???
-    	int check = 1<<8 & 2<<4 & 3;    	
+    	int check = 1<<8 | 2<<4 | 3;    	
     	assertEquals(check, cpu.getRegister(19));
     	
         System.out.println("@Test - testOpCode_2nnn");
@@ -105,7 +105,7 @@ public class TestOpCodes {
     	//Skip next instruction if Vx = kk.
     	int PC =cpu.getRegister(19);
     	cpu.executeOpCode(3, 2, 4, 2);
-    	int check = 4<<4 & 2;
+    	int check = 4<<4 | 2;
     	if(check==cpu.getRegister(2))
     		assertEquals(PC+4, cpu.getRegister(19));
     	else
@@ -120,7 +120,7 @@ public class TestOpCodes {
     	//Skip next instruction if Vx != kk.
     	int PC =cpu.getRegister(19);
     	cpu.executeOpCode(4, 2, 4, 2);
-    	int check = 4<<4 & 2;
+    	int check = 4<<4 | 2;
     	if(check!=cpu.getRegister(2))
     		assertEquals(PC+4, cpu.getRegister(19));
     	else
@@ -148,7 +148,7 @@ public class TestOpCodes {
     {
     	//Set Vx = kk.
     	cpu.executeOpCode(6, 2, 4, 2);
-    	int check = 4<<4 & 2;
+    	int check = 4<<4 | 2;
     	assertEquals(check, cpu.getRegister(2));
     	
     	System.out.println("@Test - testOpCode_6xkk");
@@ -158,9 +158,10 @@ public class TestOpCodes {
     public void testOpCode_7xkk()
     {
         //Set Vx = Vx + kk.
-    	cpu.executeOpCode(7, 2, 4, 2);
-    	int check = 4<<4 & 2;
-    	check=check+cpu.getRegister(2);
+    	int tempVX = cpu.getRegister(2);
+    	cpu.executeOpCode(7, 2, 4, 2);    	
+    	int check = 4<<4 | 2;
+    	check=check+tempVX;
     	assertEquals(check, cpu.getRegister(2));
     	
     	System.out.println("@Test - testOpCode_7xkk");
@@ -306,7 +307,7 @@ public class TestOpCodes {
     {
         //Set I = nnn.
     	cpu.executeOpCode(0xA, 1, 2, 3);     	
-    	int check = 1<<8 & 2<<4 & 3;    	
+    	int check = 1<<8 | 2<<4 | 3;    	
     	assertEquals(check, cpu.getRegister(16));
     	
     	System.out.println("@Test - testOpCode_Annn");
@@ -317,7 +318,7 @@ public class TestOpCodes {
     {
         //Jump to location nnn + V0.
     	cpu.executeOpCode(0xB, 1, 2, 3);     	
-    	int check = (1<<8 & 2<<4 & 3)+cpu.getRegister(0);    	
+    	int check = (1<<8 | 2<<4 | 3)+cpu.getRegister(0);    	
     	assertEquals(check, cpu.getRegister(19));
     	
     	System.out.println("@Test - testOpCode_Bnnn");
@@ -327,10 +328,11 @@ public class TestOpCodes {
     public void testOpCode_Cxkk()
     {
         //Set Vx = random byte AND kk.
-    	cpu.executeOpCode(0xC, 2, 4, 2);     	
+    	cpu.executeOpCode(0xC, 2, 15, 15);     	
     	int check = (4<<4 & 2)& (int)(Math.random()*255);  
     	//TODO: Do not think that it will be the same random number...
-    	assertEquals(check, cpu.getRegister(2));
+    	//Perfectly right, therefor we cant really check this for correctness
+    	//assertEquals(check, cpu.getRegister(2));
 
     	System.out.println("@Test - testOpCode_Cxkk");
     }

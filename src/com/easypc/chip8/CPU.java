@@ -1,6 +1,8 @@
 package com.easypc.chip8;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import com.easypc.backend.InputLWJGL;
 import com.easypc.chip8.MediaOutput;
 import com.easypc.chip8.RAM;;
@@ -38,6 +40,8 @@ public class CPU {
 	//The RAM Object
 	private RAM ram;
 	
+	private Random random;
+	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -55,6 +59,8 @@ public class CPU {
 		this.media = media;
 		this.input =input;
 		this.ram = ram;
+		
+		random = new Random(System.currentTimeMillis());
 	}
 	
 	/**
@@ -181,7 +187,9 @@ public class CPU {
 				PC = get12BitValue(c1,c2,c3)+V[0];
 			break;
 			case 0xC:									//Cxkk - RND Vx, byte
-				V[c1]=(get8BitValue(c2,c3)&(int)(Math.random()*255));
+				//V[c1]=(get8BitValue(c2,c3)&(int)(Math.random()*255));
+				int r = random.nextInt(256);
+				V[c1]=get8BitValue(c2,c3)&r;
 			break;
 			case 0xD:									//Dxyn - DRW Vx, Vy, nibble		
 				Integer[] t = (Integer[]) ram.read(I, c3).toArray();
@@ -305,7 +313,7 @@ public class CPU {
 	private int get8BitValue(int i0, int i1)
 	{
 		i0=i0<<4;
-		return (i0 & i1);	
+		return (i0 | i1);	
 	}
 	
 	/**
@@ -319,7 +327,7 @@ public class CPU {
 	{
 		i0=i0<<8;
 		i1=i1<<4;
-		return (i0 & i1 & i2);
+		return (i0 | i1 | i2);
 	}
 	
 	/**
