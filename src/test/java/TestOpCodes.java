@@ -283,4 +283,52 @@ public class TestOpCodes {
 	
     	System.out.println("@Test - testOpCode_8xyE");
     }
+    
+    @Test
+    public void testOpCode_9xy0()
+    {
+        //Skip next instruction if Vx != Vy.
+    	int PC =cpu.getRegister(19);
+    	cpu.executeOpCode(9, 2, 4, 0);
+    	if(cpu.getRegister(2)!=cpu.getRegister(4))
+    		assertEquals(PC+4, cpu.getRegister(19));
+    	else
+    		assertEquals(PC+2, cpu.getRegister(19));
+    	
+    	System.out.println("@Test - testOpCode_9xy0");
+    }
+    
+    @Test
+    public void testOpCode_Annn()
+    {
+        //Set I = nnn.
+    	cpu.executeOpCode(0xA, 1, 2, 3);     	
+    	int check = 1<<8 & 2<<4 & 3;    	
+    	assertEquals(check, cpu.getRegister(16));
+    	
+    	System.out.println("@Test - testOpCode_Annn");
+    }
+    
+    @Test
+    public void testOpCode_Bnnn()
+    {
+        //Jump to location nnn + V0.
+    	cpu.executeOpCode(0xB, 1, 2, 3);     	
+    	int check = (1<<8 & 2<<4 & 3)+cpu.getRegister(0);    	
+    	assertEquals(check, cpu.getRegister(19));
+    	
+    	System.out.println("@Test - testOpCode_Bnnn");
+    }
+    
+    @Test
+    public void testOpCode_Cxkk()
+    {
+        //Set Vx = random byte AND kk.
+    	cpu.executeOpCode(0xC, 2, 4, 2);     	
+    	int check = (4<<4 & 2)& (int)(Math.random()*255);  
+    	//TODO: Do not think that it will be the same random number...
+    	assertEquals(check, cpu.getRegister(2));
+
+    	System.out.println("@Test - testOpCode_Cxkk");
+    }
 }
