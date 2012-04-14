@@ -160,7 +160,127 @@ public class TestOpCodes {
     	check=check+cpu.getRegister(2);
     	assertEquals(check, cpu.getRegister(2));
     	
-    	System.out.println("@Test - testOpCode_6xkk");
+    	System.out.println("@Test - testOpCode_7xkk");
     }
     
+    @Test
+    public void testOpCode_8xy0()
+    {
+        //Set Vx = Vy.
+    	cpu.executeOpCode(8, 2, 4, 0);
+    	assertEquals(cpu.getRegister(4), cpu.getRegister(2));
+    	
+    	System.out.println("@Test - testOpCode_8xy0");
+    }
+    
+    @Test
+    public void testOpCode_8xy1()
+    {
+        //Set Vx = Vx OR Vy.
+    	cpu.executeOpCode(8, 2, 4, 1);
+    	int check=cpu.getRegister(4) | cpu.getRegister(2);
+    	assertEquals(check, cpu.getRegister(2));
+    	
+    	System.out.println("@Test - testOpCode_8xy1");
+    }
+    
+    @Test
+    public void testOpCode_8xy2()
+    {
+        //Set Vx = Vx AND Vy.
+    	cpu.executeOpCode(8, 2, 4, 2);
+    	int check=cpu.getRegister(4) & cpu.getRegister(2);
+    	assertEquals(check, cpu.getRegister(2));
+    	
+    	System.out.println("@Test - testOpCode_8xy2");
+    }
+    
+    @Test
+    public void testOpCode_8xy3()
+    {
+        //Set Vx = Vx XOR Vy.
+    	cpu.executeOpCode(8, 2, 4, 3);
+    	int check=cpu.getRegister(4) ^ cpu.getRegister(2);
+    	assertEquals(check, cpu.getRegister(2));
+    	
+    	System.out.println("@Test - testOpCode_8xy3");
+    }
+    
+    @Test
+    public void testOpCode_8xy4()
+    {
+        //Set Vx = Vx + Vy, set VF = carry.
+    	cpu.executeOpCode(8, 2, 4, 4);
+    	int check=cpu.getRegister(4) + cpu.getRegister(2);
+    	if(check>255){
+    		assertEquals(1, cpu.getRegister(15));
+    		assertEquals(255, cpu.getRegister(2));
+    		check=255;
+    	}
+    	else 
+    		assertEquals(0, cpu.getRegister(15));
+		assertEquals(check, cpu.getRegister(2));
+
+    	System.out.println("@Test - testOpCode_8xy4");
+    }
+    
+    @Test
+    public void testOpCode_8xy5()
+    {
+        //Set Vx = Vx - Vy, set VF = NOT borrow.
+    	cpu.executeOpCode(8, 2, 4, 5);
+    	if(cpu.getRegister(2)>cpu.getRegister(4))
+    		assertEquals(1, cpu.getRegister(15));
+    	else 
+    		assertEquals(0, cpu.getRegister(15));
+    	int check=cpu.getRegister(2) - cpu.getRegister(4);
+		assertEquals(check, cpu.getRegister(2));
+
+    	System.out.println("@Test - testOpCode_8xy5");
+    }    
+    
+    @Test
+    public void testOpCode_8xy6()
+    {
+        //Set Vx = Vx SHR 1.
+    	cpu.executeOpCode(8, 2, 4, 6);
+    	if((cpu.getRegister(2)&1)==1)
+    		assertEquals(1, cpu.getRegister(15));
+    	else
+    		assertEquals(0, cpu.getRegister(15));
+    	int check=cpu.getRegister(2)>>1;
+		assertEquals(check, cpu.getRegister(2));
+
+    	System.out.println("@Test - testOpCode_8xy6");
+    }
+    
+    @Test
+    public void testOpCode_8xy7()
+    {
+        //Set Vx = Vy - Vx, set VF = NOT borrow.
+    	cpu.executeOpCode(8, 2, 4, 7);
+    	if(cpu.getRegister(2)<cpu.getRegister(4))
+    		assertEquals(1, cpu.getRegister(15));
+    	else 
+    		assertEquals(0, cpu.getRegister(15));
+    	int check=cpu.getRegister(4) - cpu.getRegister(2);
+		assertEquals(check, cpu.getRegister(2));
+
+    	System.out.println("@Test - testOpCode_8xy7");
+    }  
+    
+    @Test
+    public void testOpCode_8xyE()
+    {
+        //Set Vx = Vx SHL 1.
+    	cpu.executeOpCode(8, 2, 4, 0xE);
+    	if((cpu.getRegister(2)&128)==128)
+    		assertEquals(1, cpu.getRegister(15));
+    	else
+    		assertEquals(0, cpu.getRegister(15));
+    	int check=cpu.getRegister(2)<<1;
+		assertEquals(check, cpu.getRegister(2));
+	
+    	System.out.println("@Test - testOpCode_8xyE");
+    }
 }
