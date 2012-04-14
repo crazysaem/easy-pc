@@ -1,6 +1,7 @@
 package test.java;
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -66,12 +67,14 @@ public class TestOpCodes {
 	/**
 	 * Gets executed for every test Method
 	 */
-	/*
     @After
     public void tearDown() {
+    	cpu.reset();
+		media.clearScreen();
+		ram.reset();
         System.out.println("@After - tearDown");
-    }*/
- 
+    }
+    
     @Test
     public void testOpCode_1nnn() 
     {
