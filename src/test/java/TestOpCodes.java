@@ -84,6 +84,63 @@ public class TestOpCodes {
     }
     
     @Test
+    public void testOpCode_2nnn() 
+    {
+    	//The interpreter increments the stack pointer, 
+    	//then puts the current PC on the top of the stack. 
+    	//The PC is then set to nnn.    	
+    	cpu.executeOpCode(2, 1, 2, 3); 
+		//TODO: can/must I check this: cpu.PCstack.get(cpu.PCstack.size()) ???
+    	int check = 1<<8 & 2<<4 & 3;    	
+    	assertEquals(check, cpu.getRegister(19));
+    	
+        System.out.println("@Test - testOpCode_2nnn");
+    }
+    @Test
+    public void testOpCode_3xkk()
+    {
+    	//Skip next instruction if Vx = kk.
+    	int PC =cpu.getRegister(19);
+    	cpu.executeOpCode(3, 2, 4, 2);
+    	int check = 4<<4 & 2;
+    	if(check==cpu.getRegister(2))
+    		assertEquals(PC+4, cpu.getRegister(19));
+    	else
+    		assertEquals(PC+2, cpu.getRegister(19));
+    	
+    	System.out.println("@Test - testOpCode_3xkk");
+    }
+    
+    @Test
+    public void testOpCode_4xkk()
+    {
+    	//Skip next instruction if Vx != kk.
+    	int PC =cpu.getRegister(19);
+    	cpu.executeOpCode(4, 2, 4, 2);
+    	int check = 4<<4 & 2;
+    	if(check!=cpu.getRegister(2))
+    		assertEquals(PC+4, cpu.getRegister(19));
+    	else
+    		assertEquals(PC+2, cpu.getRegister(19));
+    	
+    	System.out.println("@Test - testOpCode_4xkk");
+    }
+    
+    @Test
+    public void testOpCode_5xy0()
+    {
+    	//Skip next instruction if Vx = Vy.
+    	int PC =cpu.getRegister(19);
+    	cpu.executeOpCode(5, 2, 4, 0);
+    	if(cpu.getRegister(2)==cpu.getRegister(4))
+    		assertEquals(PC+4, cpu.getRegister(19));
+    	else
+    		assertEquals(PC+2, cpu.getRegister(19));
+    	
+    	System.out.println("@Test - testOpCode_5xy0");
+    }
+    
+    @Test
     public void testOpCode_6xkk()
     {
     	//Set Vx = kk.
@@ -93,4 +150,17 @@ public class TestOpCodes {
     	
     	System.out.println("@Test - testOpCode_6xkk");
     }
+    
+    @Test
+    public void testOpCode_7xkk()
+    {
+        //Set Vx = Vx + kk.
+    	cpu.executeOpCode(7, 2, 4, 2);
+    	int check = 4<<4 & 2;
+    	check=check+cpu.getRegister(2);
+    	assertEquals(check, cpu.getRegister(2));
+    	
+    	System.out.println("@Test - testOpCode_6xkk");
+    }
+    
 }

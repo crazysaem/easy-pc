@@ -103,7 +103,7 @@ public class CPU {
 					PC+=2;				
 			break;
 			case 5:										//5xy0 - SE Vx, Vy
-				if (V[c1] != V[c2])
+				if (V[c1] == V[c2])
 					PC+=2;	
 			break;
 			case 6:										//6xkk - LD Vx, byte
