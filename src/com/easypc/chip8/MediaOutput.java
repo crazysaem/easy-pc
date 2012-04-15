@@ -51,7 +51,12 @@ public class MediaOutput {
 	 */
 	public void clearScreen()
 	{
-		//TODO: reset the display array to 0s everywhere
+		// reset the display array to 0s everywhere
+		for(int i=0; i<display.length; i++){
+			for(int j=0; j<display[i].length; j++){
+				display[i][j] = 0;
+			}
+		}
 	}
 	
 	/**
