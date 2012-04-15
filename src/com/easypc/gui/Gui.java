@@ -64,6 +64,7 @@ public class Gui {
 		guiFrame.add(gameCanvas);
 		
 		showList();
+		
 	}
 	
 	/**
@@ -124,7 +125,10 @@ public class Gui {
 	 */
 	private void showGameCanvas()
 	{
-		//TODO: The attached JList (gameList) from the above function should become invisible and the gamecanvas should replace it
+		// setting the gamelist ( see function showList() ) invisible and the gameCanvas visible again
+		gameList.setVisible(false);
+		gameCanvas.setVisible(true);
+		guiFrame.repaint();
 	}
 	
 }
