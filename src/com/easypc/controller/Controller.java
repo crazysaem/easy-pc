@@ -7,6 +7,7 @@ import java.io.InputStream;
 
 import com.easypc.chip8.CPU;
 import com.easypc.chip8.RAM;
+import com.easypc.gui.Gui;
 
 /**
  * The following Class represents the Controller of the Program, which - for the most part - will control the Application
@@ -22,6 +23,7 @@ public class Controller
 	//The CPU which executes the CHIP-8 opCodes
 	private CPU cpu;
 	private RAM ram;
+	//private Gui gui;
 	
 	//CPU Cycle running flag
 	private boolean isRunning;
@@ -38,6 +40,7 @@ public class Controller
 	{
 		this.cpu = cpu;
 		this.ram = ram;
+		//this.gui = gui;
 	}
 
 	
@@ -50,7 +53,7 @@ public class Controller
 		ram.reset();
 		cpu.reset();
 		
-		//TODO: display list of Games/Roms as function call
+		//TODO: display list of Games/Roms as function call - we need a reference to the gui for calling showList()
 	}
 	
 	/**
