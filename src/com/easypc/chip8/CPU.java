@@ -197,8 +197,8 @@ public class CPU {
 				int r = random.nextInt(256);
 				V[c1]=get8BitValue(c2,c3)&r;
 			break;
-			case 0xD:									//Dxyn - DRW Vx, Vy, nibble		
-				Integer[] t = (Integer[]) ram.read(I, c3).toArray(); 
+			case 0xD:									//Dxyn - DRW Vx, Vy, nibble	
+				Integer[] t = makeArray(ram.read(I, c3)); 
 				//TODO: [Ljava.lang.Object; cannot be cast to [Ljava.lang.Integer;
 				media.displaySprite(V[c1],V[c2],t);
 			break;
@@ -348,6 +348,12 @@ public class CPU {
 		temp.add(i/100);
 		temp.add(i/10-temp.get(0)*10);
 		temp.add(i-temp.get(0)*100-temp.get(1)*10);
+		return temp;
+	}
+	private Integer[] makeArray(ArrayList<Integer> array){
+		Integer[] temp = new Integer[array.size()];
+		for(int i=0;i<array.size();i++)
+			temp[i]=array.get(i);
 		return temp;
 	}
 	
