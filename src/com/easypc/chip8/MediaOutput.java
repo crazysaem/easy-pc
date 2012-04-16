@@ -27,6 +27,7 @@ public class MediaOutput {
 	 */
 	public boolean displaySprite(int x, int y, Integer... data)
 	{
+		//TODO: I have the feeling this function writes bullshit into display[][]
 		boolean ret=false;
 		byte change;
 		
