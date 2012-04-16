@@ -10,6 +10,7 @@ import java.io.File;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
@@ -86,6 +87,7 @@ public class Gui {
 		//create JList of games called gameList and add it to the guiFrame
 		gameList = new JList(listmodel);
 		
+		
 		MouseListener mouseListener = new MouseAdapter() {
 		    public void mouseClicked(MouseEvent e) {
 		        if (e.getClickCount() == 2) {
@@ -100,7 +102,6 @@ public class Gui {
 		};
 		
 		gameList.addMouseListener(mouseListener);
-		
 		gameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		gameList.setSelectedIndex(0);
 		gameList.setVisibleRowCount(10);
@@ -108,9 +109,16 @@ public class Gui {
 		gameList.addMouseListener(guiFrame);
 		gameList.addMouseMotionListener(guiFrame);
 		gameList.setVisible(true);	
-		guiFrame.add(gameList);
+
+		JScrollPane scrollPane = new JScrollPane(gameList);
+		scrollPane.setBounds(385, 230, 416, 200);
+		scrollPane.setVisible(true);	
 		
-		//TODO: enable Scrolling for Jlist
+		guiFrame.add(scrollPane);
+		
+		//guiFrame.add(gameList);
+		
+		//TODO: enable Scrolling for Jlist - done, but not very clean I think, delete not necessary lines^^
 		//this one is necessary, dont know why...
 		guiFrame.repaint();
 		
