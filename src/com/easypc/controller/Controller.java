@@ -42,7 +42,6 @@ public class Controller
 	{
 		this.cpu = cpu;
 		this.ram = ram;
-		//this.gui = gui;
 	}
 
 	
@@ -79,8 +78,7 @@ public class Controller
 		 if (listOfFiles[i].isFile()) 
 		 {
 		 files = listOfFiles[i].getName();
-		 listmodel.addElement(files);
-		 //System.out.println(files); //remove comment for debug output of the filelist
+		 listmodel.addElement(files);		 
 		    }
 		}
 		return listmodel;
@@ -90,16 +88,20 @@ public class Controller
 	 * Gets called when the Player chooses a Game from the list of available Games.
 	 * The Controller will load the ROM into the RAM and tell the Main View to display a blank screen.
 	 */
-	public void loadGame() 
+	public void loadGame(File game) 
 	{
 		byte[] rom = null;
 		try {
-			rom = getBytesFromFile(null /*TODO: Load the right rom which was choosen from the user*/);
+			rom = getBytesFromFile(game);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		ram.write(512, rom);
+		
+		//debug: print the rom hexcodes
+		//	for(int i =0; i< rom.length; i++)
+		//	System.out.println(Integer.toString(rom[i] & 0xff, 16).toUpperCase());
 	}
 	
 	/**
