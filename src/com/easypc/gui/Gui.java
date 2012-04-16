@@ -34,7 +34,7 @@ public class Gui {
 	//the main gui frame
 	private GuiFrame guiFrame;
 	//The listview containing all Games
-	private JList gameList;	//TODO: handle the Input from the list correctly, a.k.a: Load the chosen Game and re-attach the gameCanvas after a game was chosen
+	private JList gameList;
 	private GameCanvas gameCanvas;
 	
 	/*----------------------------------------------------
@@ -81,7 +81,7 @@ public class Gui {
 		
 		DefaultListModel listmodel = controller.getRomList();
 		
-		//make gameCanvas invisible (TODO: Pls check this - I created a private reference to the gamecanvas, is that ok?)
+		//make gameCanvas invisible
 		gameCanvas.setVisible(false);
 		
 		//create JList of games called gameList and add it to the guiFrame
