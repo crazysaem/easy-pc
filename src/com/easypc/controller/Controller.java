@@ -67,7 +67,7 @@ public class Controller
 		
 		//TODO: Check showList() Implementation
 		// Directory path here - this is where we store the games
-		String path = "src\\resources\\games\\.";
+		String path = "src/resources/games/.";
 		 
 		String files;
 		File folder = new File(path);
