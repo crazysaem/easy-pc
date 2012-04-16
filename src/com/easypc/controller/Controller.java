@@ -97,11 +97,7 @@ public class Controller
 			e.printStackTrace();
 		}
 		
-		ram.write(512, rom);
-		
-		//debug: print the rom hexcodes
-		//	for(int i =0; i< rom.length; i++)
-		//	System.out.println(Integer.toString(rom[i] & 0xff, 16).toUpperCase());
+		ram.write(512, rom);		
 	}
 	
 	/**

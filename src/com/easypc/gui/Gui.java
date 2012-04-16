@@ -93,10 +93,10 @@ public class Gui {
 		        if (e.getClickCount() == 2) {
 		            int index = gameList.locationToIndex(e.getPoint());		            
 		            File game = new File("src/resources/games/" + gameList.getModel().getElementAt(index).toString());
-		            controller.loadGame(game);	
-		            
 		            //debug code
 		            System.out.println("Loading " + gameList.getModel().getElementAt(index));
+		            controller.loadGame(game);	
+		            showGameCanvas();		            
 		         }
 		    }
 		};
@@ -114,24 +114,8 @@ public class Gui {
 		scrollPane.setBounds(385, 230, 416, 200);
 		scrollPane.setVisible(true);	
 		
-		guiFrame.add(scrollPane);
-		
-		//guiFrame.add(gameList);
-		
-		//TODO: enable Scrolling for Jlist - done, but not very clean I think, delete not necessary lines^^
-		//this one is necessary, dont know why...
-		guiFrame.repaint();
-		
-		
-		// mage the gamecanvas invisible and show a JList http://docs.oracle.com/javase/tutorial/uiswing/components/list.html
-		//	which contains the list array
-		//use the gameList Attribute from this class
-		//TIP: http://docs.oracle.com/javase/tutorial/uiswing/components/list.html
-		
-		// Use the code-snippet below from Fritz to display all files from a given folder
-		//The dot "." will get you all the files in a folder, e.g. "bin/." should get you all files within the bin folder when used like below
-		//String[] entries = new File( "." ).list(); 
-		//System.out.println( Arrays.toString(entries) );
+		guiFrame.add(scrollPane);		
+		guiFrame.repaint();				
 	}
 	
 	/**

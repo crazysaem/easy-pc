@@ -76,9 +76,11 @@ public class RAM {
 	 */
 	public void write(int offset, byte... data)
 	{
+		System.out.println("DEBUG -- printRAM in RAM.write(int offset, byte... data):");
 		for(int i=0;i<data.length; i++){
 			memory[offset+i]=data[i];
-			memory_count_write[offset+i]++;
+			memory_count_write[offset+i]++;			
+			System.out.println(Integer.toString(data[i] & 0xff, 16).toUpperCase());
 			
 		}
 		//Also add every memory access to the count array
