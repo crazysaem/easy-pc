@@ -15,7 +15,7 @@ public class MediaOutput {
 	
 	//Internal, Intermediate representation of the Display
 	//Will get read by the GameCanvas which will display this as the Black and White Video Output
-	public byte[][] display = new byte[64][32];
+	public byte[][] display = new byte[64][32]; //TODO: we are facing a ArrayOutOBounds Exception when running most of the programs
 	
 	/**
 	 * Displays a n-long Sprite which is read from the virtual memory via the I-Pointer and XORed to the Screen
