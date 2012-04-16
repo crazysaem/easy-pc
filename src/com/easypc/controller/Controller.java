@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 
@@ -107,9 +108,17 @@ public class Controller
 	 */
 	public void playGame() throws InterruptedException 
 	{
+		//TODO: erstmal alles nur tests
+		ArrayList<Integer> data = new ArrayList<Integer>();
+		isRunning=true;
 		while(isRunning){
-			ram.read(cpu.getRegister(19), 2);
-			wait(10);				
+			data=ram.read(cpu.getRegister(19), 2);
+			cpu.executeOpCode((data.get(0)&0xF0)>>4, (data.get(0)&0x0F), data.get(1)&0xF0>>4, data.get(1)&0x0F);
+			System.out.print("DEBUG -- PC:" + cpu.getRegister(19));
+			for(int i=0;i<16;i++)
+				System.out.print(", V["+i+"] = "+cpu.getRegister(i));
+			System.out.println();
+			//wait(10);				
 		}
 	}
 

@@ -96,7 +96,13 @@ public class Gui {
 		            //debug code
 		            System.out.println("Loading " + gameList.getModel().getElementAt(index));
 		            controller.loadGame(game);	
-		            showGameCanvas();		            
+		            showGameCanvas();	
+		            try {
+						controller.playGame();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 		         }
 		    }
 		};
