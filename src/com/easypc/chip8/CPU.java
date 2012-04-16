@@ -199,7 +199,6 @@ public class CPU {
 			break;
 			case 0xD:									//Dxyn - DRW Vx, Vy, nibble	
 				Integer[] t = makeArray(ram.read(I, c3)); 
-				//TODO: [Ljava.lang.Object; cannot be cast to [Ljava.lang.Integer;
 				media.displaySprite(V[c1],V[c2],t);
 			break;
 			case 0xE:
@@ -350,10 +349,16 @@ public class CPU {
 		temp.add(i-temp.get(0)*100-temp.get(1)*10);
 		return temp;
 	}
-	private Integer[] makeArray(ArrayList<Integer> array){
-		Integer[] temp = new Integer[array.size()];
-		for(int i=0;i<array.size();i++)
-			temp[i]=array.get(i);
+
+	/**
+	 * Converts Integer ArrayList to Array
+	 * @param list = Array List
+	 * @return (temp) Integer Array
+	 */
+	private Integer[] makeArray(ArrayList<Integer> list){
+		Integer[] temp = new Integer[list.size()];
+		for(int i=0;i<list.size();i++)
+			temp[i]=list.get(i);
 		return temp;
 	}
 	
