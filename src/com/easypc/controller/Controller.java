@@ -25,7 +25,6 @@ public class Controller
 	//The CPU which executes the CHIP-8 opCodes
 	private CPU cpu;
 	private RAM ram;
-	//private Gui gui;
 	
 	//CPU Cycle running flag
 	private boolean isRunning;
@@ -97,7 +96,7 @@ public class Controller
 			e.printStackTrace();
 		}
 		
-		ram.write(512, rom);		
+		ram.write(512, rom);
 	}
 	
 	/**
