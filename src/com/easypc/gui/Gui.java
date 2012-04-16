@@ -1,11 +1,12 @@
 package com.easypc.gui;
 
 import java.awt.Color;
-import java.io.File;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 import com.easypc.analysis.CPUAnalysisC;
@@ -80,13 +81,26 @@ public class Gui {
 		
 		//create JList of games called gameList and add it to the guiFrame
 		gameList = new JList(listmodel);
+		
+//		MouseListener mouseListener = new MouseAdapter() {
+//		    public void mouseClicked(MouseEvent e) {
+//		        if (e.getClickCount() == 2) {
+//		            int index = gameList.locationToIndex(e.getPoint());
+//		            System.out.println("Double clicked on Item " + index);
+//		         }
+//		    }
+//		};
+//		
+//		gameList.addMouseListener(mouseListener);
+		
 		gameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		gameList.setSelectedIndex(0);
 		gameList.setVisibleRowCount(5);
 		gameList.setBounds(385, 230, 416, 200);
 		gameList.addMouseListener(guiFrame);
 		gameList.addMouseMotionListener(guiFrame);
-		gameList.setVisible(true);
+		gameList.setVisible(true);			
+		
 		guiFrame.add(gameList);
 		
 		//this one is necessary, dont know why...

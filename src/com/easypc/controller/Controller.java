@@ -66,8 +66,8 @@ public class Controller
 	public DefaultListModel getRomList() {
 		
 		//TODO: Check showList() Implementation
-		// Directory path here
-		String path = "."; //TODO: where do we store the game files?
+		// Directory path here - this is where we store the games
+		String path = "src\\resources\\games\\.";
 		 
 		String files;
 		File folder = new File(path);
