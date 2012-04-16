@@ -1,5 +1,6 @@
 package com.easypc.chip8;
 
+import java.awt.Toolkit;
 import java.io.File;
 import java.util.Arrays;
 
@@ -8,7 +9,9 @@ import java.util.Arrays;
  * @author crazysaem
  *
  */
-public class MediaOutput {	
+public class MediaOutput {
+	
+	public boolean startb;
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -65,6 +68,15 @@ public class MediaOutput {
 	 */
 	public void startBeep()
 	{
+		startb = true;
+		while(startb){
+			System.out.println((char)7);  	//generates beeps until startb ist set to false. 
+											//This Method only works after projekt is build because eclipse absorbs the "beep"
+		//TODO: 2nd Solution, decide one
+			
+		Toolkit.getDefaultToolkit().beep(); //generates the windows warning sound. Works with eclipse without building the project
+		}
+		
 		
 	}
 	
@@ -73,6 +85,7 @@ public class MediaOutput {
 	 */
 	public void stopBeep()
 	{
+		startb=false;
 		
 	}
 }
