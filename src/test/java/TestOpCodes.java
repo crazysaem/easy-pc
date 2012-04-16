@@ -331,7 +331,7 @@ public class TestOpCodes {
     	cpu.executeOpCode(0xC, 2, 15, 15);     	
     	int check = (4<<4 & 2)& (int)(Math.random()*255);  
     	//TODO: Do not think that it will be the same random number...
-    	//Perfectly right, therefor we cant really check this for correctness
+    	//Perfectly right, therefore we cant really check this for correctness
     	//assertEquals(check, cpu.getRegister(2));
 
     	System.out.println("@Test - testOpCode_Cxkk");

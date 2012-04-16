@@ -72,24 +72,8 @@ public class Gui {
 	 */
 	private void showList()
 	{
-		//TODO: Check showList() Implementation
-		// Directory path here
-		String path = "."; //TODO: where do we store the game files?
-		 
-		String files;
-		File folder = new File(path);
-		File[] listOfFiles = folder.listFiles(); 
-		DefaultListModel listmodel = new DefaultListModel();
 		
-		for (int i = 0; i < listOfFiles.length; i++) 
-		{
-		 if (listOfFiles[i].isFile()) 
-		 {
-		 files = listOfFiles[i].getName();
-		 listmodel.addElement(files);
-		 //System.out.println(files); //remove comment for debug output of the filelist
-		    }
-		}
+		DefaultListModel listmodel = controller.getRomList();
 		
 		//make gameCanvas invisible (TODO: Pls check this - I created a private reference to the gamecanvas, is that ok?)
 		gameCanvas.setVisible(false);

@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.swing.DefaultListModel;
+
 import com.easypc.chip8.CPU;
 import com.easypc.chip8.RAM;
 import com.easypc.gui.Gui;
@@ -54,6 +56,34 @@ public class Controller
 		cpu.reset();
 		
 		//TODO: display list of Games/Roms as function call - we need a reference to the gui for calling showList()
+		//perhaps the getRomList Method is your Friend?
+	}
+	
+	/**
+	 * This Method should load the list of files needed for the GUI and the loadGame Method
+	 * @return a list thats used in the GUI TODO: perhaps another type would be better for use in the controller?
+	 */
+	public DefaultListModel getRomList() {
+		
+		//TODO: Check showList() Implementation
+		// Directory path here
+		String path = "."; //TODO: where do we store the game files?
+		 
+		String files;
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles(); 
+		DefaultListModel listmodel = new DefaultListModel();
+		
+		for (int i = 0; i < listOfFiles.length; i++) 
+		{
+		 if (listOfFiles[i].isFile()) 
+		 {
+		 files = listOfFiles[i].getName();
+		 listmodel.addElement(files);
+		 //System.out.println(files); //remove comment for debug output of the filelist
+		    }
+		}
+		return listmodel;
 	}
 	
 	/**
