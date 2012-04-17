@@ -59,12 +59,12 @@ public class GameCanvas extends VideoLWJGL {
 		//TODO: check this function and the drawWhitePixel() below
 		
 		//had to change viewport, otherwise the screen was not fully used
-		glViewport(0, 0, 416, 200); //64*32 is the exact display size of the Chip-8 System 
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glViewport(0, 0, getWidth(), getHeight()); //64*32 is the exact display size of the Chip-8 System 
+		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluOrtho2D(0.0f, (float) getWidth(), 0.0f, (float) getHeight());
+		gluOrtho2D(0.0f, 64, 0.0f, 32);
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 
@@ -98,13 +98,13 @@ public class GameCanvas extends VideoLWJGL {
 	{  
 		//debug printing
 		//System.out.println("DEBUG -- prixel coordinates: "+ x + "-" + y);
-		x*=6.5f;
-		y*=6.25f;
+		//x*=6.5f;
+		//y*=6.25f;
 		glBegin(GL_QUADS);
 		    glVertex2f(x,y);
-		    glVertex2f(x+6.5f,y);
-		    glVertex2f(x+6.5f,y+6.25f);
-		    glVertex2f(x,y+6.25f);
+		    glVertex2f(x+1f,y);
+		    glVertex2f(x+1f,y+1f);
+		    glVertex2f(x,y+1f);
 		glEnd();
 		//TODO: Somebody ckeck the PixelDrawing
 		//
