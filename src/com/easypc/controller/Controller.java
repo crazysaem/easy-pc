@@ -118,6 +118,8 @@ public class Controller
 		while(isRunning){
 			data=ram.read(cpu.getRegister(19), 2);
 			cpu.executeOpCode((data.get(0)&0xF0)>>4, (data.get(0)&0x0F), data.get(1)&0xF0>>4, data.get(1)&0x0F);
+			
+			//DEBUG
 			System.out.print("DEBUG -- PC:" + cpu.getRegister(19));
 			for(int i=0;i<16;i++)
 				System.out.print(", V["+i+"] = "+cpu.getRegister(i));
