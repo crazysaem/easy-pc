@@ -38,11 +38,11 @@ public class MediaOutput {
 		{
 			for(int i=0;i<8;i++)
 			{
-				change = display[x+i][y+j];
+				change = display[getX(x+i)][getY(y+j)];
 				int temp = (data[j]>>(8-i-1));
 				byte bit = (byte) (temp & 1);
-				display[x+i][y+j] = (byte) (display[x+i][y+j] ^ bit);
-				if((change != display[x+i][y+j]) && (display[x+i][y+j]==0))
+				display[getX(x+i)][getY(y+j)] = (byte) (display[getX(x+i)][getY(y+j)] ^ bit);
+				if((change != display[getX(x+i)][getY(y+j)]) && (display[getX(x+i)][getY(y+j)]==0))
 				{
 					ret = true;
 				}
@@ -89,5 +89,29 @@ public class MediaOutput {
 	{
 		startb=false;
 		
+	}
+	
+	private int getX(int x)
+	{
+		if(x>=64)
+		{
+			return x-64;
+		}
+		else
+		{
+			return x;
+		}
+	}
+	
+	private int getY(int y)
+	{
+		if(y>=32)
+		{
+			return y-32;
+		}
+		else
+		{
+			return y;
+		}
 	}
 }
