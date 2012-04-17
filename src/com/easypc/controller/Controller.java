@@ -30,6 +30,9 @@ public class Controller
 	//CPU Cycle running flag
 	private boolean isRunning;
 	
+	private Thread runningThread;
+	private ControllerRunningThread controllerRunningThread;
+	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -42,8 +45,9 @@ public class Controller
 	{
 		this.cpu = cpu;
 		this.ram = ram;
+		controllerRunningThread = new ControllerRunningThread(cpu);
+		runningThread = new Thread(controllerRunningThread);
 	}
-
 	
 	/**
 	 * Gets called from the View when the Player "turns the Game off", via the reset Button.
@@ -107,6 +111,7 @@ public class Controller
 	 */
 	public void playGame() throws InterruptedException 
 	{
+		/*
 		//TODO: erstmal alles nur tests
 		ArrayList<Integer> data = new ArrayList<Integer>();
 		isRunning=true;
@@ -118,7 +123,9 @@ public class Controller
 				System.out.print(", V["+i+"] = "+cpu.getRegister(i));
 			System.out.println();
 			//wait(10);				
-		}
+		}*/
+		controllerRunningThread.isRunning=true;
+		runningThread.start();
 	}
 
 	/**
@@ -128,6 +135,7 @@ public class Controller
 	public void pauseGame()
 	{
 		isRunning = false;
+		controllerRunningThread.isRunning=true;
 	}
 	/**
 	 * Gets called when the Player resume a Game. The Controller will resume the Emulation loop.
