@@ -1,0 +1,12 @@
+#Ignore Eclipse related files and folders
+.classpath
+.project
+.settings/
+
+#Ignore build files and folder
+bin/
+target/
+
+#Ignore javadocs and class diagram overhead
+Class_diag.ucls
+doc/
