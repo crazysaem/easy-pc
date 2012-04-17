@@ -33,7 +33,7 @@ public class ControllerRunningThread implements Runnable {
 			for(int i=0;i<16;i++)
 				System.out.print(", V["+i+"] = "+cpu.getRegister(i));
 			System.out.println();
-			//wait(10);			
+			//wait(10);	
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {

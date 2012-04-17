@@ -10,8 +10,13 @@ import java.util.Arrays;
  *
  */
 public class MediaOutput {
+	/*----------------------------------------------------
+	 * Attribute Section.
+	 *--------------------------------------------------*/	
 	
-	public boolean startb;
+	//Flag which determines if a Beep-Sound is output
+	private boolean isBeeping;
+	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -70,14 +75,17 @@ public class MediaOutput {
 	 */
 	public void startBeep()
 	{
-		startb = true;
-		while(startb){
-			System.out.println((char)7);  	//generates beeps until startb ist set to false. 
+		isBeeping = true;
+		//TODO: Implementation works without a loop, you can't just loop over it like that, it will cause very bad problems
+		//Will will leave it like that (if we feel like it, we can use openAL later)
+		
+		//while(isBeeping){
+			//System.out.println((char)7);  	//generates beeps until startb ist set to false. 
 											//This Method only works after projekt is build because eclipse absorbs the "beep"
 		//TODO: 2nd Solution, decide one
 			
 		Toolkit.getDefaultToolkit().beep(); //generates the windows warning sound. Works with eclipse without building the project
-		}
+		//}
 		
 		
 	}
@@ -87,7 +95,7 @@ public class MediaOutput {
 	 */
 	public void stopBeep()
 	{
-		startb=false;
+		isBeeping=false;
 		
 	}
 	

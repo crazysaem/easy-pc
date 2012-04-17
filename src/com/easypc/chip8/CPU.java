@@ -231,6 +231,7 @@ public class CPU {
 				break;
 				case 0x18:								//Fx18 - LD ST, Vx
 					sound=V[c1];
+					media.startBeep();
 				break;
 				case 0x1E:								//Fx1E - ADD I, Vx
 					I = I + V[c1];
@@ -266,7 +267,13 @@ public class CPU {
 		if(delay>0)
 			delay--;
 		if(sound>0)
+		{
 			sound--;
+		}
+		else
+		{
+			media.stopBeep();
+		}
 	}
 	
 	/**
