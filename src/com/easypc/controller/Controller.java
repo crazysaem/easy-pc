@@ -30,6 +30,9 @@ public class Controller
 	//CPU Cycle running flag
 	private boolean isRunning;
 	
+	private Thread runningThread;
+	private ControllerRunningThread controllerRunningThread;
+	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -42,8 +45,9 @@ public class Controller
 	{
 		this.cpu = cpu;
 		this.ram = ram;
+		controllerRunningThread = new ControllerRunningThread(cpu, ram);
+		runningThread = new Thread(controllerRunningThread);
 	}
-
 	
 	/**
 	 * Gets called from the View when the Player "turns the Game off", via the reset Button.
@@ -90,7 +94,7 @@ public class Controller
 	 */
 	public void loadGame(File game) 
 	{
-		byte[] rom = null;
+		int[] rom = null;
 		try {
 			rom = getBytesFromFile(game);
 		} catch (IOException e) {
@@ -107,6 +111,7 @@ public class Controller
 	 */
 	public void playGame() throws InterruptedException 
 	{
+		/*
 		//TODO: erstmal alles nur tests
 		ArrayList<Integer> data = new ArrayList<Integer>();
 		isRunning=true;
@@ -119,9 +124,10 @@ public class Controller
 			for(int i=0;i<16;i++)
 				System.out.print(", V["+i+"] = "+cpu.getRegister(i));
 			System.out.println();
-			//
-			Thread.sleep(10);				
-		}
+			//wait(10);				
+		}*/
+		controllerRunningThread.isRunning=true;
+		runningThread.start();
 	}
 
 	/**
@@ -131,6 +137,7 @@ public class Controller
 	public void pauseGame()
 	{
 		isRunning = false;
+		controllerRunningThread.isRunning=true;
 	}
 	/**
 	 * Gets called when the Player resume a Game. The Controller will resume the Emulation loop.
@@ -163,7 +170,7 @@ public class Controller
 	 * @return the byte array from the given input file
 	 * @throws IOException if something goes wrong
 	 */
-	public static byte[] getBytesFromFile(File file) throws IOException {
+	public static int[] getBytesFromFile(File file) throws IOException {
 	    InputStream is = new FileInputStream(file);
 
 	    // Get the size of the file
@@ -180,12 +187,25 @@ public class Controller
 
 	    // Create the byte array to hold the data
 	    byte[] bytes = new byte[(int)length];
+	    int[] ints = new int[(int)length];
 
 	    // Read in the bytes
 	    int offset = 0;
 	    int numRead = 0;
 	    while (offset < bytes.length && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
 	        offset += numRead;
+	    }
+	    
+	    for(int i=0;i<bytes.length;i++)
+	    {
+	    	if(bytes[i]<0)
+	    	{
+	    		ints[i] = 256 + bytes[i];
+	    	} 
+	    		else
+	    	{
+	    		ints[i] = bytes[i];
+	    	}
 	    }
 
 	    // Ensure all the bytes have been read in
@@ -195,6 +215,6 @@ public class Controller
 
 	    // Close the input stream and return bytes
 	    is.close();
-	    return bytes;
+	    return ints;
 	}
 }
