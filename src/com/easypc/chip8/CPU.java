@@ -80,6 +80,11 @@ public class CPU {
 		
 		PC+=2;
 		
+		if(c1==0)
+		{
+			System.out.println("debug");
+		}
+		
 		//The CPU Speed is unknown, but the timer decreasing speed is fixed at 60hz
 		//The best idea is probably to pick out the best Chip-8 Games and set a speed specific for each game to run it at an optimal speed
 		switch (c0)
@@ -226,6 +231,7 @@ public class CPU {
 				break;
 				case 0x18:								//Fx18 - LD ST, Vx
 					sound=V[c1];
+					media.startBeep();
 				break;
 				case 0x1E:								//Fx1E - ADD I, Vx
 					I = I + V[c1];
@@ -245,7 +251,7 @@ public class CPU {
 					}
 				break;
 				case 0x65:								//Fx65 - LD Vx, [I]
-					ArrayList<Integer> templist = ram.read(I, c1);					
+					ArrayList<Integer> templist = ram.read(I, c1+1);					
 					for(int i=0;i<templist.size();i++)
 					{
 						V[i] = templist.get(i);					
@@ -257,6 +263,16 @@ public class CPU {
 				System.err.println("ERROR: Unregocnised Command: " + c0 + c1 + c2 + c3);
 			break;
 		
+		}
+		if(delay>0)
+			delay--;
+		if(sound>0)
+		{
+			sound--;
+		}
+		else
+		{
+			media.stopBeep();
 		}
 	}
 	

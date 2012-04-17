@@ -10,8 +10,13 @@ import java.util.Arrays;
  *
  */
 public class MediaOutput {
+	/*----------------------------------------------------
+	 * Attribute Section.
+	 *--------------------------------------------------*/	
 	
-	public boolean startb;
+	//Flag which determines if a Beep-Sound is output
+	private boolean isBeeping;
+	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -35,12 +40,14 @@ public class MediaOutput {
 		byte change;
 		
 		for(int j=0;j<data.length;j++)
-		{		
+		{
 			for(int i=0;i<8;i++)
 			{
-				change = display[x+i][y+j];
-				display[x+i][y+j] = (byte) (display[x+i][y+j] ^ ((data[j]>>i) & 1));
-				if((change != display[x+i][y+j]) && (display[x+i][y+j]==0))
+				change = display[getX(x+i)][getY(y+j)];
+				int temp = (data[j]>>(8-i-1));
+				byte bit = (byte) (temp & 1);
+				display[getX(x+i)][getY(y+j)] = (byte) (display[getX(x+i)][getY(y+j)] ^ bit);
+				if((change != display[getX(x+i)][getY(y+j)]) && (display[getX(x+i)][getY(y+j)]==0))
 				{
 					ret = true;
 				}
@@ -68,14 +75,17 @@ public class MediaOutput {
 	 */
 	public void startBeep()
 	{
-		startb = true;
-		while(startb){
-			System.out.println((char)7);  	//generates beeps until startb ist set to false. 
+		isBeeping = true;
+		//TODO: Implementation works without a loop, you can't just loop over it like that, it will cause very bad problems
+		//Will will leave it like that (if we feel like it, we can use openAL later)
+		
+		//while(isBeeping){
+			//System.out.println((char)7);  	//generates beeps until startb ist set to false. 
 											//This Method only works after projekt is build because eclipse absorbs the "beep"
 		//TODO: 2nd Solution, decide one
 			
 		Toolkit.getDefaultToolkit().beep(); //generates the windows warning sound. Works with eclipse without building the project
-		}
+		//}
 		
 		
 	}
@@ -85,7 +95,31 @@ public class MediaOutput {
 	 */
 	public void stopBeep()
 	{
-		startb=false;
+		isBeeping=false;
 		
+	}
+	
+	private int getX(int x)
+	{
+		if(x>=64)
+		{
+			return x-64;
+		}
+		else
+		{
+			return x;
+		}
+	}
+	
+	private int getY(int y)
+	{
+		if(y>=32)
+		{
+			return y-32;
+		}
+		else
+		{
+			return y;
+		}
 	}
 }

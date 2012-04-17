@@ -56,33 +56,24 @@ public class GameCanvas extends VideoLWJGL {
 	 */
 	@Override
 	public void drawOpenGl() {
-		//TODO: check this function and the drawWhitePixel() below
-		
-		//had to change viewport, otherwise the screen was not fully used
-		glViewport(0, 0, 416, 200); //64*32 is the exact display size of the Chip-8 System 
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glViewport(0, 0, getWidth(), getHeight()); //64*32 is the exact display size of the Chip-8 System 
+		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluOrtho2D(0.0f, (float) getWidth(), 0.0f, (float) getHeight());
+		gluOrtho2D(0.0f, 64, 0.0f, 32);
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 
-		for(int x=0;x<10;x++)
+		for(int x=0;x<64;x++)
 		{
-			for(int y=0;y<10;y++)
+			for(int y=0;y<32;y++)
 			{	
 				if(media.display[x][y]==1){
-					drawWhitePixel(x, y);
+					drawWhitePixel(x, 31-y);
 				}
 			}
 		}
-		
-		//reference pixels (one for each corner of the display)
-		drawWhitePixel(0, 0);
-		drawWhitePixel(0, 31);
-		drawWhitePixel(63, 31);
-		drawWhitePixel(63, 0);
 		
 		glPopMatrix();
 	}
@@ -91,16 +82,14 @@ public class GameCanvas extends VideoLWJGL {
 	{  
 		//debug printing
 		//System.out.println("DEBUG -- prixel coordinates: "+ x + "-" + y);
-		x*=6.5f;
-		y*=6.25f;
+		//x*=6.5f;
+		//y*=6.25f;
 		glBegin(GL_QUADS);
 		    glVertex2f(x,y);
-		    glVertex2f(x+6.5f,y);
-		    glVertex2f(x+6.5f,y+6.25f);
-		    glVertex2f(x,y+6.25f);
+		    glVertex2f(x+1f,y);
+		    glVertex2f(x+1f,y+1f);
+		    glVertex2f(x,y+1f);
 		glEnd();
-		//TODO: Somebody ckeck the PixelDrawing
-		//
 		//TIP: Pixel(0,0) would be a rectangle from like this: 0.0, 0.1, 1.1, 0.1; Use Counter-Clock-Wise representation (= Gegen den Urzeigersinn)
 		//http://nehe.gamedev.net/tutorial/your_first_polygon/13002/
 		//Take a look at "GL_QUADS" from the above link
