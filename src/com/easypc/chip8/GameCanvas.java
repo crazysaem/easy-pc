@@ -73,7 +73,7 @@ public class GameCanvas extends VideoLWJGL {
 			for(int y=0;y<32;y++)
 			{	
 				if(media.display[x][y]==1){
-					drawWhitePixel(x, 32-y);
+					drawWhitePixel(x, 31-y);
 				}
 			}
 		}
