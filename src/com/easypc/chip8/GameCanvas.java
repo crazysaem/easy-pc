@@ -68,17 +68,18 @@ public class GameCanvas extends VideoLWJGL {
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 
-		for(int x=0;x<10;x++)
+		for(int x=0;x<64;x++)
 		{
-			for(int y=0;y<10;y++)
+			for(int y=0;y<32;y++)
 			{	
 				if(media.display[x][y]==1){
-					drawWhitePixel(x, y);
+					drawWhitePixel(x, 32-y);
 				}
 			}
 		}
 		
 		//reference pixels (one for each corner of the display)
+		/*
 		drawWhitePixel(0, 0);
 		drawWhitePixel(0, 31);
 		drawWhitePixel(63, 31);
@@ -88,7 +89,7 @@ public class GameCanvas extends VideoLWJGL {
 		{
 			for(int i=0; i<32; i++)
 				drawWhitePixel(j, i);
-		}
+		}*/
 		
 		glPopMatrix();
 	}

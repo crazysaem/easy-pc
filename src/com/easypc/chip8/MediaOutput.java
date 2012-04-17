@@ -35,11 +35,13 @@ public class MediaOutput {
 		byte change;
 		
 		for(int j=0;j<data.length;j++)
-		{		
+		{
 			for(int i=0;i<8;i++)
 			{
 				change = display[x+i][y+j];
-				display[x+i][y+j] = (byte) (display[x+i][y+j] ^ ((data[j]>>i) & 1));
+				int temp = (data[j]>>(8-i-1));
+				byte bit = (byte) (temp & 1);
+				display[x+i][y+j] = (byte) (display[x+i][y+j] ^ bit);
 				if((change != display[x+i][y+j]) && (display[x+i][y+j]==0))
 				{
 					ret = true;
