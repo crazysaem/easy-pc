@@ -84,6 +84,12 @@ public class GameCanvas extends VideoLWJGL {
 		drawWhitePixel(63, 31);
 		drawWhitePixel(63, 0);
 		
+		for(int j=0;j<64;j++)
+		{
+			for(int i=0; i<32; i++)
+				drawWhitePixel(j, i);
+		}
+		
 		glPopMatrix();
 	}
 	
