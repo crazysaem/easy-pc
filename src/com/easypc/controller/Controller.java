@@ -55,11 +55,9 @@ public class Controller
 	public void resetGame() 
 	{
 		controllerRunningThread.isRunning=false;
+		cpu.executeOpCode(0, 0, 0xE, 0);
 		ram.reset();
-		cpu.reset();
-		
-		//TODO: display list of Games/Roms as function call - we need a reference to the gui for calling showList()
-		//perhaps the getRomList Method is your Friend?
+		cpu.reset();		
 	}
 	
 	/**
