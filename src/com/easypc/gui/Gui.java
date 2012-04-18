@@ -3,6 +3,7 @@ package com.easypc.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,7 +25,7 @@ import com.easypc.controller.Controller;
  * @author crazysaem
  *
  */
-public class Gui {
+public class Gui implements ImageButtonLabelCallBack {
 	/*----------------------------------------------------
 	 * Attribute Section.
 	 *--------------------------------------------------*/
@@ -36,6 +37,8 @@ public class Gui {
 	//The listview containing all Games
 	private JList gameList;
 	private GameCanvas gameCanvas;
+	
+	private ImageButtonLabel min, close;
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -71,6 +74,22 @@ public class Gui {
 		
 		showList();
 		
+		close = new ImageButtonLabel(this, "src/resources/keys/close.png", "src/resources/keys/close_glow.png", 770, 190, 0.4f);	
+		guiFrame.add(close.getLabel());
+		
+		min = new ImageButtonLabel(this, "src/resources/keys/min.png", "src/resources/keys/min_glow.png", 730, 190, 0.4f);	
+		guiFrame.add(min.getLabel());
+	}
+	
+	@Override
+	public void ButtonCallBack(ImageButtonLabel pressedButton) {
+		if(pressedButton==close)
+		{
+			System.exit(0);
+		} else if(pressedButton==min)
+		{
+			guiFrame.setState ( Frame.ICONIFIED );
+		}
 	}
 	
 	/**
@@ -134,5 +153,6 @@ public class Gui {
 		gameCanvas.setVisible(true);
 		guiFrame.repaint();
 	}
+
 	
 }
