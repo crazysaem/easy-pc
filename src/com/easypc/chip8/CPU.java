@@ -161,12 +161,14 @@ public class CPU {
 					break;
 					case 5:								//8xy5 - SUB Vx, Vy
 														//TODO: maybe results to negative numbers
-						if (V[c1]>V[c2])
+						if (V[c1]>V[c2]){
 							V[0xF]=1;
-						else
+							V[c1]=(V[c1] - V[c2]);	
+						}
+						else{
 							V[0xF]=0;
-						V[c1]=(V[c1] - V[c2])%255;
-						if (V[c1]<0)V[c1]=255+V[c1];
+							V[c1]=255+(V[c1] - V[c2]);
+						}
 					break;
 					case 6:								// 8xy6 - SHR Vx {, Vy}
 						if((V[c1]&1)==1){
@@ -184,9 +186,8 @@ public class CPU {
 						}
 						else{
 							V[0xF]=0;
-							V[c1]=(V[c1] - V[c2])%255;	
+							V[c1]=255+(V[c2] - V[c1]);	
 						}
-						if (V[c1]<0)V[c1]=255+V[c1];
 					break;
 					case 0xE:							//8xyE - SHL Vx {, Vy}
 						if((V[c1]&128)==128){

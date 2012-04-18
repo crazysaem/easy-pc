@@ -42,10 +42,14 @@ public class Gui implements ImageButtonLabelCallBack {
 	// The listview containing all Games
 	private JList gameList;
 	private GameCanvas gameCanvas;
+<<<<<<< HEAD
 	private InputLWJGL input;
 
+=======
+	
 	private ImageButtonLabel min, close;
 	
+>>>>>>> 1b7707b2eddedd44f13dcda7881fb6efdefb8ff1
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -82,9 +86,14 @@ public class Gui implements ImageButtonLabelCallBack {
 		gameCanvas.addMouseListener(guiFrame);
 		gameCanvas.addMouseMotionListener(guiFrame);
 		guiFrame.add(gameCanvas);
-		
+<<<<<<< HEAD
+
 		showList();
 
+=======
+		
+		showList();
+		
 		close = new ImageButtonLabel(this, "src/resources/keys/close.png", "src/resources/keys/close_glow.png", 770, 190, 0.4f);	
 		guiFrame.add(close.getLabel());
 		
@@ -101,12 +110,12 @@ public class Gui implements ImageButtonLabelCallBack {
 		{
 			guiFrame.setState ( Frame.ICONIFIED );
 		}
+>>>>>>> 1b7707b2eddedd44f13dcda7881fb6efdefb8ff1
 	}
 
 	/**
 	 * Replaces the gamecanvas and shows a JList instead containing all games
 	 * from a folder
-	 * Replaces the gamecanvas and shows a JList instead containing all games from a folder
 	 */
 	private void showList() {
 
@@ -118,8 +127,6 @@ public class Gui implements ImageButtonLabelCallBack {
 		// create JList of games called gameList and add it to the guiFrame
 		gameList = new JList(listmodel);
 
-		
-		
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
@@ -160,21 +167,6 @@ public class Gui implements ImageButtonLabelCallBack {
 					}
 				}
 			}
-			      public void keyPressed(KeyEvent e) {	
-			    	  if (e.getKeyCode()==KeyEvent.VK_ENTER){			  	            
-			            File game = new File("src/resources/games/" + gameList.getSelectedValue().toString());
-			            //debug code
-			            System.out.println("Loading " + gameList.getModel().getElementAt(0));
-			            controller.loadGame(game);	
-			            showGameCanvas();	
-			            try {
-							controller.playGame();
-						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-			    	  }
-			      }
 
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -217,5 +209,8 @@ public class Gui implements ImageButtonLabelCallBack {
 		guiFrame.repaint();
 	}
 
-
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 1b7707b2eddedd44f13dcda7881fb6efdefb8ff1
 }
