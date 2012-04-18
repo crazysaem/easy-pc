@@ -48,6 +48,6 @@ public class _main
 			e.printStackTrace();
 		}		
 		
-		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas);
+		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas, input);
 	}
 }
