@@ -137,7 +137,7 @@ public class Controller
 	public void pauseGame()
 	{
 		isRunning = false;
-		controllerRunningThread.isRunning=true;
+		controllerRunningThread.isRunning=false;
 	}
 	/**
 	 * Gets called when the Player resume a Game. The Controller will resume the Emulation loop.
@@ -145,6 +145,7 @@ public class Controller
 	public void resumeGame()
 	{
 		isRunning = true;
+		controllerRunningThread.isRunning=true;
 	}
 	/**
 	 * Gets called when the Player presses the Step Forward Button. The Controller will then Step one, or multiple opCodes foward in an instant,

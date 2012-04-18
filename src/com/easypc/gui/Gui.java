@@ -2,6 +2,7 @@ package com.easypc.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 import java.awt.Container;
 import java.awt.Frame;
@@ -64,7 +65,7 @@ public class Gui implements ImageButtonLabelCallBack {
 
 		guiFrame = new GuiFrame();
 		guiFrame.getContentPane().setBackground(Color.BLACK);
-		guiFrame.setVisible(true);
+		guiFrame.setVisible(true);	
 		guiFrame.addKeyListener(input.keylistener);
 
 		cpuAnalysisC.setBounds(409, 7, 777 - 409, 185 - 7);
@@ -77,11 +78,11 @@ public class Gui implements ImageButtonLabelCallBack {
 		ramAnalysisC.addMouseMotionListener(guiFrame);
 		guiFrame.add(ramAnalysisC);
 
-		gameCanvas.addKeyListener(input.keylistener);
+		gameCanvas.addKeyListener(input.keylistener);		
 		gameCanvas.setBounds(385, 230, 416, 200);
 		gameCanvas.addMouseListener(guiFrame);
 		gameCanvas.addMouseMotionListener(guiFrame);
-		guiFrame.add(gameCanvas);
+		guiFrame.add(gameCanvas);		
 		
 		showList();
 
@@ -151,7 +152,7 @@ public class Gui implements ImageButtonLabelCallBack {
 					System.out.println("Loading "
 							+ gameList.getModel().getElementAt(0));
 					controller.loadGame(game);
-					showGameCanvas();
+					showGameCanvas();					
 					try {
 						controller.playGame();
 					} catch (InterruptedException e1) {
@@ -173,6 +174,7 @@ public class Gui implements ImageButtonLabelCallBack {
 			}
 		};
 
+		
 		gameList.addKeyListener(keylistener);
 		gameList.addMouseListener(mouseListener);
 		gameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -186,9 +188,10 @@ public class Gui implements ImageButtonLabelCallBack {
 		JScrollPane scrollPane = new JScrollPane(gameList);
 		scrollPane.setBounds(385, 230, 416, 200);
 		scrollPane.setVisible(true);
-
+		
 		guiFrame.add(scrollPane);
 		guiFrame.repaint();
+		gameList.requestFocusInWindow();
 	}
 
 	/**
@@ -198,7 +201,8 @@ public class Gui implements ImageButtonLabelCallBack {
 		// setting the gamelist ( see function showList() ) invisible and the
 		// gameCanvas visible again
 		gameList.setVisible(false);
-		gameCanvas.setVisible(true);
+		gameCanvas.setVisible(true);		
+		gameCanvas.requestFocusInWindow();
 		guiFrame.repaint();
 	}
 

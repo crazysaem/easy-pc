@@ -10,6 +10,7 @@ import com.easypc.chip8.GameCanvas;
 import com.easypc.chip8.MediaOutput;
 import com.easypc.chip8.RAM;
 import com.easypc.gui.Gui;
+import com.sun.org.apache.xml.internal.security.Init;
 
 /**
  * Initializes the Application, e.g. creates and displays GUIs, and starts the Controller.
@@ -31,11 +32,14 @@ public class _main
 	{
 		MediaOutput media = new MediaOutput();
 		InputLWJGL input = new InputLWJGL();
+		
 		RAM ram = new RAM();
 
 		CPU cpu = new CPU(media,input,ram);
 		
 		Controller controller = new Controller(cpu,ram);
+		
+		input.Init(controller);
 		
 		CPUAnalysisC cpuAnalysisC = null;
 		RAMAnalysisC ramAnalysisC = null;

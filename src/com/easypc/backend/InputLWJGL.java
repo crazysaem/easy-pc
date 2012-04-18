@@ -7,6 +7,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
+import com.easypc.controller.Controller;
+
 /**
  * Wrapper for the Input part of the LWJGL
  * 
@@ -21,6 +23,7 @@ public class InputLWJGL {
 	// An Array for the 16 Input-Keys the Chip-8 System provides
 	public boolean[] keys = new boolean[16];
 	public KeyListener keylistener;
+	public Controller controller;
 
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -29,9 +32,9 @@ public class InputLWJGL {
 	/**
 	 * Initializes the LWJGL Audio
 	 */
-	public void Init() {
+	public void Init(Controller controller) {
 		// TODO: http://lwjgl.org/wiki/index.php?title=LWJGL_Basics_2_(Input)
-
+		this.controller=controller;
 	}
 
 	/**
@@ -224,22 +227,24 @@ public class InputLWJGL {
 	/**
 	 * Waits until the specified key is pressed
 	 */
-	public void waitforKey(int i) {	
+	public void waitforKey(int i) {
+		controller.pauseGame();
 		while(! keys[i])
 			System.out.println("waiting for key");
+		controller.resumeGame();
 	}
 
 	/**
 	 * Waits until key is pressed and return the value of the key
 	 */
 	public int waitforKey() {
-		boolean[] save = new boolean[16];
+		controller.pauseGame();
 		int check = -1;
-		while ( check == -1){
+		while(check == -1)
 			for(int i = 0; i<16; i++)
-				if(keys[i] && ! save[i])
-					return check = i;	
-		}
+				if(keys[i])
+					check = i;
+		controller.resumeGame();
 		return check;				
 	}
 }

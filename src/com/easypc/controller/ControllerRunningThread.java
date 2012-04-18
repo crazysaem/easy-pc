@@ -37,7 +37,7 @@ public class ControllerRunningThread implements Runnable {
 //			System.out.println();
 			//wait(10);	
 			try {
-				Thread.sleep(1);
+				Thread.sleep(3);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
