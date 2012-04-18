@@ -131,7 +131,76 @@ public class InputLWJGL {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
+				int key = e.getKeyCode();
+				switch (key) {
+				case KeyEvent.VK_1:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[0]=false;
+					break;
+				case KeyEvent.VK_2:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[1]=false;
+					break;
+				case KeyEvent.VK_3:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[2]=false;
+					break;
+				case KeyEvent.VK_4:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[3]=false;
+					break;
+				case KeyEvent.VK_Q:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[4]=false;
+					break;
+				case KeyEvent.VK_W:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[5]=false;
+					break;
+				case KeyEvent.VK_E:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[6]=false;
+					break;
+				case KeyEvent.VK_R:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[7]=false;
+					break;
+				case KeyEvent.VK_A:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[8]=false;
+					break;
+				case KeyEvent.VK_S:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[9]=false;
+					break;
+				case KeyEvent.VK_D:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[10]=false;
+					break;
+				case KeyEvent.VK_F:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[11]=false;
+					break;
+				case KeyEvent.VK_Y:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[12]=false;
+					break;
+				case KeyEvent.VK_X:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[13]=false;
+					break;
+				case KeyEvent.VK_C:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[14]=false;
+					break;
+				case KeyEvent.VK_V:
+					System.out.println("released "+ e.getKeyChar() );
+					keys[15]=false;
+					break;		
+					
+				default:
+					break;
+				}
 
 			}
 
