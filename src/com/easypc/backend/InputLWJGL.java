@@ -32,7 +32,7 @@ public class InputLWJGL {
 	 */
 	public void Init(Controller controller, Gui gui) {
 		// TODO: http://lwjgl.org/wiki/index.php?title=LWJGL_Basics_2_(Input)
-		this.controller=controller;
+		this.controller = controller;
 		this.gui = gui;
 	}
 
@@ -55,84 +55,84 @@ public class InputLWJGL {
 	 */
 	public int checkKeys() {
 		int pressed_key = 0;
-		
+
 		keylistener = new KeyListener() {
 			public void keyPressed(KeyEvent e) {
 				int key = e.getKeyCode();
 				switch (key) {
 				case KeyEvent.VK_1:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[0]=true;
+
+					keys[0] = true;
 					break;
 				case KeyEvent.VK_2:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[1]=true;
+
+					keys[1] = true;
 					break;
 				case KeyEvent.VK_3:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[2]=true;
+
+					keys[2] = true;
 					break;
 				case KeyEvent.VK_4:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[3]=true;
+
+					keys[3] = true;
 					break;
 				case KeyEvent.VK_Q:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[4]=true;
+
+					keys[4] = true;
 					break;
 				case KeyEvent.VK_W:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[5]=true;
+
+					keys[5] = true;
 					break;
 				case KeyEvent.VK_E:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[6]=true;
+
+					keys[6] = true;
 					break;
 				case KeyEvent.VK_R:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[7]=true;
+
+					keys[7] = true;
 					break;
 				case KeyEvent.VK_A:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[8]=true;
+
+					keys[8] = true;
 					break;
 				case KeyEvent.VK_S:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[9]=true;
+
+					keys[9] = true;
 					break;
 				case KeyEvent.VK_D:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[10]=true;
+
+					keys[10] = true;
 					break;
 				case KeyEvent.VK_F:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[11]=true;
+
+					keys[11] = true;
 					break;
 				case KeyEvent.VK_Y:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[12]=true;
+
+					keys[12] = true;
 					break;
 				case KeyEvent.VK_X:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[13]=true;
+
+					keys[13] = true;
 					break;
 				case KeyEvent.VK_C:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[14]=true;
+
+					keys[14] = true;
 					break;
 				case KeyEvent.VK_V:
-					//System.out.println("pressed "+ e.getKeyChar() );
-					keys[15]=true;
+
+					keys[15] = true;
 					break;
 				case KeyEvent.VK_ESCAPE:
-					//System.out.println("pressed "+ e.getKeyChar() );
+
 					gui.reset_fullscreen();
-					break;	
-					
+					break;
+
 				default:
 					break;
 				}
-								
+
 			}
 
 			@Override
@@ -140,70 +140,70 @@ public class InputLWJGL {
 				int key = e.getKeyCode();
 				switch (key) {
 				case KeyEvent.VK_1:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[0]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[0] = false;
 					break;
 				case KeyEvent.VK_2:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[1]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[1] = false;
 					break;
 				case KeyEvent.VK_3:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[2]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[2] = false;
 					break;
 				case KeyEvent.VK_4:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[3]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[3] = false;
 					break;
 				case KeyEvent.VK_Q:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[4]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[4] = false;
 					break;
 				case KeyEvent.VK_W:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[5]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[5] = false;
 					break;
 				case KeyEvent.VK_E:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[6]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[6] = false;
 					break;
 				case KeyEvent.VK_R:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[7]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[7] = false;
 					break;
 				case KeyEvent.VK_A:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[8]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[8] = false;
 					break;
 				case KeyEvent.VK_S:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[9]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[9] = false;
 					break;
 				case KeyEvent.VK_D:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[10]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[10] = false;
 					break;
 				case KeyEvent.VK_F:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[11]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[11] = false;
 					break;
 				case KeyEvent.VK_Y:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[12]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[12] = false;
 					break;
 				case KeyEvent.VK_X:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[13]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[13] = false;
 					break;
 				case KeyEvent.VK_C:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[14]=false;
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[14] = false;
 					break;
 				case KeyEvent.VK_V:
-					//System.out.println("released "+ e.getKeyChar() );
-					keys[15]=false;
-					break;		
-					
+					// System.out.println("released "+ e.getKeyChar() );
+					keys[15] = false;
+					break;
+
 				default:
 					break;
 				}
@@ -222,9 +222,10 @@ public class InputLWJGL {
 	 * Checks whether the specified key is currently pressed
 	 */
 	public boolean checkKey(int i) {
-		if(keys[i])
+		if (keys[i])
 			return true;
-		else return false;
+		else
+			return false;
 	}
 
 	/**
@@ -232,7 +233,7 @@ public class InputLWJGL {
 	 */
 	public void waitforKey(int i) {
 		controller.pauseGame();
-		while(! keys[i])
+		while (!keys[i])
 			System.out.println("waiting for key");
 		controller.resumeGame();
 	}
@@ -243,11 +244,11 @@ public class InputLWJGL {
 	public int waitforKey() {
 		controller.pauseGame();
 		int check = -1;
-		while(check == -1)
-			for(int i = 0; i<16; i++)
-				if(keys[i])
+		while (check == -1)
+			for (int i = 0; i < 16; i++)
+				if (keys[i])
 					check = i;
 		controller.resumeGame();
-		return check;				
+		return check;
 	}
 }

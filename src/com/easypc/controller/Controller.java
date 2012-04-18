@@ -66,16 +66,15 @@ public class Controller
 	 * This Method should load the list of files needed for the GUI and the loadGame Method
 	 * @return a list thats used in the GUI TODO: perhaps another type would be better for use in the controller?
 	 */
-	public DefaultListModel getRomList() {
-		
-		//TODO: Check showList() Implementation
+	public DefaultListModel<String> getRomList() {
+				
 		// Directory path here - this is where we store the games
 		String path = "src/resources/games/.";
 		 
 		String files;
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles(); 
-		DefaultListModel listmodel = new DefaultListModel();
+		DefaultListModel<String> listmodel = new DefaultListModel<String>();
 		
 		for (int i = 0; i < listOfFiles.length; i++) 
 		{
@@ -94,6 +93,8 @@ public class Controller
 	 */
 	public void loadGame(File game) 
 	{
+		//TODO: loadGame Refactoring - I think this function should not get a file but a path as parameter
+		//lookup function showList in Gui.java		
 		int[] rom = null;
 		try {
 			rom = getBytesFromFile(game);
