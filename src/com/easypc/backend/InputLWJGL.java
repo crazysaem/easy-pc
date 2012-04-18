@@ -3,11 +3,8 @@ package com.easypc.backend;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
-
 import com.easypc.controller.Controller;
+import com.easypc.gui.Gui;
 
 /**
  * Wrapper for the Input part of the LWJGL
@@ -24,6 +21,7 @@ public class InputLWJGL {
 	public boolean[] keys = new boolean[16];
 	public KeyListener keylistener;
 	public Controller controller;
+	public Gui gui;
 
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -32,9 +30,10 @@ public class InputLWJGL {
 	/**
 	 * Initializes the LWJGL Audio
 	 */
-	public void Init(Controller controller) {
+	public void Init(Controller controller, Gui gui) {
 		// TODO: http://lwjgl.org/wiki/index.php?title=LWJGL_Basics_2_(Input)
 		this.controller=controller;
+		this.gui = gui;
 	}
 
 	/**
@@ -124,7 +123,11 @@ public class InputLWJGL {
 				case KeyEvent.VK_V:
 					//System.out.println("pressed "+ e.getKeyChar() );
 					keys[15]=true;
-					break;		
+					break;
+				case KeyEvent.VK_ESCAPE:
+					//System.out.println("pressed "+ e.getKeyChar() );
+					gui.reset_fullscreen();
+					break;	
 					
 				default:
 					break;

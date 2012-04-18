@@ -1,11 +1,13 @@
 package com.easypc.gui;
 
-import java.awt.BorderLayout;
+import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.event.KeyEvent;
-import java.awt.Container;
+import java.awt.DisplayMode;
 import java.awt.Frame;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,8 +15,8 @@ import java.awt.event.MouseListener;
 import java.io.File;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
@@ -44,6 +46,8 @@ public class Gui implements ImageButtonLabelCallBack {
 	private JList gameList;
 	private GameCanvas gameCanvas;
 	private InputLWJGL input;
+	private JFrame full;
+	private JScrollPane scrollPane;
 
 	private ImageButtonLabel min, close;
 	
@@ -96,8 +100,9 @@ public class Gui implements ImageButtonLabelCallBack {
 	@Override
 	public void ButtonCallBack(ImageButtonLabel pressedButton) {
 		if(pressedButton==close)
-		{
-			System.exit(0);
+		{	
+			fullscreen();
+			//System.exit(0);
 		} else if(pressedButton==min)
 		{
 			guiFrame.setState ( Frame.ICONIFIED );
@@ -185,7 +190,7 @@ public class Gui implements ImageButtonLabelCallBack {
 		gameList.addMouseMotionListener(guiFrame);
 		gameList.setVisible(true);
 
-		JScrollPane scrollPane = new JScrollPane(gameList);
+		scrollPane = new JScrollPane(gameList);
 		scrollPane.setBounds(385, 230, 416, 200);
 		scrollPane.setVisible(true);
 		
@@ -201,10 +206,45 @@ public class Gui implements ImageButtonLabelCallBack {
 		// setting the gamelist ( see function showList() ) invisible and the
 		// gameCanvas visible again
 		gameList.setVisible(false);
+		scrollPane.setVisible(false);
 		gameCanvas.setVisible(true);		
 		gameCanvas.requestFocusInWindow();
 		guiFrame.repaint();
 	}
 
+	
+	private void fullscreen(){
+		GraphicsEnvironment ge = GraphicsEnvironment
+                .getLocalGraphicsEnvironment();
+        GraphicsDevice[] gs = ge.getScreenDevices();
+        for (int j = 0; j < gs.length; j++) {
+            GraphicsDevice gd = gs[j];
+            DisplayMode dm = gd.getDisplayMode();
+            full = new JFrame(gs[j].getDefaultConfiguration());
+            GraphicsConfiguration[] gcs = gd.getConfigurations();           
+            Canvas c = new Canvas(gd.getDefaultConfiguration());            
+            guiFrame.remove(gameCanvas);
+            c = gameCanvas;            
+            full.getContentPane().add(c);
+            full.setUndecorated(true);
+            System.out.println(gd.isFullScreenSupported());
+            if (gd.isDisplayChangeSupported()) {
+                gd.setDisplayMode(dm);
+            }
+            gd.setFullScreenWindow(full); 
+            c.requestFocusInWindow();
+        }
+       
+	}
 
+	public void reset_fullscreen(){
+		full.getContentPane().removeAll();
+		full.setVisible(false);
+		gameCanvas.setBounds(385, 230, 416, 200);
+		guiFrame.add(gameCanvas);
+		showGameCanvas();
+		
+						
+	}
+	
 }

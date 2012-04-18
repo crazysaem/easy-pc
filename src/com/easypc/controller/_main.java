@@ -19,6 +19,9 @@ import com.sun.org.apache.xml.internal.security.Init;
  */
 public class _main 
 {
+	
+	public static final boolean DEBUG = false;
+	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -39,7 +42,7 @@ public class _main
 		
 		Controller controller = new Controller(cpu,ram);
 		
-		input.Init(controller);
+		
 		
 		CPUAnalysisC cpuAnalysisC = null;
 		RAMAnalysisC ramAnalysisC = null;
@@ -53,5 +56,6 @@ public class _main
 		}		
 		
 		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas, input);
+		input.Init(controller,gui);
 	}
 }
