@@ -54,7 +54,6 @@ public class Gui implements ImageButtonLabelCallBack {
 	//The gameCanvas is used to connected it to the Gui and enable fullscreen
 	private GameCanvas gameCanvas;
 	private Input input;
-	private MediaOutput media;
 	
 	//reference to the fullscreen frame
 	private JFrame full;
@@ -73,11 +72,10 @@ public class Gui implements ImageButtonLabelCallBack {
 	 * 
 	 * @param controller
 	 */
-	public Gui(Controller controller, CPUAnalysisC cpuAnalysisC, RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, Input input, MediaOutput media) {
+	public Gui(Controller controller, CPUAnalysisC cpuAnalysisC, RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, Input input) {
 		this.controller = controller;
 		this.gameCanvas = gamecanvas;
 		this.input = input;
-		this.media = media;
 		
 		//runnning keylistener for the guiFrame
 		this.input.checkKeys();
