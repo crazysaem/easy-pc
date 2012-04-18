@@ -6,7 +6,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.easypc.backend.InputLWJGL;
+import com.easypc.backend.Input;
 import com.easypc.chip8.CPU;
 import com.easypc.chip8.MediaOutput;
 import com.easypc.chip8.RAM;
@@ -36,7 +36,7 @@ public class TestOpCodes {
 	@BeforeClass
     public static void oneTimeSetUp() {
 		media = new MediaOutput();
-		InputLWJGL input = new InputLWJGL();
+		Input input = new Input();
 		ram = new RAM();
 
 		cpu = new CPU(media,input,ram);

@@ -91,13 +91,13 @@ public class Controller
 	 * Gets called when the Player chooses a Game from the list of available Games.
 	 * The Controller will load the ROM into the RAM and tell the Main View to display a blank screen.
 	 */
-	public void loadGame(File game) 
-	{
-		//TODO: loadGame Refactoring - I think this function should not get a file but a path as parameter
-		//lookup function showList in Gui.java		
+	public void loadGame(String game) 
+	{		
+		File fgame = new File("src/resources/games/"+game);
+		
 		int[] rom = null;
 		try {
-			rom = getBytesFromFile(game);
+			rom = getBytesFromFile(fgame);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -112,21 +112,6 @@ public class Controller
 	 */
 	public void playGame() throws InterruptedException 
 	{
-		/*
-		//TODO: erstmal alles nur tests
-		ArrayList<Integer> data = new ArrayList<Integer>();
-		isRunning=true;
-		while(isRunning){
-			data=ram.read(cpu.getRegister(19), 2);
-			cpu.executeOpCode((data.get(0)&0xF0)>>4, (data.get(0)&0x0F), data.get(1)&0xF0>>4, data.get(1)&0x0F);
-			
-			//DEBUG
-			System.out.print("DEBUG -- PC:" + cpu.getRegister(19));
-			for(int i=0;i<16;i++)
-				System.out.print(", V["+i+"] = "+cpu.getRegister(i));
-			System.out.println();
-			//wait(10);				
-		}*/
 		controllerRunningThread.isRunning=true;
 		runningThread.start();
 	}

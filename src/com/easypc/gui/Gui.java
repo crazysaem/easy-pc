@@ -22,7 +22,7 @@ import javax.swing.ListSelectionModel;
 
 import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.analysis.RAMAnalysisC;
-import com.easypc.backend.InputLWJGL;
+import com.easypc.backend.Input;
 import com.easypc.chip8.GameCanvas;
 import com.easypc.controller.Controller;
 import com.easypc.controller._main;
@@ -48,8 +48,9 @@ public class Gui implements ImageButtonLabelCallBack {
 	// The listview containing all Games
 	private JList<String> gameList;
 	
+	//The gameCanvas is used to connected it to the Gui and enable fullscreen
 	private GameCanvas gameCanvas;
-	private InputLWJGL input;
+	private Input input;
 	
 	//reference to the fullscreen frame
 	private JFrame full;
@@ -69,7 +70,7 @@ public class Gui implements ImageButtonLabelCallBack {
 	 * @param controller
 	 */
 	public Gui(Controller controller, CPUAnalysisC cpuAnalysisC,
-			RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, InputLWJGL input) {
+			RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, Input input) {
 		this.controller = controller;
 		this.gameCanvas = gamecanvas;
 		this.input = input;
@@ -138,21 +139,13 @@ public class Gui implements ImageButtonLabelCallBack {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 					int index = gameList.locationToIndex(e.getPoint());
-					
-					//TODO: I think this should be located in the controller
-					File game = new File("src/resources/games/"
-							+ gameList.getModel().getElementAt(index)
-									.toString());
-					//
-					
 					if(_main.DEBUG)
 						System.out.println("Loading " + gameList.getModel().getElementAt(index));
-					controller.loadGame(game);
+					controller.loadGame(gameList.getModel().getElementAt(index).toString());
 					showGameCanvas();
 					try {
 						controller.playGame();
 					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -162,34 +155,23 @@ public class Gui implements ImageButtonLabelCallBack {
 		KeyListener keylistener = new KeyListener() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					
-					//TODO: refactoring - same as in MouseListener
-					File game = new File("src/resources/games/"
-							+ gameList.getSelectedValue().toString());
-					// debug code
 					if(_main.DEBUG)
 						System.out.println("Loading " + gameList.getModel().getElementAt(0));
-					controller.loadGame(game);
+					controller.loadGame(gameList.getSelectedValue().toString());
 					showGameCanvas();
 					try {
 						controller.playGame();
 					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
 			}
 
 			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-
-			}
+			public void keyReleased(KeyEvent e) {}
 
 			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-			}
+			public void keyTyped(KeyEvent e) {}
 		};
 
 		gameList.addKeyListener(keylistener);

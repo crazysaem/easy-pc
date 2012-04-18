@@ -12,7 +12,7 @@ import com.easypc.gui.Gui;
  * @author crazysaem
  * 
  */
-public class InputLWJGL {
+public class Input {
 	/*----------------------------------------------------
 	 * Attribute Section.
 	 *--------------------------------------------------*/
@@ -211,9 +211,7 @@ public class InputLWJGL {
 			}
 
 			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-			}
+			public void keyTyped(KeyEvent e) {}
 		};
 		return pressed_key;
 	}

@@ -4,7 +4,7 @@ import org.lwjgl.LWJGLException;
 
 import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.analysis.RAMAnalysisC;
-import com.easypc.backend.InputLWJGL;
+import com.easypc.backend.Input;
 import com.easypc.chip8.CPU;
 import com.easypc.chip8.GameCanvas;
 import com.easypc.chip8.MediaOutput;
@@ -33,15 +33,13 @@ public class _main
 	public static void main(String args[])
 	{
 		MediaOutput media = new MediaOutput();
-		InputLWJGL input = new InputLWJGL();
+		Input input = new Input();
 		
 		RAM ram = new RAM();
 
 		CPU cpu = new CPU(media,input,ram);
 		
 		Controller controller = new Controller(cpu,ram);
-		
-		
 		
 		CPUAnalysisC cpuAnalysisC = null;
 		RAMAnalysisC ramAnalysisC = null;

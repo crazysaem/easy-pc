@@ -3,7 +3,7 @@ package com.easypc.chip8;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.easypc.backend.InputLWJGL;
+import com.easypc.backend.Input;
 import com.easypc.chip8.MediaOutput;
 import com.easypc.chip8.RAM;;
 /**
@@ -35,7 +35,7 @@ public class CPU {
 	private MediaOutput media;
 	
 	//The InputLWJGL Object
-	private InputLWJGL input;
+	private Input input;
 	
 	//The RAM Object
 	private RAM ram;
@@ -52,7 +52,7 @@ public class CPU {
 	 * @param input The InputLWJGL Object
 	 * @param ram The RAM Object
 	 */
-	public CPU(MediaOutput media,InputLWJGL input, RAM ram)
+	public CPU(MediaOutput media,Input input, RAM ram)
 	{
 		for(int i=0;i<16;i++) V[i] = 0;
 		
