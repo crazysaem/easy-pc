@@ -1,6 +1,8 @@
 package com.easypc.backend;
 
+import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
 
 /**
  * Wrapper for the Input part of the LWJGL
@@ -25,6 +27,7 @@ public class InputLWJGL {
 	public void Init()
 	{
 		//TODO: http://lwjgl.org/wiki/index.php?title=LWJGL_Basics_2_(Input)
+
 	}
 	
 	/**
@@ -43,13 +46,8 @@ public class InputLWJGL {
 	 */
 	public void checkKeys()
 	{
-		//Test for maven, pls ignore
-		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) 
-		{
-			System.out.println("SPACE KEY IS DOWN");
-		}
+
 	}
-	
 	/**
 	 * Checks whether the specified key is currently pressed 
 	 */

@@ -2,7 +2,10 @@ package com.easypc.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.awt.Container;
+import java.awt.Frame;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,7 +27,7 @@ import com.easypc.controller.Controller;
  * @author crazysaem
  *
  */
-public class Gui {
+public class Gui implements ImageButtonLabelCallBack {
 	/*----------------------------------------------------
 	 * Attribute Section.
 	 *--------------------------------------------------*/
@@ -36,6 +39,8 @@ public class Gui {
 	//The listview containing all Games
 	private JList gameList;
 	private GameCanvas gameCanvas;
+	
+	private ImageButtonLabel min, close;
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -49,7 +54,7 @@ public class Gui {
 	{
 		this.controller = controller;
 		this.gameCanvas = gamecanvas;
-		
+
 		guiFrame = new GuiFrame();
 		guiFrame.getContentPane().setBackground(Color.BLACK);
 		guiFrame.setVisible(true);
@@ -71,6 +76,22 @@ public class Gui {
 		
 		showList();
 		
+		close = new ImageButtonLabel(this, "src/resources/keys/close.png", "src/resources/keys/close_glow.png", 770, 190, 0.4f);	
+		guiFrame.add(close.getLabel());
+		
+		min = new ImageButtonLabel(this, "src/resources/keys/min.png", "src/resources/keys/min_glow.png", 730, 190, 0.4f);	
+		guiFrame.add(min.getLabel());
+	}
+	
+	@Override
+	public void ButtonCallBack(ImageButtonLabel pressedButton) {
+		if(pressedButton==close)
+		{
+			System.exit(0);
+		} else if(pressedButton==min)
+		{
+			guiFrame.setState ( Frame.ICONIFIED );
+		}
 	}
 	
 	/**
@@ -107,6 +128,37 @@ public class Gui {
 		    }
 		};
 		
+		KeyListener keylistener = new KeyListener() {
+			      public void keyPressed(KeyEvent e) {	
+			    	  if (e.getKeyCode()==KeyEvent.VK_ENTER){			  	            
+			            File game = new File("src/resources/games/" + gameList.getSelectedValue().toString());
+			            //debug code
+			            System.out.println("Loading " + gameList.getModel().getElementAt(0));
+			            controller.loadGame(game);	
+			            showGameCanvas();	
+			            try {
+							controller.playGame();
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+			    	  }
+			      }
+
+				@Override
+				public void keyReleased(KeyEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void keyTyped(KeyEvent e) {
+					// TODO Auto-generated method stub					
+				}
+			    };		
+			    
+	 
+		gameList.addKeyListener(keylistener);
 		gameList.addMouseListener(mouseListener);
 		gameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		gameList.setSelectedIndex(0);
@@ -134,5 +186,6 @@ public class Gui {
 		gameCanvas.setVisible(true);
 		guiFrame.repaint();
 	}
+
 	
 }
