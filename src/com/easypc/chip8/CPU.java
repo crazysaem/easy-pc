@@ -82,7 +82,7 @@ public class CPU {
 		
 		if(c1==0)
 		{
-			System.out.println("debug");
+			//System.out.println("debug");
 		}
 		
 		//The CPU Speed is unknown, but the timer decreasing speed is fixed at 60hz
