@@ -20,10 +20,13 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
+import org.lwjgl.LWJGLException;
+
 import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.analysis.RAMAnalysisC;
 import com.easypc.backend.Input;
 import com.easypc.chip8.GameCanvas;
+import com.easypc.chip8.MediaOutput;
 import com.easypc.controller.Controller;
 import com.easypc.controller._main;
 
@@ -51,6 +54,7 @@ public class Gui implements ImageButtonLabelCallBack {
 	//The gameCanvas is used to connected it to the Gui and enable fullscreen
 	private GameCanvas gameCanvas;
 	private Input input;
+	private MediaOutput media;
 	
 	//reference to the fullscreen frame
 	private JFrame full;
@@ -69,11 +73,11 @@ public class Gui implements ImageButtonLabelCallBack {
 	 * 
 	 * @param controller
 	 */
-	public Gui(Controller controller, CPUAnalysisC cpuAnalysisC,
-			RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, Input input) {
+	public Gui(Controller controller, CPUAnalysisC cpuAnalysisC, RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, Input input, MediaOutput media) {
 		this.controller = controller;
 		this.gameCanvas = gamecanvas;
 		this.input = input;
+		this.media = media;
 		
 		//runnning keylistener for the guiFrame
 		this.input.checkKeys();
@@ -86,11 +90,13 @@ public class Gui implements ImageButtonLabelCallBack {
 		cpuAnalysisC.setBounds(409, 7, 777 - 409, 185 - 7);
 		cpuAnalysisC.addMouseListener(guiFrame);
 		cpuAnalysisC.addMouseMotionListener(guiFrame);
+		cpuAnalysisC.addKeyListener(input.keylistener);
 		guiFrame.add(cpuAnalysisC);
 
 		ramAnalysisC.setBounds(5, 241, 373 - 5, 419 - 241);
 		ramAnalysisC.addMouseListener(guiFrame);
 		ramAnalysisC.addMouseMotionListener(guiFrame);
+		ramAnalysisC.addKeyListener(input.keylistener);
 		guiFrame.add(ramAnalysisC);
 
 		gameCanvas.addKeyListener(input.keylistener);
@@ -207,28 +213,27 @@ public class Gui implements ImageButtonLabelCallBack {
 	/**
 	 * Creates a fullscreen JFrame with the gamecanvas on it
 	 */
-	private void fullscreen() {
-		GraphicsEnvironment ge = GraphicsEnvironment
-				.getLocalGraphicsEnvironment();
+	private void fullscreen() {		
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice[] gs = ge.getScreenDevices();
 		for (int j = 0; j < gs.length; j++) {
 			GraphicsDevice gd = gs[j];
 			DisplayMode dm = gd.getDisplayMode();
 			full = new JFrame(gs[j].getDefaultConfiguration());
-			GraphicsConfiguration[] gcs = gd.getConfigurations();
-			Canvas c = new Canvas(gd.getDefaultConfiguration());
 			guiFrame.remove(gameCanvas);
-			c = gameCanvas;
-			full.getContentPane().add(c);
+			//HACK: Instead of true fullscreen, we take the size and height + 1 to avoid flickering on certain Hardware configurations
+			gameCanvas.setBounds(0, 0, dm.getWidth()+1, dm.getHeight()+1);
+			full.getContentPane().add(gameCanvas);
 			full.setUndecorated(true);
-			System.out.println(gd.isFullScreenSupported());
 			if (gd.isDisplayChangeSupported()) {
 				gd.setDisplayMode(dm);
 			}
-			gd.setFullScreenWindow(full);
-			c.requestFocusInWindow();
+			full.pack();
+			full.setVisible(true);
+			//This will cause flickering on certain Hardware configurations
+			//gd.setFullScreenWindow(full);
+			gameCanvas.requestFocusInWindow();
 		}
-
 	}
 
 	/**

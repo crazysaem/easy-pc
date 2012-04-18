@@ -92,7 +92,8 @@ public class Controller
 	 * The Controller will load the ROM into the RAM and tell the Main View to display a blank screen.
 	 */
 	public void loadGame(String game) 
-	{		
+	{
+		
 		File fgame = new File("src/resources/games/"+game);
 		
 		int[] rom = null;

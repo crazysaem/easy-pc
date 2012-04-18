@@ -52,7 +52,7 @@ public class _main
 			e.printStackTrace();
 		}		
 		
-		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas, input);
+		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas, input, media);
 		input.Init(controller,gui);
 	}
 }
