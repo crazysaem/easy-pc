@@ -55,75 +55,81 @@ public class Input {
 	 */
 	public int checkKeys() {
 		int pressed_key = 0;
+		
+		//Original Keyboard Layout (Reference)
+		//1	 2  3  C
+		//4  5  6  D
+		//7	 8  9  E
+		//A	 0  B  F
 
 		keylistener = new KeyListener() {
 			public void keyPressed(KeyEvent e) {
 				int key = e.getKeyCode();
 				switch (key) {
 				case KeyEvent.VK_1:
-
-					keys[0] = true;
-					break;
-				case KeyEvent.VK_2:
-
 					keys[1] = true;
-					break;
-				case KeyEvent.VK_3:
-
+				break;
+				
+				case KeyEvent.VK_2:
 					keys[2] = true;
-					break;
-				case KeyEvent.VK_4:
-
+				break;
+				
+				case KeyEvent.VK_3:
 					keys[3] = true;
-					break;
+				break;
+				
+				case KeyEvent.VK_4:
+					keys[0xC] = true;
+				break;
+				
 				case KeyEvent.VK_Q:
-
 					keys[4] = true;
-					break;
+				break;
+				
 				case KeyEvent.VK_W:
-
 					keys[5] = true;
-					break;
+				break;
+				
 				case KeyEvent.VK_E:
-
 					keys[6] = true;
-					break;
+				break;
+				
 				case KeyEvent.VK_R:
-
-					keys[7] = true;
-					break;
+					keys[0xD] = true;
+				break;
+				
 				case KeyEvent.VK_A:
-
-					keys[8] = true;
-					break;
+					keys[7] = true;
+				break;
+				
 				case KeyEvent.VK_S:
-
-					keys[9] = true;
-					break;
+					keys[8] = true;
+				break;
+				
 				case KeyEvent.VK_D:
-
-					keys[10] = true;
-					break;
+					keys[9] = true;
+				break;
+				
 				case KeyEvent.VK_F:
-
-					keys[11] = true;
-					break;
+					keys[0xE] = true;
+				break;
+				
 				case KeyEvent.VK_Y:
-
-					keys[12] = true;
-					break;
+					keys[0xA] = true;
+				break;
+				
 				case KeyEvent.VK_X:
-
-					keys[13] = true;
-					break;
+					keys[0xB] = true;
+				break;
+				
 				case KeyEvent.VK_C:
-
-					keys[14] = true;
-					break;
+					keys[0] = true;
+				break;
+				
 				case KeyEvent.VK_V:
-
-					keys[15] = true;
-					break;
+					keys[0xF] = true;
+				break;
+					
 				case KeyEvent.VK_ESCAPE:
 
 					gui.reset_fullscreen();
@@ -140,69 +146,68 @@ public class Input {
 				int key = e.getKeyCode();
 				switch (key) {
 				case KeyEvent.VK_1:
-					// System.out.println("released "+ e.getKeyChar() );
-					keys[0] = false;
-					break;
-				case KeyEvent.VK_2:
-					// System.out.println("released "+ e.getKeyChar() );
 					keys[1] = false;
-					break;
-				case KeyEvent.VK_3:
-					// System.out.println("released "+ e.getKeyChar() );
+				break;
+				
+				case KeyEvent.VK_2:
 					keys[2] = false;
-					break;
-				case KeyEvent.VK_4:
-					// System.out.println("released "+ e.getKeyChar() );
+				break;
+				
+				case KeyEvent.VK_3:
 					keys[3] = false;
-					break;
+				break;
+				
+				case KeyEvent.VK_4:
+					keys[0xC] = false;
+				break;
+				
 				case KeyEvent.VK_Q:
-					// System.out.println("released "+ e.getKeyChar() );
 					keys[4] = false;
-					break;
+				break;
+				
 				case KeyEvent.VK_W:
-					// System.out.println("released "+ e.getKeyChar() );
 					keys[5] = false;
-					break;
+				break;
+				
 				case KeyEvent.VK_E:
-					// System.out.println("released "+ e.getKeyChar() );
 					keys[6] = false;
-					break;
+				break;
+				
 				case KeyEvent.VK_R:
-					// System.out.println("released "+ e.getKeyChar() );
-					keys[7] = false;
-					break;
+					keys[0xD] = false;
+				break;
+				
 				case KeyEvent.VK_A:
-					// System.out.println("released "+ e.getKeyChar() );
-					keys[8] = false;
-					break;
+					keys[7] = false;
+				break;
+				
 				case KeyEvent.VK_S:
-					// System.out.println("released "+ e.getKeyChar() );
-					keys[9] = false;
-					break;
+					keys[8] = false;
+				break;
+				
 				case KeyEvent.VK_D:
-					// System.out.println("released "+ e.getKeyChar() );
-					keys[10] = false;
-					break;
+					keys[9] = false;
+				break;
+				
 				case KeyEvent.VK_F:
-					// System.out.println("released "+ e.getKeyChar() );
-					keys[11] = false;
-					break;
+					keys[0xE] = false;
+				break;
+				
 				case KeyEvent.VK_Y:
-					// System.out.println("released "+ e.getKeyChar() );
-					keys[12] = false;
-					break;
+					keys[0xA] = false;
+				break;
+				
 				case KeyEvent.VK_X:
-					// System.out.println("released "+ e.getKeyChar() );
-					keys[13] = false;
-					break;
+					keys[0xB] = false;
+				break;
+				
 				case KeyEvent.VK_C:
-					// System.out.println("released "+ e.getKeyChar() );
-					keys[14] = false;
-					break;
+					keys[0] = false;
+				break;
+				
 				case KeyEvent.VK_V:
-					// System.out.println("released "+ e.getKeyChar() );
-					keys[15] = false;
-					break;
+					keys[0xF] = false;
+				break;
 
 				default:
 					break;
