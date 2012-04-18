@@ -228,6 +228,7 @@ public class Gui implements ImageButtonLabelCallBack {
 			}
 			full.pack();
 			full.setVisible(true);
+			full.setAlwaysOnTop(true);
 			//This will cause flickering on certain Hardware configurations
 			//gd.setFullScreenWindow(full);
 			gameCanvas.requestFocusInWindow();
