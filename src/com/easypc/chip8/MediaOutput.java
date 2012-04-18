@@ -4,6 +4,12 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.util.Arrays;
 
+import javax.sound.midi.Instrument;
+import javax.sound.midi.MidiChannel;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Synthesizer;
+
 /**
  * An Easy Wrapper for the GUI Output / Backend to Display Stuff for the Chip-8 System
  * @author crazysaem
@@ -72,22 +78,39 @@ public class MediaOutput {
 	/**
 	 * Starts a Beep Sound
 	 */
-	public void startBeep()
+	public void startBeep(int length)
 	{
-		isBeeping = true;
-		//TODO: Implementation works without a loop, you can't just loop over it like that, it will cause very bad problems
-		//Will will leave it like that (if we feel like it, we can use openAL later)
-		
-		//while(isBeeping){
-			//System.out.println((char)7);  	//generates beeps until startb ist set to false. 
-											//This Method only works after projekt is build because eclipse absorbs the "beep"
-		//TODO: 2nd Solution, decide one
-			
-		Toolkit.getDefaultToolkit().beep(); //generates the windows warning sound. Works with eclipse without building the project
-		//}
-		
-		
+		try {
+			Synthesizer synth = MidiSystem.getSynthesizer();
+			synth.open();
+
+			final MidiChannel[] mc = synth.getChannels();
+			Instrument[] instr = synth.getAvailableInstruments();
+
+			System.out.println(instr[38].getName());
+
+			// instrument loading is irrelevant, it is
+			// the program change that matters..
+			mc[4].programChange(38);
+			mc[4].noteOn(95, 300);
+			mc[1].programChange(31);
+			mc[4].noteOn(55, 300);
+
+			try {
+				Thread.sleep(length);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			mc[4].noteOff(100);
+			mc[1].noteOff(55);
+
+		} catch (MidiUnavailableException e) {
+			e.printStackTrace();
+		}
 	}
+		
+		
+	
 	
 	/**
 	 * Stops the Beep Sound
