@@ -130,7 +130,7 @@ public class CPU {
 				V[c1] = V[c1] + get8BitValue(c2,c3);
 				if(V[c1]>255){
 					V[0xF]=1;
-					V[c1]=V[c1]%255;
+					V[c1]=V[c1]&0xFF;
 				}
 				else
 					V[0xF]=0;
@@ -151,37 +151,33 @@ public class CPU {
 					break;
 					case 4:								//8xy4 - ADD Vx, Vy
 						V[c1]=V[c1] + V[c2];
-						if(V[c1]>255){
+						if(V[c1]>255){					
 							V[0xF]=1;
+							V[c1]=V[c1]&0xFF;
 						}
 						else
-							V[0xF]=0;						
+							V[0xF]=0;
 					break;
 					case 5:								//8xy5 - SUB Vx, Vy
-														//TODO: maybe results to negative numbers
-						if (V[c1]>=V[c2]){
-							V[0xF]=1;
-							V[c1]=(V[c1] - V[c2]);	
-						}
-						else{
+						V[c1]=(V[c1] - V[c2]);	
+						if ((V[c1]&256)==256)
 							V[0xF]=0;
-							V[c1]=256+(V[c1] - V[c2]);	//TODO: oder (V[c1] - V[c2])*-1  ???
-						}
+						else
+							V[0xF]=1;
+						V[c1]=V[c1]&0xFF;
 					break;
 					case 6:								// 8xy6 - SHR Vx {, Vy}
 						V[0xF]=(V[c1]&1);
 						V[c1]=(V[c1]>>1)&0xFF;			
 					break;
 					case 7:								//8xy7 - SUBN Vx, Vy
-														//TODO: maybe results to negative numbers
-						if (V[c1]<=V[c2]){
-							V[0xF]=1;
-							V[c1]=(V[c2] - V[c1]);	
-						}
-						else{
+						V[c1]=(V[c2] - V[c1]);	
+						if ((V[c1]&256)==256)
 							V[0xF]=0;
-							V[c1]=256+(V[c2] - V[c1]);	
-						}
+							
+						else
+							V[0xF]=1;
+						V[c1]=V[c1]&0xFF;
 					break;
 					case 0xE:							//8xyE - SHL Vx {, Vy}
 						V[0xF]=(V[c1]&128);
