@@ -128,6 +128,12 @@ public class CPU {
 			break;
 			case 7:										//7xkk - ADD Vx, byte
 				V[c1] = V[c1] + get8BitValue(c2,c3);
+				if(V[c1]>255){
+					V[0xF]=1;
+					V[c1]=V[c1]%255;
+				}
+				else
+					V[0xF]=0;
 			break;
 			case 8:
 				switch (c3){
@@ -147,10 +153,10 @@ public class CPU {
 						V[c1]=V[c1] + V[c2];
 						if(V[c1]>255){
 							V[0xF]=1;
-							V[c1]=255;
 						}
 						else
 							V[0xF]=0;
+						V[c1]=V[c1]%255;
 						
 					break;
 					case 5:								//8xy5 - SUB Vx, Vy
@@ -159,7 +165,8 @@ public class CPU {
 							V[0xF]=1;
 						else
 							V[0xF]=0;
-						V[c1]=V[c1] - V[c2];		
+						V[c1]=(V[c1] - V[c2])%255;
+						if (V[c1]<0)V[c1]=255+V[c1];
 					break;
 					case 6:								// 8xy6 - SHR Vx {, Vy}
 						if((V[c1]&1)==1){
@@ -171,11 +178,15 @@ public class CPU {
 					break;
 					case 7:								//8xy7 - SUBN Vx, Vy
 														//TODO: maybe results to negative numbers
-						if (V[c1]<V[c2])
+						if (V[c1]<V[c2]){
 							V[0xF]=1;
-						else
+							V[c1]=(V[c2] - V[c1]);	
+						}
+						else{
 							V[0xF]=0;
-						V[c1]=V[c2] - V[c1];			
+							V[c1]=(V[c1] - V[c2])%255;	
+						}
+						if (V[c1]<0)V[c1]=255+V[c1];
 					break;
 					case 0xE:							//8xyE - SHL Vx {, Vy}
 						if((V[c1]&128)==128){
@@ -183,7 +194,7 @@ public class CPU {
 						}
 						else
 							V[0xF]=0;
-						V[c1]=V[c1]<<1;	
+						V[c1]=(V[c1]<<1)%255;	
 					break;
 				}
 			break;
@@ -204,7 +215,10 @@ public class CPU {
 			break;
 			case 0xD:									//Dxyn - DRW Vx, Vy, nibble	
 				Integer[] t = makeArray(ram.read(I, c3)); 
-				media.displaySprite(V[c1],V[c2],t);
+				if(media.displaySprite(V[c1],V[c2],t)) 
+					V[0xF]=1;
+				else 
+					V[0xF]=0;
 			break;
 			case 0xE:
 				switch (c2){
@@ -231,7 +245,7 @@ public class CPU {
 				break;
 				case 0x18:								//Fx18 - LD ST, Vx
 					sound=V[c1];
-					media.startBeep();
+					media.startBeep(sound);
 				break;
 				case 0x1E:								//Fx1E - ADD I, Vx
 					I = I + V[c1];

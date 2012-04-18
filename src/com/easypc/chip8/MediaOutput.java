@@ -4,6 +4,12 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.util.Arrays;
 
+import javax.sound.midi.Instrument;
+import javax.sound.midi.MidiChannel;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Synthesizer;
+
 /**
  * An Easy Wrapper for the GUI Output / Backend to Display Stuff for the Chip-8 System
  * @author crazysaem
@@ -38,19 +44,15 @@ public class MediaOutput {
 		//TODO: I have the feeling this function writes bullshit into display[][]
 		boolean ret=false;
 		byte change;
-		if(x>63)//TODO: Just a workaround, that the games will be displayed. Its not correct!!!!!42
-			x=63;
-		if(y>31)
-			y=31;
 		for(int j=0;j<data.length;j++)
 		{
 			for(int i=0;i<8;i++)
 			{
-				change = display[getX(x+i)][getY(y+j)];
+				change = display[getX((x+i)%64)][getY((y+j)%32)];
 				int temp = (data[j]>>(8-i-1));
 				byte bit = (byte) (temp & 1);
-				display[getX(x+i)][getY(y+j)] = (byte) (display[getX(x+i)][getY(y+j)] ^ bit);
-				if((change != display[getX(x+i)][getY(y+j)]) && (display[getX(x+i)][getY(y+j)]==0))
+				display[getX((x+i)%64)][getY((y+j)%32)] = (byte) (display[getX((x+i)%64)][getY((y+j)%32)] ^ bit);
+				if((change != display[getX((x+i)%64)][getY((y+j)%32)]) && (display[getX((x+i)%64)][getY((y+j)%32)]==0))
 				{
 					ret = true;
 				}
@@ -76,22 +78,39 @@ public class MediaOutput {
 	/**
 	 * Starts a Beep Sound
 	 */
-	public void startBeep()
+	public void startBeep(int length)
 	{
-		isBeeping = true;
-		//TODO: Implementation works without a loop, you can't just loop over it like that, it will cause very bad problems
-		//Will will leave it like that (if we feel like it, we can use openAL later)
-		
-		//while(isBeeping){
-			//System.out.println((char)7);  	//generates beeps until startb ist set to false. 
-											//This Method only works after projekt is build because eclipse absorbs the "beep"
-		//TODO: 2nd Solution, decide one
-			
-		Toolkit.getDefaultToolkit().beep(); //generates the windows warning sound. Works with eclipse without building the project
-		//}
-		
-		
+		try {
+			Synthesizer synth = MidiSystem.getSynthesizer();
+			synth.open();
+
+			final MidiChannel[] mc = synth.getChannels();
+			Instrument[] instr = synth.getAvailableInstruments();
+
+			System.out.println(instr[38].getName());
+
+			// instrument loading is irrelevant, it is
+			// the program change that matters..
+			mc[4].programChange(38);
+			mc[4].noteOn(95, 300);
+			mc[1].programChange(31);
+			mc[4].noteOn(55, 300);
+
+			try {
+				Thread.sleep(length);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			mc[4].noteOff(100);
+			mc[1].noteOff(55);
+
+		} catch (MidiUnavailableException e) {
+			e.printStackTrace();
+		}
 	}
+		
+		
+	
 	
 	/**
 	 * Stops the Beep Sound
