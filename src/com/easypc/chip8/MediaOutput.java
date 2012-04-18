@@ -38,19 +38,15 @@ public class MediaOutput {
 		//TODO: I have the feeling this function writes bullshit into display[][]
 		boolean ret=false;
 		byte change;
-		if(x>63)//TODO: Just a workaround, that the games will be displayed. Its not correct!!!!!42
-			x=63;
-		if(y>31)
-			y=31;
 		for(int j=0;j<data.length;j++)
 		{
 			for(int i=0;i<8;i++)
 			{
-				change = display[getX(x+i)][getY(y+j)];
+				change = display[getX((x+i)%64)][getY((y+j)%32)];
 				int temp = (data[j]>>(8-i-1));
 				byte bit = (byte) (temp & 1);
-				display[getX(x+i)][getY(y+j)] = (byte) (display[getX(x+i)][getY(y+j)] ^ bit);
-				if((change != display[getX(x+i)][getY(y+j)]) && (display[getX(x+i)][getY(y+j)]==0))
+				display[getX((x+i)%64)][getY((y+j)%32)] = (byte) (display[getX((x+i)%64)][getY((y+j)%32)] ^ bit);
+				if((change != display[getX((x+i)%64)][getY((y+j)%32)]) && (display[getX((x+i)%64)][getY((y+j)%32)]==0))
 				{
 					ret = true;
 				}
