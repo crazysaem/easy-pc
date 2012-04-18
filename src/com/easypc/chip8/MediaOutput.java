@@ -38,7 +38,10 @@ public class MediaOutput {
 		//TODO: I have the feeling this function writes bullshit into display[][]
 		boolean ret=false;
 		byte change;
-		
+		if(x>63)//TODO: Just a workaround, that the games will be displayed. Its not correct!!!!!42
+			x=63;
+		if(y>31)
+			y=31;
 		for(int j=0;j<data.length;j++)
 		{
 			for(int i=0;i<8;i++)
