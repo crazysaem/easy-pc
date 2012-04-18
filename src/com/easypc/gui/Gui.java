@@ -160,21 +160,6 @@ public class Gui implements ImageButtonLabelCallBack {
 					}
 				}
 			}
-			      public void keyPressed(KeyEvent e) {	
-			    	  if (e.getKeyCode()==KeyEvent.VK_ENTER){			  	            
-			            File game = new File("src/resources/games/" + gameList.getSelectedValue().toString());
-			            //debug code
-			            System.out.println("Loading " + gameList.getModel().getElementAt(0));
-			            controller.loadGame(game);	
-			            showGameCanvas();	
-			            try {
-							controller.playGame();
-						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-			    	  }
-			      }
 
 			@Override
 			public void keyReleased(KeyEvent e) {
