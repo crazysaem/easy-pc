@@ -1,8 +1,8 @@
 package com.easypc.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,7 +10,6 @@ import java.io.File;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
@@ -49,7 +48,7 @@ public class Gui {
 	{
 		this.controller = controller;
 		this.gameCanvas = gamecanvas;
-		
+
 		guiFrame = new GuiFrame();
 		guiFrame.getContentPane().setBackground(Color.BLACK);
 		guiFrame.setVisible(true);
@@ -68,7 +67,7 @@ public class Gui {
 		gameCanvas.addMouseListener(guiFrame);
 		gameCanvas.addMouseMotionListener(guiFrame);   
 		guiFrame.add(gameCanvas);
-		
+		 
 		showList();
 		
 	}
@@ -107,6 +106,37 @@ public class Gui {
 		    }
 		};
 		
+		KeyListener keylistener = new KeyListener() {
+			      public void keyPressed(KeyEvent e) {	
+			    	  if (e.getKeyCode()==KeyEvent.VK_ENTER){			  	            
+			            File game = new File("src/resources/games/" + gameList.getSelectedValue().toString());
+			            //debug code
+			            System.out.println("Loading " + gameList.getModel().getElementAt(0));
+			            controller.loadGame(game);	
+			            showGameCanvas();	
+			            try {
+							controller.playGame();
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+			    	  }
+			      }
+
+				@Override
+				public void keyReleased(KeyEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void keyTyped(KeyEvent e) {
+					// TODO Auto-generated method stub					
+				}
+			    };		
+			    
+	 
+		gameList.addKeyListener(keylistener);
 		gameList.addMouseListener(mouseListener);
 		gameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		gameList.setSelectedIndex(0);
