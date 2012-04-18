@@ -45,8 +45,7 @@ public class Controller
 	{
 		this.cpu = cpu;
 		this.ram = ram;
-		controllerRunningThread = new ControllerRunningThread(cpu, ram);
-		runningThread = new Thread(controllerRunningThread);
+		controllerRunningThread = new ControllerRunningThread(cpu, ram);		
 	}
 	
 	/**
@@ -55,6 +54,7 @@ public class Controller
 	 */
 	public void resetGame() 
 	{
+		controllerRunningThread.isRunning=false;
 		ram.reset();
 		cpu.reset();
 		
@@ -114,6 +114,7 @@ public class Controller
 	public void playGame() throws InterruptedException 
 	{
 		controllerRunningThread.isRunning=true;
+		runningThread = new Thread(controllerRunningThread);
 		runningThread.start();
 	}
 

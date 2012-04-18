@@ -61,7 +61,7 @@ public class Gui implements ImageButtonLabelCallBack {
 	//JList Scrollpane
 	private JScrollPane scrollPane;
 
-	private ImageButtonLabel min, close;
+	private ImageButtonLabel reset, play, pause, step, fastforward,min, close;
 
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -104,6 +104,10 @@ public class Gui implements ImageButtonLabelCallBack {
 		guiFrame.add(gameCanvas);
 
 		showList();
+		
+		reset = new ImageButtonLabel(this, "src/resources/keys/reset.png",
+				"src/resources/keys/reset_glow.png", 385, 195, 0.4f);
+		guiFrame.add(reset.getLabel());
 
 		close = new ImageButtonLabel(this, "src/resources/keys/close.png",
 				"src/resources/keys/close_glow.png", 770, 190, 0.4f);
@@ -121,6 +125,13 @@ public class Gui implements ImageButtonLabelCallBack {
 			// System.exit(0);
 		} else if (pressedButton == min) {
 			guiFrame.setState(Frame.ICONIFIED);
+		} else if (pressedButton == reset) {
+			controller.resetGame();
+			gameCanvas.setVisible(false);
+			gameList.setVisible(true);
+			scrollPane.setVisible(true);
+			guiFrame.repaint();
+			gameList.requestFocusInWindow();
 		}
 	}
 
