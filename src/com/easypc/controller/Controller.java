@@ -108,9 +108,12 @@ public class Controller
 	 */
 	public void playGame() throws InterruptedException 
 	{
-		controllerRunningThread.setRunning(true);
-		runningThread = new Thread(controllerRunningThread);
-		runningThread.start();
+		if(!controllerRunningThread.isRunning())
+		{
+			controllerRunningThread.setRunning(true);
+			runningThread = new Thread(controllerRunningThread);
+			runningThread.start();
+		}
 	}
 
 	/**
