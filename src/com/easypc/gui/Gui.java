@@ -1,10 +1,8 @@
 package com.easypc.gui;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.DisplayMode;
 import java.awt.Frame;
-import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
@@ -12,7 +10,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -20,13 +17,10 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-import org.lwjgl.LWJGLException;
-
 import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.analysis.RAMAnalysisC;
 import com.easypc.backend.Input;
 import com.easypc.chip8.GameCanvas;
-import com.easypc.chip8.MediaOutput;
 import com.easypc.controller.Controller;
 import com.easypc.controller._main;
 
@@ -62,6 +56,8 @@ public class Gui implements ImageButtonLabelCallBack {
 	private JScrollPane scrollPane;
 
 	private ImageButtonLabel reset, play, pause, step, fastforward,min, close;
+
+	private boolean isFullScreen;
 
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -103,7 +99,7 @@ public class Gui implements ImageButtonLabelCallBack {
 		gameCanvas.addMouseMotionListener(guiFrame);
 		guiFrame.add(gameCanvas);
 
-		showList();
+		initList();
 		
 		reset = new ImageButtonLabel(this, "src/resources/keys/reset.png",
 				"src/resources/keys/reset_glow.png", 385, 195, 0.4f);
@@ -127,21 +123,15 @@ public class Gui implements ImageButtonLabelCallBack {
 			guiFrame.setState(Frame.ICONIFIED);
 		} else if (pressedButton == reset) {
 			controller.resetGame();
-			gameCanvas.setVisible(false);
-			gameList.setVisible(true);
-			scrollPane.setVisible(true);
-			guiFrame.repaint();
-			gameList.requestFocusInWindow();
+			showList();
 		}
 	}
-
+	
 	/**
-	 * Replaces the gamecanvas and shows a JList instead containing all games
-	 * from a folder Replaces the gamecanvas and shows a JList instead
-	 * containing all games from a folder
+	 * Initializes the list of Games which will later be displayed onto the GUI
 	 */
-	private void showList() {
-
+	private void initList()
+	{
 		DefaultListModel<String> listmodel = controller.getRomList();
 
 		// make gameCanvas invisible
@@ -209,6 +199,20 @@ public class Gui implements ImageButtonLabelCallBack {
 	}
 
 	/**
+	 * Replaces the gamecanvas and shows a JList instead containing all games
+	 * from a folder Replaces the gamecanvas and shows a JList instead
+	 * containing all games from a folder
+	 */
+	private void showList() 
+	{
+		gameCanvas.setVisible(false);
+		gameList.setVisible(true);
+		scrollPane.setVisible(true);
+		guiFrame.repaint();
+		gameList.requestFocusInWindow();		
+	}
+
+	/**
 	 * Removes the JList game list, and shows the gamecanvas again
 	 */
 	private void showGameCanvas() {
@@ -244,17 +248,22 @@ public class Gui implements ImageButtonLabelCallBack {
 			//gd.setFullScreenWindow(full);
 			gameCanvas.requestFocusInWindow();
 		}
+		isFullScreen = true;
 	}
 
 	/**
 	 * resets the fullscreen view to normal view again
 	 */
 	public void reset_fullscreen() {
-		full.getContentPane().removeAll();
-		full.setVisible(false);
-		gameCanvas.setBounds(385, 230, 416, 200);
-		guiFrame.add(gameCanvas);
-		showGameCanvas();
+		if(isFullScreen)
+		{
+			isFullScreen=false;
+			full.getContentPane().removeAll();
+			full.setVisible(false);
+			gameCanvas.setBounds(385, 230, 416, 200);
+			guiFrame.add(gameCanvas);
+			showGameCanvas();
+		}
 	}
 
 }

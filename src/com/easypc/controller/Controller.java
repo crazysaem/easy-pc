@@ -4,13 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 
 import com.easypc.chip8.CPU;
 import com.easypc.chip8.RAM;
-import com.easypc.gui.Gui;
 
 /**
  * The following Class represents the Controller of the Program, which - for the most part - will control the Application
