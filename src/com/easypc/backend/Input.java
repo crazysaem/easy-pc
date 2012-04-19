@@ -241,7 +241,11 @@ public class Input {
 		//		IF the application freezes, relocate the infinite loop into a Thread (have a look into the ControllerRunningThread-Class)
 		while (!keys[i])
 			System.out.println("waiting for key");
-		controller.resumeGame();
+		try {
+			controller.playGame();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -257,7 +261,11 @@ public class Input {
 			for (int i = 0; i < 16; i++)
 				if (keys[i])
 					check = i;
-		controller.resumeGame();
+		try {
+			controller.playGame();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return check;
 	}
 }

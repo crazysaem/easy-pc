@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 
@@ -120,20 +121,43 @@ public class Controller
 	{
 		controllerRunningThread.setRunning(false);
 	}
-	/**
-	 * Gets called when the Player resume a Game. The Controller will resume the Emulation loop.
-	 */
-	public void resumeGame()
-	{
-		controllerRunningThread.setRunning(true);
-	}
+
 	/**
 	 * Gets called when the Player presses the Step Forward Button. The Controller will then Step one, or multiple opCodes foward in an instant,
 	 * depending on the level of abstraction displayed in the upper view (The CPU-Instruction View)
 	 */
 	public void stepForward() 
 	{
-		ram.read(cpu.getRegister(19), 2);
+		if(!controllerRunningThread.isRunning())
+		{
+			int PC = cpu.getRegister(19);
+			ArrayList<Integer> opCode = ram.read(PC, 2);
+			int temp = opCode.get(1);
+			temp = temp & 0xF0;
+			temp = temp >> 4;
+			cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F);
+		}
+	}
+	
+	/**
+	 * Executes opCodes until a Draw command was recognized.
+	 * This provides better feedback to the end-user.
+	 */
+	public void stepForwardUntilDraw()
+	{
+		if(!controllerRunningThread.isRunning())
+		{
+			ArrayList<Integer> opCode;
+			do
+			{
+				int PC = cpu.getRegister(19);
+				opCode = ram.read(PC, 2);
+				int temp = opCode.get(1);
+				temp = temp & 0xF0;
+				temp = temp >> 4;
+				cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F);
+			} while(((opCode.get(0) & 0xF0) >> 4)!=0xD);
+		}
 	}
 		
 	/**
@@ -142,7 +166,9 @@ public class Controller
 	 */
 	public void stepBackward() 
 	{
-		ram.read(cpu.getRegister(19)-2, 2);
+		//TODO: IF(!) we want to support backwards stepping we will have to save the state of the CPU for every instruction (meaning all registers and whatnot) and revert that
+		//		It won't function correctly with just the code below
+		//ram.read(cpu.getRegister(19)-2, 2);
 	}
 	
 	/**

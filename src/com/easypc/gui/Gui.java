@@ -56,10 +56,14 @@ public class Gui implements ImageButtonCallBack
 	//JList Scrollpane
 	private JScrollPane scrollPane;
 
-	private ImageButton reset, play, pause, step, fastforward,min, close;
+	//The Buttons for the GUI
+	private ImageButton reset, play, pause, step, fastforward, min, close, maxi;
 
 	//Flag which resembles the fullscreen state of the gameCanvas
 	private boolean isFullScreen;
+	
+	//Flag which resembles whether the list or the gameCanvas is shown
+	private boolean isgameCanvasShown=false;
 
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -107,6 +111,26 @@ public class Gui implements ImageButtonCallBack
 		reset = new ImageButton(this, "src/resources/keys/reset.png",
 				"src/resources/keys/reset_glow.png", 385, 195, 0.4f);
 		guiFrame.add(reset.getLabel());
+		
+		play = new ImageButton(this, "src/resources/keys/play.png",
+				"src/resources/keys/play_glow.png", 425, 195, 0.4f);
+		guiFrame.add(play.getLabel());
+		
+		pause = new ImageButton(this, "src/resources/keys/pause.png",
+				"src/resources/keys/pause_glow.png", 465, 195, 0.4f);
+		guiFrame.add(pause.getLabel());
+		
+		step = new ImageButton(this, "src/resources/keys/step.png",
+				"src/resources/keys/step_glow.png", 505, 195, 0.4f);
+		guiFrame.add(step.getLabel());
+		
+		fastforward = new ImageButton(this, "src/resources/keys/fastforward.png",
+				"src/resources/keys/fastforward_glow.png", 545, 195, 0.4f);
+		guiFrame.add(fastforward.getLabel());
+		
+		maxi = new ImageButton(this, "src/resources/keys/maxi.png",
+				"src/resources/keys/maxi_glow.png", /*690*/585, 195, 0.4f);
+		guiFrame.add(maxi.getLabel());
 
 		close = new ImageButton(this, "src/resources/keys/close.png",
 				"src/resources/keys/close_glow.png", 770, 190, 0.4f);
@@ -123,10 +147,43 @@ public class Gui implements ImageButtonCallBack
 	@Override
 	public void ButtonCallBack(ImageButton pressedButton) 
 	{
-		if (pressedButton == reset) 
+		//TODO: Maybe it would make sense to map the button to e.g. The F1 and F2 etc. keys ?
+		//		They would then be also usable in fullscreen mode
+		
+		if ((pressedButton == reset) && (isgameCanvasShown))
 		{
 			controller.resetGame();
 			showList();
+		}
+		
+		if ((pressedButton == play) && (isgameCanvasShown))
+		{
+			try 
+			{
+				controller.playGame();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		if ((pressedButton == pause) && (isgameCanvasShown))
+		{
+			controller.pauseGame();
+		}
+		
+		if ((pressedButton == step) && (isgameCanvasShown))
+		{
+			controller.stepForwardUntilDraw();
+		}
+		
+		if ((pressedButton == fastforward) && (isgameCanvasShown))
+		{
+			//TODO: show a list which shows e.g. the entries: slow, normal, 2x speed, 5x speed, 10x speed
+		}
+		
+		if ((pressedButton == maxi) && (isgameCanvasShown))
+		{
+			setFullscreen();
 		}
 		
 		if (pressedButton == min) 
@@ -136,9 +193,7 @@ public class Gui implements ImageButtonCallBack
 		
 		if (pressedButton == close) 
 		{
-			setFullscreen();
-			//TODO: reset to exit and set the setFullscreen call to the appropriate button.
-			// System.exit(0);
+			System.exit(0);
 		}
 	}
 	
@@ -166,12 +221,13 @@ public class Gui implements ImageButtonCallBack
 						System.out.println("Loading " + gameList.getModel().getElementAt(index));
 					controller.loadGame(gameList.getModel().getElementAt(index).toString());
 					showGameCanvas();
+					/*
 					try {
 						controller.playGame();
 					} catch (InterruptedException e1) 
 					{
 						e1.printStackTrace();
-					}
+					}*/
 				}
 			}
 		};
@@ -185,12 +241,13 @@ public class Gui implements ImageButtonCallBack
 						System.out.println("Loading " + gameList.getModel().getElementAt(0));
 					controller.loadGame(gameList.getSelectedValue().toString());
 					showGameCanvas();
+					/*
 					try 
 					{
 						controller.playGame();
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
-					}
+					}*/
 				}
 			}
 
@@ -232,18 +289,20 @@ public class Gui implements ImageButtonCallBack
 		scrollPane.setVisible(true);
 		guiFrame.repaint();
 		gameList.requestFocusInWindow();		
+		isgameCanvasShown = false;
 	}
 
 	/**
 	 * Removes the JList game list, and shows the gamecanvas again
 	 */
 	private void showGameCanvas() 
-	{
+	{		
 		gameList.setVisible(false);
 		scrollPane.setVisible(false);
 		gameCanvas.setVisible(true);
 		gameCanvas.requestFocusInWindow();
 		guiFrame.repaint();
+		isgameCanvasShown = true;		
 	}
 
 	/**
