@@ -23,11 +23,10 @@ public class Controller
 	
 	//The CPU which executes the CHIP-8 opCodes
 	private CPU cpu;
+	//The RAM which contains the data
 	private RAM ram;
 	
-	//CPU Cycle running flag
-	private boolean isRunning;
-	
+	//The Thread Object and the RunningThread together will form the executionThread
 	private Thread runningThread;
 	private ControllerRunningThread controllerRunningThread;
 	
@@ -52,7 +51,7 @@ public class Controller
 	 */
 	public void resetGame() 
 	{
-		controllerRunningThread.isRunning=false;
+		controllerRunningThread.setRunning(false);
 		cpu.executeOpCode(0, 0, 0xE, 0);
 		ram.reset();
 		cpu.reset();		
@@ -62,8 +61,7 @@ public class Controller
 	 * This Method should load the list of files needed for the GUI and the loadGame Method
 	 * @return a list thats used in the GUI TODO: perhaps another type would be better for use in the controller?
 	 */
-	public DefaultListModel<String> getRomList() {
-				
+	public DefaultListModel<String> getRomList() {				
 		// Directory path here - this is where we store the games
 		String path = "src/resources/games/.";
 		 
@@ -109,7 +107,7 @@ public class Controller
 	 */
 	public void playGame() throws InterruptedException 
 	{
-		controllerRunningThread.isRunning=true;
+		controllerRunningThread.setRunning(true);
 		runningThread = new Thread(controllerRunningThread);
 		runningThread.start();
 	}
@@ -120,16 +118,14 @@ public class Controller
 	 */
 	public void pauseGame()
 	{
-		isRunning = false;
-		controllerRunningThread.isRunning=false;
+		controllerRunningThread.setRunning(false);
 	}
 	/**
 	 * Gets called when the Player resume a Game. The Controller will resume the Emulation loop.
 	 */
 	public void resumeGame()
 	{
-		isRunning = true;
-		controllerRunningThread.isRunning=true;
+		controllerRunningThread.setRunning(true);
 	}
 	/**
 	 * Gets called when the Player presses the Step Forward Button. The Controller will then Step one, or multiple opCodes foward in an instant,

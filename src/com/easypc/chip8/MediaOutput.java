@@ -1,9 +1,5 @@
 package com.easypc.chip8;
 
-import java.awt.Toolkit;
-import java.io.File;
-import java.util.Arrays;
-
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
@@ -108,10 +104,7 @@ public class MediaOutput {
 			e.printStackTrace();
 		}
 	}
-		
-		
-	
-	
+			
 	/**
 	 * Stops the Beep Sound
 	 */

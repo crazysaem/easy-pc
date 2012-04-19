@@ -80,11 +80,6 @@ public class CPU {
 		
 		PC+=2;
 		
-		if(c1==0)
-		{
-			//System.out.println("debug");
-		}
-		
 		//The CPU Speed is unknown, but the timer decreasing speed is fixed at 60hz
 		//The best idea is probably to pick out the best Chip-8 Games and set a speed specific for each game to run it at an optimal speed
 		switch (c0)

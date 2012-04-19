@@ -11,7 +11,6 @@ import java.net.MalformedURLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -19,25 +18,38 @@ import javax.swing.JLabel;
  * @author Team5-Listener
  *
  */
-public class ImageButtonLabel implements MouseListener, MouseMotionListener {
+public class ImageButton implements MouseListener, MouseMotionListener {
+	/*----------------------------------------------------
+	 * Attribute Section.
+	 *--------------------------------------------------*/
+	
+	//The Label which will simulate the Button
 	private JLabel label;
+	//2 Images which will store different states of the Button
 	private ImageIcon icon, iconOver;
 	private BufferedImage image, imageOver;
+	//The position of the button
 	private int x, y;
+	//The parent Object which will recive a callback when the button has been clicked
+	private ImageButtonCallBack parent=null;
+	//Flag Variables to determine the state the button is currently in
 	private boolean mouseDown=false;
-	private ImageButtonLabelCallBack parent=null;
-	private boolean inPressEffect=false, inPressed=false, first=false, reset=false;
+	private boolean inPressEffect=false, inPressed=false, reset=false;
 	
-	/*
-	public ImageButtonLabel(JFrame parent, JFrame values) {
-		this(parent, values.path, values.pathmo, values.pathoc, values.x, values.y);
-	}*/
+	/*----------------------------------------------------
+	 * Public Method Section. Shows the Methods directly available from other Classes:
+	 *--------------------------------------------------*/
 	
-	public ImageButtonLabel(ImageButtonLabelCallBack parent, String imagePath, String imageMouseOverPath) {	
-	     this(parent, imagePath, imageMouseOverPath, 0, 0, 1);
-	}
-	
-	public ImageButtonLabel(ImageButtonLabelCallBack parent, String imagePath, String imageMouseOverPath, int x, int y, float scale) {
+	/**
+	 * Initializes an ImageButton
+	 * @param parent ImageButtonCallBack Object which shall receive a callback with this Object when this Button has been clicked
+	 * @param imagePath the Path to the Image which resembles the default button state
+	 * @param imageMouseOverPath the Path to the Image which resembles the MouseOver button state
+	 * @param x vertical Position of the Button
+	 * @param y horizontal Position of the Button
+	 * @param scale the scale factor of the Images provided via the imagepaths (1.0f is standard)
+	 */
+	public ImageButton(ImageButtonCallBack parent, String imagePath, String imageMouseOverPath, int x, int y, float scale) {
 		try {
 			image = ImageIO.read(new File(imagePath));
 	        icon = new ImageIcon(image.getScaledInstance((int)(image.getWidth()*scale), (int)(image.getHeight()*scale), Image.SCALE_SMOOTH));
@@ -63,32 +75,53 @@ public class ImageButtonLabel implements MouseListener, MouseMotionListener {
         this.parent = parent;
 	}
 	
-	public void ActivateInPressEfect() {
-		inPressEffect=true;
-	}
-	
+	/**
+	 * Resets the position of the button to a new position
+	 * @param x the vertical position
+	 * @param y the horizontal position
+	 */
 	public void setPos(int x, int y) {
 		this.x = x;
 		this.y = y;
 		label.setBounds(x, y, icon.getIconWidth(), icon.getIconHeight());
 	}
 	
+	/**
+	 * Getter for width
+	 * @return width of the Button
+	 */
 	public int getWidth() {
 		return icon.getIconWidth();
 	}
 	
+	/**
+	 * Getter for height
+	 * @return height of the Button
+	 */
 	public int getHeight() {
 		return icon.getIconHeight();
 	}
 	
+	/**
+	 * Getter for x
+	 * @return the current vertical position
+	 */
 	public int getXPos() {
 		return x;
 	}
 	
+	/**
+	 * Getter for y
+	 * @return the current horizontal position
+	 */
 	public int getYPos() {
 		return y;
 	}
 	
+	/**
+	 * Return the JLabel in which the Button is actually represented with
+	 * @return JLabel
+	 */
 	public JLabel getLabel() {
 		return label;
 	}
@@ -104,14 +137,15 @@ public class ImageButtonLabel implements MouseListener, MouseMotionListener {
 		if((x<0) || (y<0) || (x>=img.getWidth()) || (y>=img.getHeight())) return false;
 		int color = img.getRGB(x, y);
 		int alpha = (color>>24)&255;
-		//int red = (color >> 16) & 0x000000FF;
-		//int green = (color >>8 ) & 0x000000FF;
-		//int blue = (color) & 0x000000FF;
 		if (alpha>0) return true; 
 			else 
 		return false;
 	}
 
+	/*----------------------------------------------------
+	 * The next mouse* methods will handle the different states of the button when the user interacts with it via the mouse
+	 *--------------------------------------------------*/
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {}
 
@@ -119,7 +153,7 @@ public class ImageButtonLabel implements MouseListener, MouseMotionListener {
 	public void mouseMoved(MouseEvent e) {
 		if(!mouseDown) {
 			if(!transparencyCheck(image, e.getX(), e.getY())) return;
-			if(!inPressed) {label.setIcon(iconOver);}
+			//if(!inPressed) {label.setIcon(iconOver);}
 		}
 	}
 
@@ -131,6 +165,7 @@ public class ImageButtonLabel implements MouseListener, MouseMotionListener {
 		if(!transparencyCheck(image, e.getX(), e.getY())) {
 			return;
 		}
+		//TODO: Overlay effect deactivated until it is implemented correctly. In the current state it is bugged
 		//if(!inPressed) {if(!mouseDown) label.setIcon(iconOver);	else label.setIcon(iconPressed);}
 	}
 
@@ -142,6 +177,9 @@ public class ImageButtonLabel implements MouseListener, MouseMotionListener {
 		if(!inPressed) {label.setIcon(icon);}		
 	}
 
+	/**
+	 * Will also call the CallBack function of the parent object which was provided in the constructor
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		mouseDown=true;
@@ -151,7 +189,7 @@ public class ImageButtonLabel implements MouseListener, MouseMotionListener {
 		}
 		//if(!inPressed) {label.setIcon(iconPressed);}	
 		parent.ButtonCallBack(this);
-		if((inPressEffect) && (!reset)) {label.setIcon(iconOver);inPressed=true;first=true;}
+		if((inPressEffect) && (!reset)) {label.setIcon(iconOver);inPressed=true;}
 		reset=false;
 	}
 

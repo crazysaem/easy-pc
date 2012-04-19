@@ -132,7 +132,7 @@ public class Input {
 					
 				case KeyEvent.VK_ESCAPE:
 
-					gui.reset_fullscreen();
+					gui.resetFullscreen();
 					break;
 
 				default:
@@ -234,8 +234,11 @@ public class Input {
 	/**
 	 * Waits until the specified key is pressed
 	 */
-	public void waitforKey(int i) {
+	public void waitforKey(int i) {		
 		controller.pauseGame();
+		//TODO: This will most likely cause the entire Application to freeze because of the infinite loop
+		//		This should be tested against a game which uses this functionality.
+		//		IF the application freezes, relocate the infinite loop into a Thread (have a look into the ControllerRunningThread-Class)
 		while (!keys[i])
 			System.out.println("waiting for key");
 		controller.resumeGame();
@@ -247,6 +250,9 @@ public class Input {
 	public int waitforKey() {
 		controller.pauseGame();
 		int check = -1;
+		//TODO: This will most likely cause the entire Application to freeze because of the infinite loop
+		//		This should be tested against a game which uses this functionality.
+		//		IF the application freezes, relocate the infinite loop into a Thread (have a look into the ControllerRunningThread-Class)
 		while (check == -1)
 			for (int i = 0; i < 16; i++)
 				if (keys[i])

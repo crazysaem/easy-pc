@@ -30,7 +30,7 @@ import com.easypc.controller._main;
  * @author crazysaem
  * 
  */
-public class Gui implements ImageButtonLabelCallBack {
+public class Gui implements ImageButtonCallBack {
 	/*----------------------------------------------------
 	 * Attribute Section.
 	 *--------------------------------------------------*/
@@ -55,8 +55,9 @@ public class Gui implements ImageButtonLabelCallBack {
 	//JList Scrollpane
 	private JScrollPane scrollPane;
 
-	private ImageButtonLabel reset, play, pause, step, fastforward,min, close;
+	private ImageButton reset, play, pause, step, fastforward,min, close;
 
+	//Flag which resembles the fullscreen state of the gameCanvas
 	private boolean isFullScreen;
 
 	/*----------------------------------------------------
@@ -101,29 +102,37 @@ public class Gui implements ImageButtonLabelCallBack {
 
 		initList();
 		
-		reset = new ImageButtonLabel(this, "src/resources/keys/reset.png",
+		reset = new ImageButton(this, "src/resources/keys/reset.png",
 				"src/resources/keys/reset_glow.png", 385, 195, 0.4f);
 		guiFrame.add(reset.getLabel());
 
-		close = new ImageButtonLabel(this, "src/resources/keys/close.png",
+		close = new ImageButton(this, "src/resources/keys/close.png",
 				"src/resources/keys/close_glow.png", 770, 190, 0.4f);
 		guiFrame.add(close.getLabel());
 
-		min = new ImageButtonLabel(this, "src/resources/keys/min.png",
+		min = new ImageButton(this, "src/resources/keys/min.png",
 				"src/resources/keys/min_glow.png", 730, 190, 0.4f);
 		guiFrame.add(min.getLabel());
 	}
 
+	/**
+	 * Will be called when a ImageButton on the GUI is clicked
+	 */
 	@Override
-	public void ButtonCallBack(ImageButtonLabel pressedButton) {
-		if (pressedButton == close) {
-			fullscreen();
-			// System.exit(0);
-		} else if (pressedButton == min) {
-			guiFrame.setState(Frame.ICONIFIED);
-		} else if (pressedButton == reset) {
+	public void ButtonCallBack(ImageButton pressedButton) {
+		if (pressedButton == reset) {
 			controller.resetGame();
 			showList();
+		}
+		
+		if (pressedButton == min) {
+			guiFrame.setState(Frame.ICONIFIED);
+		}
+		
+		if (pressedButton == close) {
+			setFullscreen();
+			//TODO: reset to exit and set the setFullscreen call to the appropriate button.
+			// System.exit(0);
 		}
 	}
 	
@@ -226,7 +235,7 @@ public class Gui implements ImageButtonLabelCallBack {
 	/**
 	 * Creates a fullscreen JFrame with the gamecanvas on it
 	 */
-	private void fullscreen() {		
+	private void setFullscreen() {		
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice[] gs = ge.getScreenDevices();
 		for (int j = 0; j < gs.length; j++) {
@@ -254,7 +263,7 @@ public class Gui implements ImageButtonLabelCallBack {
 	/**
 	 * resets the fullscreen view to normal view again
 	 */
-	public void reset_fullscreen() {
+	public void resetFullscreen() {
 		if(isFullScreen)
 		{
 			isFullScreen=false;
@@ -265,5 +274,4 @@ public class Gui implements ImageButtonLabelCallBack {
 			showGameCanvas();
 		}
 	}
-
 }
