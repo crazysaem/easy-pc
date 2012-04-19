@@ -132,7 +132,7 @@ public class Input {
 					
 				case KeyEvent.VK_ESCAPE:
 
-					gui.resetFullscreen();
+					gui.switchFullscreen();
 					break;
 
 				default:

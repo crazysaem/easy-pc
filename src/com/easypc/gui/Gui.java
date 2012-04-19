@@ -30,7 +30,8 @@ import com.easypc.controller._main;
  * @author crazysaem
  * 
  */
-public class Gui implements ImageButtonCallBack {
+public class Gui implements ImageButtonCallBack 
+{
 	/*----------------------------------------------------
 	 * Attribute Section.
 	 *--------------------------------------------------*/
@@ -69,7 +70,8 @@ public class Gui implements ImageButtonCallBack {
 	 * 
 	 * @param controller
 	 */
-	public Gui(Controller controller, CPUAnalysisC cpuAnalysisC, RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, Input input) {
+	public Gui(Controller controller, CPUAnalysisC cpuAnalysisC, RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, Input input) 
+	{
 		this.controller = controller;
 		this.gameCanvas = gamecanvas;
 		this.input = input;
@@ -119,17 +121,21 @@ public class Gui implements ImageButtonCallBack {
 	 * Will be called when a ImageButton on the GUI is clicked
 	 */
 	@Override
-	public void ButtonCallBack(ImageButton pressedButton) {
-		if (pressedButton == reset) {
+	public void ButtonCallBack(ImageButton pressedButton) 
+	{
+		if (pressedButton == reset) 
+		{
 			controller.resetGame();
 			showList();
 		}
 		
-		if (pressedButton == min) {
+		if (pressedButton == min) 
+		{
 			guiFrame.setState(Frame.ICONIFIED);
 		}
 		
-		if (pressedButton == close) {
+		if (pressedButton == close) 
+		{
 			setFullscreen();
 			//TODO: reset to exit and set the setFullscreen call to the appropriate button.
 			// System.exit(0);
@@ -149,9 +155,12 @@ public class Gui implements ImageButtonCallBack {
 		// create JList of games called gameList and add it to the guiFrame
 		gameList = new JList<String>(listmodel);
 
-		MouseListener mouseListener = new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
+		MouseListener mouseListener = new MouseAdapter() 
+		{
+			public void mouseClicked(MouseEvent e) 
+			{
+				if (e.getClickCount() == 2) 
+				{
 					int index = gameList.locationToIndex(e.getPoint());
 					if(_main.DEBUG)
 						System.out.println("Loading " + gameList.getModel().getElementAt(index));
@@ -159,21 +168,25 @@ public class Gui implements ImageButtonCallBack {
 					showGameCanvas();
 					try {
 						controller.playGame();
-					} catch (InterruptedException e1) {
+					} catch (InterruptedException e1) 
+					{
 						e1.printStackTrace();
 					}
 				}
 			}
 		};
 
-		KeyListener keylistener = new KeyListener() {
+		KeyListener keylistener = new KeyListener() 
+		{
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) 
+				{
 					if(_main.DEBUG)
 						System.out.println("Loading " + gameList.getModel().getElementAt(0));
 					controller.loadGame(gameList.getSelectedValue().toString());
 					showGameCanvas();
-					try {
+					try 
+					{
 						controller.playGame();
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
@@ -224,7 +237,8 @@ public class Gui implements ImageButtonCallBack {
 	/**
 	 * Removes the JList game list, and shows the gamecanvas again
 	 */
-	private void showGameCanvas() {
+	private void showGameCanvas() 
+	{
 		gameList.setVisible(false);
 		scrollPane.setVisible(false);
 		gameCanvas.setVisible(true);
@@ -235,10 +249,12 @@ public class Gui implements ImageButtonCallBack {
 	/**
 	 * Creates a fullscreen JFrame with the gamecanvas on it
 	 */
-	private void setFullscreen() {		
+	private void setFullscreen() 
+	{		
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice[] gs = ge.getScreenDevices();
-		for (int j = 0; j < gs.length; j++) {
+		for (int j = 0; j < gs.length; j++) 
+		{
 			GraphicsDevice gd = gs[j];
 			DisplayMode dm = gd.getDisplayMode();
 			full = new JFrame(gs[j].getDefaultConfiguration());
@@ -247,7 +263,8 @@ public class Gui implements ImageButtonCallBack {
 			gameCanvas.setBounds(0, 0, dm.getWidth()+1, dm.getHeight()+1);
 			full.getContentPane().add(gameCanvas);
 			full.setUndecorated(true);
-			if (gd.isDisplayChangeSupported()) {
+			if (gd.isDisplayChangeSupported()) 
+			{
 				gd.setDisplayMode(dm);
 			}
 			full.pack();
@@ -263,7 +280,8 @@ public class Gui implements ImageButtonCallBack {
 	/**
 	 * resets the fullscreen view to normal view again
 	 */
-	public void resetFullscreen() {
+	public void resetFullscreen() 
+	{
 		if(isFullScreen)
 		{
 			isFullScreen=false;
@@ -272,6 +290,21 @@ public class Gui implements ImageButtonCallBack {
 			gameCanvas.setBounds(385, 230, 416, 200);
 			guiFrame.add(gameCanvas);
 			showGameCanvas();
+		}
+	}
+	
+	/**
+	 * Switches the Fullscreen mode from the current state to the opposite state
+	 */
+	public void switchFullscreen()
+	{
+		if(isFullScreen)
+		{
+			resetFullscreen();
+		}
+		else
+		{
+			setFullscreen();
 		}
 	}
 }
