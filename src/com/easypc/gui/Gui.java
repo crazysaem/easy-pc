@@ -60,7 +60,7 @@ public class Gui implements ImageButtonCallBack
 	private ImageButton reset, play, pause, step, fastforward, min, close, maxi;
 
 	//Flag which resembles the fullscreen state of the gameCanvas
-	private boolean isFullScreen;
+	private boolean isFullScreen=false;
 	
 	//Flag which resembles whether the list or the gameCanvas is shown
 	private boolean isgameCanvasShown=false;
@@ -139,6 +139,8 @@ public class Gui implements ImageButtonCallBack
 		min = new ImageButton(this, "src/resources/keys/min.png",
 				"src/resources/keys/min_glow.png", 730, 190, 0.4f);
 		guiFrame.add(min.getLabel());
+		
+		guiFrame.repaint();
 	}
 
 	/**
@@ -309,17 +311,17 @@ public class Gui implements ImageButtonCallBack
 	 * Creates a fullscreen JFrame with the gamecanvas on it
 	 */
 	private void setFullscreen() 
-	{		
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		GraphicsDevice[] gs = ge.getScreenDevices();
-		for (int j = 0; j < gs.length; j++) 
+	{	
+		if(!isFullScreen)
 		{
-			GraphicsDevice gd = gs[j];
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			GraphicsDevice gs = ge.getDefaultScreenDevice();
+			GraphicsDevice gd = gs;
 			DisplayMode dm = gd.getDisplayMode();
-			full = new JFrame(gs[j].getDefaultConfiguration());
+			full = new JFrame(gs.getDefaultConfiguration());
 			guiFrame.remove(gameCanvas);
 			//HACK: Instead of true fullscreen, we take the size and height + 1 to avoid flickering on certain Hardware configurations
-			gameCanvas.setBounds(0, 0, dm.getWidth()+1, dm.getHeight()+1);
+			gameCanvas.setBounds(0, 0, dm.getWidth(), dm.getHeight()+1);
 			full.getContentPane().add(gameCanvas);
 			full.setUndecorated(true);
 			if (gd.isDisplayChangeSupported()) 
@@ -332,8 +334,8 @@ public class Gui implements ImageButtonCallBack
 			//This will cause flickering on certain Hardware configurations
 			//gd.setFullScreenWindow(full);
 			gameCanvas.requestFocusInWindow();
+			isFullScreen = true;
 		}
-		isFullScreen = true;
 	}
 
 	/**
