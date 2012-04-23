@@ -111,6 +111,7 @@ public class Controller
 		if(!controllerRunningThread.isRunning())
 		{
 			controllerRunningThread.setRunning(true);
+			//TODO: When the keywait function was called, starting this function again causes an exception
 			runningThread = new Thread(controllerRunningThread);
 			runningThread.start();
 		}
@@ -123,6 +124,11 @@ public class Controller
 	public void pauseGame()
 	{
 		controllerRunningThread.setRunning(false);
+//		try {
+//			runningThread.join();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	/**

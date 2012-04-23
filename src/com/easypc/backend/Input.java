@@ -235,37 +235,34 @@ public class Input {
 	 * Waits until the specified key is pressed
 	 */
 	public void waitforKey(int i) {		
-		controller.pauseGame();
+		//controller.pauseGame();
 		//TODO: This will most likely cause the entire Application to freeze because of the infinite loop
 		//		This should be tested against a game which uses this functionality.
 		//		IF the application freezes, relocate the infinite loop into a Thread (have a look into the ControllerRunningThread-Class)
+		for (int j = 0; j < 16; j++)
+			keys[j]=false;
 		while (!keys[i])
 			System.out.println("waiting for key");
-		try {
-			controller.playGame();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
 	}
 
 	/**
 	 * Waits until key is pressed and return the value of the key
 	 */
 	public int waitforKey() {
-		controller.pauseGame();
+		//controller.pauseGame();
 		int check = -1;
 		//TODO: This will most likely cause the entire Application to freeze because of the infinite loop
 		//		This should be tested against a game which uses this functionality.
 		//		IF the application freezes, relocate the infinite loop into a Thread (have a look into the ControllerRunningThread-Class)
+		for (int i = 0; i < 16; i++)
+			keys[i]=false;
+				
 		while (check == -1)
 			for (int i = 0; i < 16; i++)
 				if (keys[i])
 					check = i;
-		try {
-			controller.playGame();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
 		return check;
 	}
 }
