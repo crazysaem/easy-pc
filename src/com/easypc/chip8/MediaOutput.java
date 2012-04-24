@@ -76,7 +76,7 @@ public class MediaOutput {
 	 */
 	public void startBeep(int length)
 	{
-		PlayBeep play = new PlayBeep("/easy-pc/src/resources/sound/beep-kurz.wav");
+		PlayBeep play = new PlayBeep("../../../resources/sound/beep-kurz.wav");
 		play.playBeep(1);
 //		try {
 //			Synthesizer synth = MidiSystem.getSynthesizer();
