@@ -76,33 +76,35 @@ public class MediaOutput {
 	 */
 	public void startBeep(int length)
 	{
-		try {
-			Synthesizer synth = MidiSystem.getSynthesizer();
-			synth.open();
-
-			final MidiChannel[] mc = synth.getChannels();
-			Instrument[] instr = synth.getAvailableInstruments();
-
-			System.out.println(instr[38].getName());
-
-			// instrument loading is irrelevant, it is
-			// the program change that matters..
-			mc[4].programChange(38);
-			mc[4].noteOn(95, 300);
-			mc[1].programChange(31);
-			mc[4].noteOn(55, 300);
-
-			try {
-				Thread.sleep(length);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			mc[4].noteOff(100);
-			mc[1].noteOff(55);
-
-		} catch (MidiUnavailableException e) {
-			e.printStackTrace();
-		}
+		PlayBeep play = new PlayBeep("/easy-pc/src/resources/sound/beep-kurz.wav");
+		play.playBeep(1);
+//		try {
+//			Synthesizer synth = MidiSystem.getSynthesizer();
+//			synth.open();
+//
+//			final MidiChannel[] mc = synth.getChannels();
+//			Instrument[] instr = synth.getAvailableInstruments();
+//
+//			System.out.println(instr[38].getName());
+//
+//			// instrument loading is irrelevant, it is
+//			// the program change that matters..
+//			mc[4].programChange(38);
+//			mc[4].noteOn(95, 300);
+//			mc[1].programChange(31);
+//			mc[4].noteOn(55, 300);
+//
+//			try {
+//				Thread.sleep(length);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//			mc[4].noteOff(100);
+//			mc[1].noteOff(55);
+//
+//		} catch (MidiUnavailableException e) {
+//			e.printStackTrace();
+//		}
 	}
 			
 	/**
