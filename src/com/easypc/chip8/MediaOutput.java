@@ -1,10 +1,5 @@
 package com.easypc.chip8;
 
-import javax.sound.midi.Instrument;
-import javax.sound.midi.MidiChannel;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Synthesizer;
 
 /**
  * An Easy Wrapper for the GUI Output / Backend to Display Stuff for the Chip-8
@@ -19,6 +14,7 @@ public class MediaOutput {
 	 *--------------------------------------------------*/
 
 	// Flag which determines if a Beep-Sound is output
+	@SuppressWarnings("unused")
 	private boolean isBeeping;
 	private PlayBeep playx = new PlayBeep("src/resources/sound/beep-kurz.wav");
 //	private RunningPlayBeep playx = new RunningPlayBeep("src/resources/sound/beep-kurz.wav");
