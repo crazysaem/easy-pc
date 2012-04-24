@@ -11,7 +11,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-public class PlayBeep  { 
+public class PlayBeep extends Thread { 
  
     private String filename;
  
@@ -43,9 +43,9 @@ public class PlayBeep  {
 //        curPosition = p;
 //    } 
  
-    public void playBeep() { 
+    public void run() { 
     	
-//    	while(isBeeping){
+    	while(isBeeping){
  
         File soundFile = new File(filename);
         if (!soundFile.exists()) { 
@@ -105,8 +105,8 @@ public class PlayBeep  {
             auline.drain();
             auline.close();
         }
-  //  	}
-    //	isBeeping=false;
+    	}
+    	isBeeping=false;
  
     }
 }

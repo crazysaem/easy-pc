@@ -20,9 +20,8 @@ public class MediaOutput {
 
 	// Flag which determines if a Beep-Sound is output
 	private boolean isBeeping;
-//	private Thread playThread;
 	private PlayBeep playx = new PlayBeep("src/resources/sound/beep-kurz.wav");
-	private Thread	playThread = new Thread(playx);
+//	private Thread	playThread = new Thread(playx);
 
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -86,7 +85,7 @@ public class MediaOutput {
 	 * Starts a Beep Sound
 	 */
 	public void startBeep(int length) {
-		playThread.start();
+		playx.playBeep();
 		// try {
 		// Synthesizer synth = MidiSystem.getSynthesizer();
 		// synth.open();
