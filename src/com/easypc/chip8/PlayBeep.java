@@ -17,9 +17,19 @@ public class PlayBeep extends Thread {
  
     private Position curPosition;
  
-    private final int EXTERNAL_BUFFER_SIZE = 524288; // 128Kb 
+    private final int EXTERNAL_BUFFER_SIZE = 524288; // 128Kb
+    
+    private boolean isBeeping;
  
-    enum Position { 
+    public boolean isBeeping() {
+		return isBeeping;
+	}
+
+	public void setBeeping(boolean isBeeping) {
+		this.isBeeping = isBeeping;
+	}
+
+	enum Position { 
         LEFT, RIGHT, NORMAL
     };
  
@@ -28,12 +38,14 @@ public class PlayBeep extends Thread {
         curPosition = Position.NORMAL;
     } 
  
-    public PlayBeep(String wavfile, Position p) { 
-        filename = wavfile;
-        curPosition = p;
-    } 
+//    public PlayBeep(String wavfile, Position p) { 
+//        filename = wavfile;
+//        curPosition = p;
+//    } 
  
     public void run() { 
+    	
+    	while(isBeeping){
  
         File soundFile = new File(filename);
         if (!soundFile.exists()) { 
@@ -92,7 +104,9 @@ public class PlayBeep extends Thread {
         } finally { 
             auline.drain();
             auline.close();
-        } 
+        }
+    	}
+    	isBeeping=false;
  
     }
 }
