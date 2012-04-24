@@ -10,7 +10,6 @@ import javax.swing.DefaultListModel;
 
 import com.easypc.chip8.CPU;
 import com.easypc.chip8.RAM;
-import com.easypc.gui.Gui;
 
 /**
  * The following Class represents the Controller of the Program, which - for the most part - will control the Application
@@ -25,11 +24,10 @@ public class Controller
 	
 	//The CPU which executes the CHIP-8 opCodes
 	private CPU cpu;
+	//The RAM which contains the data
 	private RAM ram;
 	
-	//CPU Cycle running flag
-	private boolean isRunning;
-	
+	//The Thread Object and the RunningThread together will form the executionThread
 	private Thread runningThread;
 	private ControllerRunningThread controllerRunningThread;
 	
@@ -45,8 +43,7 @@ public class Controller
 	{
 		this.cpu = cpu;
 		this.ram = ram;
-		controllerRunningThread = new ControllerRunningThread(cpu, ram);
-		runningThread = new Thread(controllerRunningThread);
+		controllerRunningThread = new ControllerRunningThread(cpu, ram);		
 	}
 	
 	/**
@@ -55,27 +52,24 @@ public class Controller
 	 */
 	public void resetGame() 
 	{
+		controllerRunningThread.setRunning(false);
+		cpu.executeOpCode(0, 0, 0xE, 0);
 		ram.reset();
-		cpu.reset();
-		
-		//TODO: display list of Games/Roms as function call - we need a reference to the gui for calling showList()
-		//perhaps the getRomList Method is your Friend?
+		cpu.reset();		
 	}
 	
 	/**
 	 * This Method should load the list of files needed for the GUI and the loadGame Method
 	 * @return a list thats used in the GUI TODO: perhaps another type would be better for use in the controller?
 	 */
-	public DefaultListModel getRomList() {
-		
-		//TODO: Check showList() Implementation
+	public DefaultListModel<String> getRomList() {				
 		// Directory path here - this is where we store the games
 		String path = "src/resources/games/.";
 		 
 		String files;
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles(); 
-		DefaultListModel listmodel = new DefaultListModel();
+		DefaultListModel<String> listmodel = new DefaultListModel<String>();
 		
 		for (int i = 0; i < listOfFiles.length; i++) 
 		{
@@ -92,11 +86,14 @@ public class Controller
 	 * Gets called when the Player chooses a Game from the list of available Games.
 	 * The Controller will load the ROM into the RAM and tell the Main View to display a blank screen.
 	 */
-	public void loadGame(File game) 
+	public void loadGame(String game) 
 	{
+		
+		File fgame = new File("src/resources/games/"+game);
+		
 		int[] rom = null;
 		try {
-			rom = getBytesFromFile(game);
+			rom = getBytesFromFile(fgame);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -111,23 +108,13 @@ public class Controller
 	 */
 	public void playGame() throws InterruptedException 
 	{
-		/*
-		//TODO: erstmal alles nur tests
-		ArrayList<Integer> data = new ArrayList<Integer>();
-		isRunning=true;
-		while(isRunning){
-			data=ram.read(cpu.getRegister(19), 2);
-			cpu.executeOpCode((data.get(0)&0xF0)>>4, (data.get(0)&0x0F), data.get(1)&0xF0>>4, data.get(1)&0x0F);
-			
-			//DEBUG
-			System.out.print("DEBUG -- PC:" + cpu.getRegister(19));
-			for(int i=0;i<16;i++)
-				System.out.print(", V["+i+"] = "+cpu.getRegister(i));
-			System.out.println();
-			//wait(10);				
-		}*/
-		controllerRunningThread.isRunning=true;
-		runningThread.start();
+		if(!controllerRunningThread.isRunning())
+		{
+			controllerRunningThread.setRunning(true);
+			//TODO: When the keywait function was called, starting this function again causes an exception
+			runningThread = new Thread(controllerRunningThread);
+			runningThread.start();
+		}
 	}
 
 	/**
@@ -136,23 +123,50 @@ public class Controller
 	 */
 	public void pauseGame()
 	{
-		isRunning = false;
-		controllerRunningThread.isRunning=true;
+		controllerRunningThread.setRunning(false);
+//		try {
+//			runningThread.join();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
-	/**
-	 * Gets called when the Player resume a Game. The Controller will resume the Emulation loop.
-	 */
-	public void resumeGame()
-	{
-		isRunning = true;
-	}
+
 	/**
 	 * Gets called when the Player presses the Step Forward Button. The Controller will then Step one, or multiple opCodes foward in an instant,
 	 * depending on the level of abstraction displayed in the upper view (The CPU-Instruction View)
 	 */
 	public void stepForward() 
 	{
-		ram.read(cpu.getRegister(19), 2);
+		if(!controllerRunningThread.isRunning())
+		{
+			int PC = cpu.getRegister(19);
+			ArrayList<Integer> opCode = ram.read(PC, 2);
+			int temp = opCode.get(1);
+			temp = temp & 0xF0;
+			temp = temp >> 4;
+			cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F);
+		}
+	}
+	
+	/**
+	 * Executes opCodes until a Draw command was recognized.
+	 * This provides better feedback to the end-user.
+	 */
+	public void stepForwardUntilDraw()
+	{
+		if(!controllerRunningThread.isRunning())
+		{
+			ArrayList<Integer> opCode;
+			do
+			{
+				int PC = cpu.getRegister(19);
+				opCode = ram.read(PC, 2);
+				int temp = opCode.get(1);
+				temp = temp & 0xF0;
+				temp = temp >> 4;
+				cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F);
+			} while(((opCode.get(0) & 0xF0) >> 4)!=0xD);
+		}
 	}
 		
 	/**
@@ -161,7 +175,9 @@ public class Controller
 	 */
 	public void stepBackward() 
 	{
-		ram.read(cpu.getRegister(19)-2, 2);
+		//TODO: IF(!) we want to support backwards stepping we will have to save the state of the CPU for every instruction (meaning all registers and whatnot) and revert that
+		//		It won't function correctly with just the code below
+		//ram.read(cpu.getRegister(19)-2, 2);
 	}
 	
 	/**

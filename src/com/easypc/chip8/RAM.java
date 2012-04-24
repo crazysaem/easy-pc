@@ -29,11 +29,9 @@ public class RAM {
 	/**
 	 * Constructor of the Class - Initializes necessary start values
 	 */
-	public RAM()
-	
-	//Fonts 0-9 and A-F into the first 0x200h/500d Bytes of the RAM as seen here: http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.4
-
+	public RAM()		
 	{
+		//Fonts 0-9 and A-F into the first 0x200h/500d Bytes of the RAM as seen here: http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.4
 		write(0,0xF0,0x90,0x90,0x90,0xF0, 		//0
 				0x20,0x60,0x20,0x20,0x70,     	//1
 				0xF0,0x10,0xF0,0x80,0xF0,		//2
@@ -50,8 +48,7 @@ public class RAM {
 				0xE0,0x90,0x90,0x90,0xE0,		//D
 				0xF0,0x80,0xF0,0x80,0xF0,		//E
 				0xF0,0x80,0xF0,0x80,0x80		//F
-		);
-		
+		);		
 	}
 	
 	/**
@@ -63,8 +60,7 @@ public class RAM {
 	{
 		for(int i=0;i<data.length; i++){
 			memory[offset+i]=data[i];
-			memory_count_write[offset+i]++;
-			
+			memory_count_write[offset+i]++;			
 		}
 		//Also add every memory access to the count array
 	}
@@ -83,8 +79,7 @@ public class RAM {
 		data.add(memory[offset+f]);
 		memory_count_read[offset+f]++;
 		}
-		return data;
-		
+		return data;		
 	}
 
 	/**
@@ -97,7 +92,6 @@ public class RAM {
 		}
 		for(int i=512; i<MAX_LENGTH;i++){		
 			memory[i]=0; 
-		}
-		
+		}		
 	}
 }

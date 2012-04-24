@@ -1,9 +1,5 @@
 package com.easypc.chip8;
 
-import java.awt.Toolkit;
-import java.io.File;
-import java.util.Arrays;
-
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
@@ -44,19 +40,15 @@ public class MediaOutput {
 		//TODO: I have the feeling this function writes bullshit into display[][]
 		boolean ret=false;
 		byte change;
-		if(x>63)//TODO: Just a workaround, that the games will be displayed. Its not correct!!!!!42
-			x=63;
-		if(y>31)
-			y=31;
 		for(int j=0;j<data.length;j++)
 		{
 			for(int i=0;i<8;i++)
 			{
-				change = display[getX(x+i)][getY(y+j)];
+				change = display[(x+i)%64][(y+j)%32];
 				int temp = (data[j]>>(8-i-1));
 				byte bit = (byte) (temp & 1);
-				display[getX(x+i)][getY(y+j)] = (byte) (display[getX(x+i)][getY(y+j)] ^ bit);
-				if((change != display[getX(x+i)][getY(y+j)]) && (display[getX(x+i)][getY(y+j)]==0))
+				display[(x+i)%64][(y+j)%32] = (byte) (display[(x+i)%64][(y+j)%32] ^ bit);
+				if((change != display[(x+i)%64][(y+j)%32]) && (display[(x+i)%64][(y+j)%32]==0))
 				{
 					ret = true;
 				}
@@ -84,38 +76,37 @@ public class MediaOutput {
 	 */
 	public void startBeep(int length)
 	{
-		try {
-			Synthesizer synth = MidiSystem.getSynthesizer();
-			synth.open();
-
-			final MidiChannel[] mc = synth.getChannels();
-			Instrument[] instr = synth.getAvailableInstruments();
-
-			System.out.println(instr[38].getName());
-
-			// instrument loading is irrelevant, it is
-			// the program change that matters..
-			mc[4].programChange(38);
-			mc[4].noteOn(95, 300);
-			mc[1].programChange(31);
-			mc[4].noteOn(55, 300);
-
-			try {
-				Thread.sleep(length);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			mc[4].noteOff(100);
-			mc[1].noteOff(55);
-
-		} catch (MidiUnavailableException e) {
-			e.printStackTrace();
-		}
+		PlayBeep play = new PlayBeep("../../../resources/sound/beep-kurz.wav");
+		play.playBeep(1);
+//		try {
+//			Synthesizer synth = MidiSystem.getSynthesizer();
+//			synth.open();
+//
+//			final MidiChannel[] mc = synth.getChannels();
+//			Instrument[] instr = synth.getAvailableInstruments();
+//
+//			System.out.println(instr[38].getName());
+//
+//			// instrument loading is irrelevant, it is
+//			// the program change that matters..
+//			mc[4].programChange(38);
+//			mc[4].noteOn(95, 300);
+//			mc[1].programChange(31);
+//			mc[4].noteOn(55, 300);
+//
+//			try {
+//				Thread.sleep(length);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//			mc[4].noteOff(100);
+//			mc[1].noteOff(55);
+//
+//		} catch (MidiUnavailableException e) {
+//			e.printStackTrace();
+//		}
 	}
-		
-		
-	
-	
+			
 	/**
 	 * Stops the Beep Sound
 	 */
@@ -123,29 +114,5 @@ public class MediaOutput {
 	{
 		isBeeping=false;
 		
-	}
-	
-	private int getX(int x)
-	{
-		if(x>=64)
-		{
-			return x-64;
-		}
-		else
-		{
-			return x;
-		}
-	}
-	
-	private int getY(int y)
-	{
-		if(y>=32)
-		{
-			return y-32;
-		}
-		else
-		{
-			return y;
-		}
 	}
 }

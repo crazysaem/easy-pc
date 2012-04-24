@@ -1,7 +1,5 @@
 package com.easypc.backend;
 
-import static org.lwjgl.opengl.GL11.glViewport;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.AWTGLCanvas;
 

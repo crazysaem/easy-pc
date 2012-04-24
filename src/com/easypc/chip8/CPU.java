@@ -3,7 +3,7 @@ package com.easypc.chip8;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.easypc.backend.InputLWJGL;
+import com.easypc.backend.Input;
 import com.easypc.chip8.MediaOutput;
 import com.easypc.chip8.RAM;;
 /**
@@ -35,7 +35,7 @@ public class CPU {
 	private MediaOutput media;
 	
 	//The InputLWJGL Object
-	private InputLWJGL input;
+	private Input input;
 	
 	//The RAM Object
 	private RAM ram;
@@ -52,7 +52,7 @@ public class CPU {
 	 * @param input The InputLWJGL Object
 	 * @param ram The RAM Object
 	 */
-	public CPU(MediaOutput media,InputLWJGL input, RAM ram)
+	public CPU(MediaOutput media,Input input, RAM ram)
 	{
 		for(int i=0;i<16;i++) V[i] = 0;
 		
@@ -79,11 +79,6 @@ public class CPU {
 		}
 		
 		PC+=2;
-		
-		if(c1==0)
-		{
-			System.out.println("debug");
-		}
 		
 		//The CPU Speed is unknown, but the timer decreasing speed is fixed at 60hz
 		//The best idea is probably to pick out the best Chip-8 Games and set a speed specific for each game to run it at an optimal speed
@@ -128,6 +123,12 @@ public class CPU {
 			break;
 			case 7:										//7xkk - ADD Vx, byte
 				V[c1] = V[c1] + get8BitValue(c2,c3);
+				if(V[c1]>255){
+					V[0xF]=1;
+					V[c1]=V[c1]&0xFF;
+				}
+				else
+					V[0xF]=0;
 			break;
 			case 8:
 				switch (c3){
@@ -145,45 +146,37 @@ public class CPU {
 					break;
 					case 4:								//8xy4 - ADD Vx, Vy
 						V[c1]=V[c1] + V[c2];
-						if(V[c1]>255){
+						if(V[c1]>255){					
 							V[0xF]=1;
-							V[c1]=255;
+							V[c1]=V[c1]&0xFF;
 						}
 						else
 							V[0xF]=0;
-						
 					break;
 					case 5:								//8xy5 - SUB Vx, Vy
-														//TODO: maybe results to negative numbers
-						if (V[c1]>V[c2])
-							V[0xF]=1;
-						else
+						V[c1]=(V[c1] - V[c2]);	
+						if ((V[c1]&256)==256)
 							V[0xF]=0;
-						V[c1]=V[c1] - V[c2];		
+						else
+							V[0xF]=1;
+						V[c1]=V[c1]&0xFF;
 					break;
 					case 6:								// 8xy6 - SHR Vx {, Vy}
-						if((V[c1]&1)==1){
-							V[0xF]=1;
-						}
-						else
-							V[0xF]=0;
-						V[c1]=V[c1]>>1;			
+						V[0xF]=(V[c1]&1);
+						V[c1]=(V[c1]>>1)&0xFF;			
 					break;
 					case 7:								//8xy7 - SUBN Vx, Vy
-														//TODO: maybe results to negative numbers
-						if (V[c1]<V[c2])
-							V[0xF]=1;
-						else
+						V[c1]=(V[c2] - V[c1]);	
+						if ((V[c1]&256)==256)
 							V[0xF]=0;
-						V[c1]=V[c2] - V[c1];			
+							
+						else
+							V[0xF]=1;
+						V[c1]=V[c1]&0xFF;
 					break;
 					case 0xE:							//8xyE - SHL Vx {, Vy}
-						if((V[c1]&128)==128){
-							V[0xF]=1;
-						}
-						else
-							V[0xF]=0;
-						V[c1]=V[c1]<<1;	
+						V[0xF]=(V[c1]&128);
+						V[c1]=(V[c1]<<1)&0xFF;	
 					break;
 				}
 			break;
@@ -204,7 +197,10 @@ public class CPU {
 			break;
 			case 0xD:									//Dxyn - DRW Vx, Vy, nibble	
 				Integer[] t = makeArray(ram.read(I, c3)); 
-				media.displaySprite(V[c1],V[c2],t);
+				if(media.displaySprite(V[c1],V[c2],t)) 
+					V[0xF]=1;
+				else 
+					V[0xF]=0;
 			break;
 			case 0xE:
 				switch (c2){

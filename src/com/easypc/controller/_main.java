@@ -4,7 +4,7 @@ import org.lwjgl.LWJGLException;
 
 import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.analysis.RAMAnalysisC;
-import com.easypc.backend.InputLWJGL;
+import com.easypc.backend.Input;
 import com.easypc.chip8.CPU;
 import com.easypc.chip8.GameCanvas;
 import com.easypc.chip8.MediaOutput;
@@ -18,6 +18,9 @@ import com.easypc.gui.Gui;
  */
 public class _main 
 {
+	
+	public static final boolean DEBUG = false;
+	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -30,7 +33,8 @@ public class _main
 	public static void main(String args[])
 	{
 		MediaOutput media = new MediaOutput();
-		InputLWJGL input = new InputLWJGL();
+		Input input = new Input();
+		
 		RAM ram = new RAM();
 
 		CPU cpu = new CPU(media,input,ram);
@@ -48,6 +52,7 @@ public class _main
 			e.printStackTrace();
 		}		
 		
-		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas);
+		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas, input);
+		input.Init(controller,gui);
 	}
 }
