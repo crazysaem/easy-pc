@@ -11,7 +11,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-public class PlayBeep extends Thread { 
+public class RunningPlayBeep extends Thread { 
  
     private String filename;
  
@@ -33,12 +33,12 @@ public class PlayBeep extends Thread {
         LEFT, RIGHT, NORMAL
     };
  
-    public PlayBeep(String wavfile) { 
+    public RunningPlayBeep(String wavfile) { 
         filename = wavfile;
         curPosition = Position.NORMAL;
     } 
  
-//    public PlayBeep(String wavfile, Position p) { 
+//    public RunningPlayBeep(String wavfile, Position p) { 
 //        filename = wavfile;
 //        curPosition = p;
 //    } 
