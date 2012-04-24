@@ -78,7 +78,7 @@ public class MediaOutput {
 	public void startBeep(int length)
 	{
 		
-		play.playBeep(1);
+		play.start();
 //		try {
 //			Synthesizer synth = MidiSystem.getSynthesizer();
 //			synth.open();
