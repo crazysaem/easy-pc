@@ -13,9 +13,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class PlayBeep  { 
  
-    private String filename;
+    private String filename; //String with Filename
  
-    private Position curPosition;
+    private Position curPosition; 
  
     private final int EXTERNAL_BUFFER_SIZE = 524288; // 128Kb
     

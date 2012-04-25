@@ -5,8 +5,12 @@
 
 #Ignore build files and folder
 bin/
+bin1/
 target/
 
-#Ignore javadocs and class diagram overhead
-Class_diag.ucls
+#Ignore javadocs and architecture overhead
+.ucls
+.jpg
+.dia
 doc/
+

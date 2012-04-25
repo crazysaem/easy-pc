@@ -6,6 +6,7 @@ import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 import org.lwjgl.LWJGLException;
 
 import com.easypc.backend.VideoLWJGL;
+import com.easypc.chip8.RAM;
 
 /**
  * Is responsible for Analyzing the RAM and Displaying everything onto a Canvas
@@ -17,13 +18,16 @@ public class RAMAnalysisC extends VideoLWJGL {
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
+	
+	private RAM ram;
 
 	/**
 	 * Creates the RAMAnalysisC Object
 	 * @throws LWJGLException
 	 */
-	public RAMAnalysisC() throws LWJGLException {
+	public RAMAnalysisC(RAM ram) throws LWJGLException {
 		super();
+		this.ram = ram;
 	}
 	
 	/**
@@ -31,17 +35,18 @@ public class RAMAnalysisC extends VideoLWJGL {
 	 */
 	@Override
 	public void drawOpenGl() {
-		glViewport(0, 0, 64, 64); //46*46=4096
-		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        gluOrtho2D(0.0f, (float) getWidth(), 0.0f, (float) getHeight());
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        
-        //TODO: Add openGL specific drawing code here
-                        
-        glPopMatrix();
+		glViewport(0, 0, getWidth(), getHeight()); // 64*32 is the exact display
+		// size of the Chip-8 System
+		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		gluOrtho2D(0.0f, 64, 0.0f, 32);
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		
+		//TODO: Code here
+		
+		glPopMatrix();
 	}
 }

@@ -320,7 +320,8 @@ public class TestOpCodes {
     {
         //Set Vx = random byte AND kk.
     	cpu.executeOpCode(0xC, 2, 15, 15);     	
-    	int check = (4<<4 & 2)& (int)(Math.random()*255);  
+    	@SuppressWarnings("unused")
+		int check = (4<<4 & 2)& (int)(Math.random()*255);  
     	//TODO: Do not think that it will be the same random number...
     	//Perfectly right, therefore we cant really check this for correctness
     	//assertEquals(check, cpu.getRegister(2));
