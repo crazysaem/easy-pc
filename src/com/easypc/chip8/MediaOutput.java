@@ -20,9 +20,12 @@ public class MediaOutput {
 
 	// Flag which determines if a Beep-Sound is output
 	private boolean isBeeping;
-	private PlayBeep playx = new PlayBeep("src/resources/sound/beep-kurz.wav");
-//	private RunningPlayBeep playx = new RunningPlayBeep("src/resources/sound/beep-kurz.wav");
-//	private Thread	playThread = new Thread(playx);
+	// private PlayBeep playx = new
+	// PlayBeep("src/resources/sound/beep-kurz.wav");
+	private RunningPlayBeep playx = new RunningPlayBeep(
+			"src/resources/sound/beep-ukurz.wav");
+	private Thread playThread = new Thread(playx);
+	private int x = 0;
 
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -86,9 +89,15 @@ public class MediaOutput {
 	 * Starts a Beep Sound
 	 */
 	public void startBeep(int length) {
-		playx.playBeep();
-		//playThread.start();
-
+		
+		// playx.playBeep();
+		System.out.println(playThread.getState());
+		if (!playThread.isAlive()) {
+			playThread.start();
+		}
+		playx.setBeeping(true);
+		//playx.setBeeping(false);
+		System.out.println(playThread.getState() + "\n ---");
 		// try {
 		// Synthesizer synth = MidiSystem.getSynthesizer();
 		// synth.open();
@@ -117,14 +126,14 @@ public class MediaOutput {
 		// e.printStackTrace();
 		// }
 
-		isBeeping = false;
+		
 	}
 
 	/**
 	 * Stops the Beep Sound
 	 */
 	public void stopBeep() {
-		isBeeping = false;
+		playx.setBeeping(false);
 
 	}
 }
