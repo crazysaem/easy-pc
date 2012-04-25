@@ -76,8 +76,8 @@ public class RAM {
 		ArrayList<Integer> data = new ArrayList<Integer>();
 		//Also add every memory access to the count array
 		for(int f=0;f<count;f++){
-		data.add(memory[offset+f]);
-		memory_count_read[offset+f]++;
+			data.add(memory[offset+f]);
+			memory_count_read[offset+f]++;
 		}
 		return data;		
 	}
