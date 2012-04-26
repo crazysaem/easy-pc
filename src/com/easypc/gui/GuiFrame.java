@@ -23,6 +23,8 @@ public class GuiFrame extends JFrame implements MouseMotionListener, MouseListen
 	private boolean mousedown;
 	private int mousex, mousey;
 	
+	private ShapeComponent shapeComponent;
+	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -56,11 +58,22 @@ public class GuiFrame extends JFrame implements MouseMotionListener, MouseListen
 	 */
 	private void setShape(String path)
 	{
-		ShapeComponent shapeComponent = new ShapeComponent(this, path);
+		shapeComponent = new ShapeComponent(this, path);
 		addComponentListener(shapeComponent);
 		setSize(shapeComponent.getWidth(), shapeComponent.getHeight());
 	}
-
+	
+	public void subtractShape(String path)
+	{
+		shapeComponent.subtractShape(path);
+		shapeComponent.refreshShape();
+	}
+	
+	public void addShape(String path)
+	{
+		shapeComponent.addShape(path);
+		shapeComponent.refreshShape();
+	}
 
 	/**
 	 * saves the position of the mouse and the fact that the mouse is now down

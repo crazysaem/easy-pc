@@ -75,6 +75,35 @@ public class ShapeComponent extends ComponentAdapter
 		return height;
 	}
 	
+	public void subtractShape(String path)
+	{
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(new File(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Area area = getArea(image);
+		this.area.subtract(area);
+	}
+	
+	public void addShape(String path)
+	{
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(new File(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Area area = getArea(image);
+		this.area.add(area);
+	}
+	
+	public void refreshShape()
+	{
+		frame.setShape(area);
+	}
+	
 	/*----------------------------------------------------
 	 * Private Method Section. Shows the Methods used internally.
 	 *--------------------------------------------------*/

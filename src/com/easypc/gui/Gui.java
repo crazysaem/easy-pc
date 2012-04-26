@@ -58,7 +58,8 @@ public class Gui implements ImageButtonCallBack
 	private JScrollPane scrollPane;
 
 	//The Buttons for the GUI
-	private ImageButton reset, play, pause, step, fastforward, min, close, maxi;
+	private ImageButton reset, play, pause, step, fastforward, min, close, maxi, 
+		hide_right, show_right;
 
 	//Flag which resembles the fullscreen state of the gameCanvas
 	private boolean isFullScreen=false;
@@ -144,6 +145,15 @@ public class Gui implements ImageButtonCallBack
 				"src/resources/keys/min_glow.png", 730, 190, 0.4f);
 		guiFrame.add(min.getLabel());
 		
+		hide_right = new ImageButton(this, "src/resources/keys/min_left.png",
+				"src/resources/keys/min_left_glow.png", 1006, 325, 0.4f);
+		guiFrame.add(hide_right.getLabel());
+		
+		show_right = new ImageButton(this, "src/resources/keys/min_right.png",
+				"src/resources/keys/min_right_glow.png", 802, 325, 0.4f);
+		guiFrame.add(show_right.getLabel());
+		show_right.getLabel().setVisible(false);
+		
 		guiFrame.repaint();
 	}
 
@@ -200,6 +210,20 @@ public class Gui implements ImageButtonCallBack
 		if (pressedButton == close) 
 		{
 			System.exit(0);
+		}
+		
+		if (pressedButton == hide_right) 
+		{
+			guiFrame.subtractShape("src/resources/shapes/right.png");
+			show_right.getLabel().setVisible(true);
+			guiFrame.repaint();
+		}
+		
+		if (pressedButton == show_right) 
+		{
+			guiFrame.addShape("src/resources/shapes/right.png");
+			show_right.getLabel().setVisible(false);
+			guiFrame.repaint();
 		}
 	}
 	
