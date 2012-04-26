@@ -79,9 +79,9 @@ public class RAMAnalysisC extends VideoLWJGL {
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 
-		for (int x = 0; x < width; x++)
-			for (int y = 0; y < height; y++) {
-				drawWhitePixel(x, y);
+		for (int y = 0; y < height; y++)
+			for (int x = 0; x < width; x++) {			
+				drawWhitePixel(x,y);
 			}
 
 		glPopMatrix();
@@ -91,15 +91,22 @@ public class RAMAnalysisC extends VideoLWJGL {
 
 		glBegin(GL_QUADS);
 
+		/*
 		glColor3f(
 				(float) (ram.memory_count_read[(x + 1) * (y + 1)] / max_read),
 				0,
 				(float) (ram.memory_count_write[(x + 1) * (y + 1)] / max_write));
+		*/
+		
+		glColor3f(
+				(float) (ram.memory_count_read[(x) + width * (y)] / max_read),
+				0,
+				(float) (ram.memory_count_write[(x) + width * (y)] / max_write));
 
-		glVertex2f(x, y);
-		glVertex2f(x + 1f, y);
-		glVertex2f(x + 1f, y + 1f);
-		glVertex2f(x, y + 1f);
+		glVertex2f(x, height - y);
+		glVertex2f(x + 1f, height - y);
+		glVertex2f(x + 1f, height - y + 1f);
+		glVertex2f(x, height - y + 1f);
 		glEnd();
 	}
 
