@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -81,8 +82,8 @@ public class Gui implements ImageButtonCallBack
 		this.input = input;
 		
 		//runnning keylistener for the guiFrame
-		this.input.checkKeys();
-
+		this.input.checkKeys();		
+		
 		guiFrame = new GuiFrame();
 		guiFrame.getContentPane().setBackground(Color.BLACK);
 		guiFrame.setVisible(true);
@@ -107,6 +108,9 @@ public class Gui implements ImageButtonCallBack
 		guiFrame.add(gameCanvas);
 
 		initList();
+		
+		ImageIcon img = new ImageIcon("src/resources/logo.png");
+		guiFrame.setIconImage(img.getImage());
 		
 		reset = new ImageButton(this, "src/resources/keys/reset.png",
 				"src/resources/keys/reset_glow.png", 385, 195, 0.4f);

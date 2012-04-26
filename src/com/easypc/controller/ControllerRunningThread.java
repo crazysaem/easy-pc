@@ -43,9 +43,9 @@ public class ControllerRunningThread implements Runnable {
 		{
 			int PC = cpu.getRegister(19);
 			ArrayList<Integer> opCode = ram.read(PC, 2);
-			int temp = opCode.get(1);
+			/*int temp = opCode.get(1);
 			temp = temp & 0xF0;
-			temp = temp >> 4;
+			temp = temp >> 4;*/
 			cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F);
 			if (_main.DEBUG) {
 				System.out.print("DEBUG -- PC:" + cpu.getRegister(19));

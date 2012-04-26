@@ -22,6 +22,8 @@ public class RAM {
 	//Counts every write memory access. Is used by the Analysis
 	public int[] memory_count_write = new int[MAX_LENGTH];
 	
+	public int rom_size;
+	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -58,6 +60,7 @@ public class RAM {
 	 */
 	public void write(int offset, int... data)
 	{
+		rom_size = data.length;
 		for(int i=0;i<data.length; i++){
 			memory[offset+i]=data[i];
 			memory_count_write[offset+i]++;			
