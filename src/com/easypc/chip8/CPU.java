@@ -270,6 +270,12 @@ public class CPU {
 		{
 			media.stopBeep();
 		}
+		
+		for(int i = 0; i< ram.MAX_LENGTH; i++){
+			ram.memory_count_read[i]*=.99;
+			ram.memory_count_write[i]*=.99;
+		}
+			
 	}
 	
 	/**

@@ -18,9 +18,9 @@ public class RAM {
 	//The virtual RAM-memory
 	private int[] memory = new int[MAX_LENGTH];
 	//Counts every read memory access. Is used by the Analysis
-	public int[] memory_count_read = new int[MAX_LENGTH];
+	public float[] memory_count_read = new float[MAX_LENGTH];
 	//Counts every write memory access. Is used by the Analysis
-	public int[] memory_count_write = new int[MAX_LENGTH];
+	public float[] memory_count_write = new float[MAX_LENGTH];
 	
 	public int rom_size;
 	

@@ -41,8 +41,8 @@ public class RAMAnalysisC extends VideoLWJGL {
 	private int width;
 	private int height;
 	int counter = width * height;
-	int max_read = 1;
-	int max_write = 1;
+	float max_read = 1;
+	float max_write = 1;
 
 	/**
 	 * Creates the RAMAnalysisC Object
@@ -71,7 +71,6 @@ public class RAMAnalysisC extends VideoLWJGL {
 				max_write = ram.memory_count_write[i];
 
 		glViewport(0, 0, getWidth(), getHeight()); // 64*32 is the exact display
-		// size of the Chip-8 System
 		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
