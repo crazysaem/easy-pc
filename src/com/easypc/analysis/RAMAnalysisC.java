@@ -9,7 +9,6 @@ import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.opengl.GL11.glColor3f;
-import static org.lwjgl.opengl.GL11.glVertex3f;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
@@ -22,8 +21,8 @@ import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 import org.lwjgl.LWJGLException;
 
 import com.easypc.backend.VideoLWJGL;
+import com.easypc.chip8.CPU;
 import com.easypc.chip8.RAM;
-import com.easypc.controller._main;
 
 /**
  * Is responsible for Analyzing the RAM and Displaying everything onto a Canvas
@@ -38,6 +37,7 @@ public class RAMAnalysisC extends VideoLWJGL {
 	 *--------------------------------------------------*/
 
 	private RAM ram;
+	private CPU cpu;
 	private int width;
 	private int height;
 	int counter = width * height;
@@ -49,9 +49,10 @@ public class RAMAnalysisC extends VideoLWJGL {
 	 * 
 	 * @throws LWJGLException
 	 */
-	public RAMAnalysisC(RAM ram) throws LWJGLException {
+	public RAMAnalysisC(RAM ram, CPU cpu) throws LWJGLException {
 		super();
 		this.ram = ram;
+		this.cpu = cpu;
 	}
 
 	/**
@@ -80,8 +81,11 @@ public class RAMAnalysisC extends VideoLWJGL {
 		glPushMatrix();
 
 		for (int y = 0; y < height; y++)
-			for (int x = 0; x < width; x++) {			
-				drawWhitePixel(x,y);
+			for (int x = 0; x < width; x++) {
+				if ((x) + width * (y) == cpu.getRegister(19))
+					drawPC(x, y);
+				else
+					drawWhitePixel(x, y);
 			}
 
 		glPopMatrix();
@@ -91,17 +95,23 @@ public class RAMAnalysisC extends VideoLWJGL {
 
 		glBegin(GL_QUADS);
 
-		/*
-		glColor3f(
-				(float) (ram.memory_count_read[(x + 1) * (y + 1)] / max_read),
-				0,
-				(float) (ram.memory_count_write[(x + 1) * (y + 1)] / max_write));
-		*/
-		
 		glColor3f(
 				(float) (ram.memory_count_read[(x) + width * (y)] / max_read),
 				0,
 				(float) (ram.memory_count_write[(x) + width * (y)] / max_write));
+
+		glVertex2f(x, height - y);
+		glVertex2f(x + 1f, height - y);
+		glVertex2f(x + 1f, height - y + 1f);
+		glVertex2f(x, height - y + 1f);
+		glEnd();
+	}
+
+	private void drawPC(int x, int y) {
+
+		glBegin(GL_QUADS);
+
+		glColor3f(0, 1, 0);
 
 		glVertex2f(x, height - y);
 		glVertex2f(x + 1f, height - y);
