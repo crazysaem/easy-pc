@@ -60,12 +60,12 @@ public class RAMAnalysisC extends VideoLWJGL {
 	@Override
 	public void drawOpenGl() {
 				
-		this.height = (int) Math.sqrt(ram.rom_size / 2);
+		this.height = (int) Math.sqrt(ram.MAX_LENGTH / 2);
 		this.width = 2 * this.height;
-		for(int i=512; i<512+ram.rom_size;i++)
+		for(int i=512; i<ram.MAX_LENGTH;i++)
 			if(ram.memory_count_read[i]>max_read) max_read = ram.memory_count_read[i];
 		
-		for(int i=512; i<512+ram.rom_size;i++)
+		for(int i=512; i<ram.MAX_LENGTH;i++)
 			if(ram.memory_count_write[i]>max_read) max_write = ram.memory_count_write[i];
 			 
 
@@ -83,7 +83,7 @@ public class RAMAnalysisC extends VideoLWJGL {
 			for (int y = 0; y < height; y++)
 				drawWhitePixel(x, y);
 
-		drawGrid();
+		//drawGrid();
  
 
 		glPopMatrix();
@@ -93,11 +93,13 @@ public class RAMAnalysisC extends VideoLWJGL {
 	private void drawWhitePixel(int x, int y) {
 
 		counter--;
-		System.out.println(max_read + "," + max_write + " | " + counter);
-		if(counter==0)max_read = 1;
+		//System.out.println(max_read + "," + max_write + " | " + counter);
+		if(counter==0)
+			for(int i=0; i<ram.MAX_LENGTH;i++)
+				ram.memory_count_read[i]*=0.2;
 		glBegin(GL_QUADS);
 		
-		glColor3f((float)(ram.memory_count_read[512+(x+1)*(y+1)]/max_read), 0,0);
+		glColor3f((float)(ram.memory_count_read[(x+1)*(y+1)]/max_read), 0,(float)(ram.memory_count_write[(x+1)*(y+1)]/max_write));
 		
 		glVertex2f(x, y);
 		glVertex2f(x + 1f, y);
