@@ -59,7 +59,7 @@ public class Gui implements ImageButtonCallBack
 
 	//The Buttons for the GUI
 	private ImageButton reset, play, pause, step, fastforward, min, close, maxi, 
-		hide_right, show_right;
+		hide_right, show_right, hide_top, show_top, hide_left, show_left, hide_bottom, show_bottom;
 
 	//Flag which resembles the fullscreen state of the gameCanvas
 	private boolean isFullScreen=false;
@@ -154,6 +154,33 @@ public class Gui implements ImageButtonCallBack
 		guiFrame.add(show_right.getLabel());
 		show_right.getLabel().setVisible(false);
 		
+		hide_top = new ImageButton(this, "src/resources/keys/min_down.png",
+				"src/resources/keys/min_down_glow.png", 590, 0, 0.4f);
+		guiFrame.add(hide_top.getLabel());
+		
+		show_top = new ImageButton(this, "src/resources/keys/min_up.png",
+				"src/resources/keys/min_up_glow.png", 590, 186, 0.4f);
+		guiFrame.add(show_top.getLabel());
+		show_top.getLabel().setVisible(false);
+		
+		hide_left = new ImageButton(this, "src/resources/keys/min_right.png",
+				"src/resources/keys/min_right_glow.png", 0, 325, 0.4f);
+		guiFrame.add(hide_left.getLabel());
+		
+		show_left = new ImageButton(this, "src/resources/keys/min_left.png",
+				"src/resources/keys/min_left_glow.png", 378, 325, 0.4f);
+		guiFrame.add(show_left.getLabel());
+		show_left.getLabel().setVisible(false);
+		
+		hide_bottom = new ImageButton(this, "src/resources/keys/min_up.png",
+				"src/resources/keys/min_up_glow.png", 590, 657, 0.4f);
+		guiFrame.add(hide_bottom.getLabel());
+		
+		show_bottom = new ImageButton(this, "src/resources/keys/min_down.png",
+				"src/resources/keys/min_down_glow.png", 590, 430, 0.4f);
+		guiFrame.add(show_bottom.getLabel());
+		show_bottom.getLabel().setVisible(false);
+		
 		guiFrame.repaint();
 	}
 
@@ -223,6 +250,48 @@ public class Gui implements ImageButtonCallBack
 		{
 			guiFrame.addShape("src/resources/shapes/right.png");
 			show_right.getLabel().setVisible(false);
+			guiFrame.repaint();
+		}
+		
+		if (pressedButton == hide_top) 
+		{
+			guiFrame.subtractShape("src/resources/shapes/top.png");
+			show_top.getLabel().setVisible(true);
+			guiFrame.repaint();
+		}
+		
+		if (pressedButton == show_top) 
+		{
+			guiFrame.addShape("src/resources/shapes/top.png");
+			show_top.getLabel().setVisible(false);
+			guiFrame.repaint();
+		}
+		
+		if (pressedButton == hide_left) 
+		{
+			guiFrame.subtractShape("src/resources/shapes/left.png");
+			show_left.getLabel().setVisible(true);
+			guiFrame.repaint();
+		}
+		
+		if (pressedButton == show_left) 
+		{
+			guiFrame.addShape("src/resources/shapes/left.png");
+			show_left.getLabel().setVisible(false);
+			guiFrame.repaint();
+		}
+		
+		if (pressedButton == hide_bottom) 
+		{
+			guiFrame.subtractShape("src/resources/shapes/bottom.png");
+			show_bottom.getLabel().setVisible(true);
+			guiFrame.repaint();
+		}
+		
+		if (pressedButton == show_bottom) 
+		{
+			guiFrame.addShape("src/resources/shapes/bottom.png");
+			show_bottom.getLabel().setVisible(false);
 			guiFrame.repaint();
 		}
 	}
