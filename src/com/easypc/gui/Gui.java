@@ -66,6 +66,9 @@ public class Gui implements ImageButtonCallBack
 	
 	//Flag which resembles whether the list or the gameCanvas is shown
 	private boolean isgameCanvasShown=false;
+	
+	private RAMAnalysisC ramAnalysisC;
+	private CPUAnalysisC cpuAnalysisC;
 
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -81,6 +84,9 @@ public class Gui implements ImageButtonCallBack
 		this.controller = controller;
 		this.gameCanvas = gamecanvas;
 		this.input = input;
+		
+		this.ramAnalysisC = ramAnalysisC;
+		this.cpuAnalysisC = cpuAnalysisC;
 		
 		//runnning keylistener for the guiFrame
 		this.input.checkKeys();		
@@ -254,7 +260,8 @@ public class Gui implements ImageButtonCallBack
 		}
 		
 		if (pressedButton == hide_top) 
-		{
+		{			
+			guiFrame.remove(cpuAnalysisC);	
 			guiFrame.subtractShape("src/resources/shapes/top.png");
 			show_top.getLabel().setVisible(true);
 			guiFrame.repaint();
@@ -264,20 +271,27 @@ public class Gui implements ImageButtonCallBack
 		{
 			guiFrame.addShape("src/resources/shapes/top.png");
 			show_top.getLabel().setVisible(false);
+			cpuAnalysisC.setBounds(409, 7, 777 - 409, 185 - 7);
+			guiFrame.add(cpuAnalysisC);
+			cpuAnalysisC.repaint();
 			guiFrame.repaint();
 		}
 		
 		if (pressedButton == hide_left) 
 		{
+			guiFrame.remove(ramAnalysisC);	
 			guiFrame.subtractShape("src/resources/shapes/left.png");
 			show_left.getLabel().setVisible(true);
-			guiFrame.repaint();
+			guiFrame.repaint();					
 		}
 		
 		if (pressedButton == show_left) 
 		{
 			guiFrame.addShape("src/resources/shapes/left.png");
-			show_left.getLabel().setVisible(false);
+			show_left.getLabel().setVisible(false);			
+			ramAnalysisC.setBounds(5, 241, 373 - 5, 419 - 241);
+			guiFrame.add(ramAnalysisC);
+			ramAnalysisC.repaint();
 			guiFrame.repaint();
 		}
 		
