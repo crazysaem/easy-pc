@@ -4,8 +4,10 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
 
 import com.easypc.backend.VideoLWJGL;
+import com.easypc.controller._main;
 
 /**
  * Is responsible for Analyzing the opCodes and Displaying everything onto a Canvas
@@ -38,7 +40,7 @@ public class CPUAnalysisC extends VideoLWJGL {
 	 * Draws stuff onto the canvas via openGL
 	 */
 	@Override
-	public void drawOpenGl() {
+	public void drawOpenGl() {		
 		glViewport(0, 0, getWidth(), getHeight());		
 		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);

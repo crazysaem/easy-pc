@@ -1,6 +1,7 @@
 package com.easypc.controller;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
 
 import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.analysis.RAMAnalysisC;
@@ -18,6 +19,9 @@ import com.easypc.gui.Gui;
  */
 public class _main 
 {
+	/*----------------------------------------------------
+	 * Global Constants:
+	 *--------------------------------------------------*/
 	
 	public static final boolean DEBUG = false;
 	
@@ -54,5 +58,8 @@ public class _main
 		
 		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas, input);
 		input.Init(controller,gui);
+		
+		//FPS for every LWJGL Display:
+		Display.sync(30);
 	}
 }

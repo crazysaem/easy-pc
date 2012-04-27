@@ -17,6 +17,7 @@ import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
 
 import com.easypc.backend.VideoLWJGL;
 import com.easypc.controller._main;
@@ -54,7 +55,7 @@ public class GameCanvas extends VideoLWJGL {
 	 * Draws stuff onto the canvas via openGL
 	 */
 	@Override
-	public void drawOpenGl() {
+	public void drawOpenGl() {	
 		glViewport(0, 0, getWidth(), getHeight()); // 64*32 is the exact display
 													// size of the Chip-8 System
 		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
