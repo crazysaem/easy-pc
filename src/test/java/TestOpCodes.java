@@ -1,15 +1,21 @@
 package test.java;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.lwjgl.LWJGLException;
 
+import com.easypc.analysis.CPUAnalysisC;
+import com.easypc.analysis.RAMAnalysisC;
 import com.easypc.backend.Input;
 import com.easypc.chip8.CPU;
+import com.easypc.chip8.GameCanvas;
 import com.easypc.chip8.MediaOutput;
 import com.easypc.chip8.RAM;
+import com.easypc.controller.Controller;
+import com.easypc.gui.Gui;
 
 /**
  * This test class will validate all the opCodes of our CPU against the specification 
@@ -25,6 +31,7 @@ public class TestOpCodes {
 	private static CPU cpu;
 	private static RAM ram;
 	private static MediaOutput media;
+	private static Gui gui;
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -40,6 +47,24 @@ public class TestOpCodes {
 		ram = new RAM();
 
 		cpu = new CPU(media,input,ram);
+		cpu.defineGUI(gui);		
+		
+		Controller controller = new Controller(cpu,ram);
+		
+		CPUAnalysisC cpuAnalysisC = null;
+		RAMAnalysisC ramAnalysisC = null;
+		GameCanvas gamecanvas = null;
+		try {
+			cpuAnalysisC = new CPUAnalysisC();
+			ramAnalysisC = new RAMAnalysisC(ram, cpu);
+			gamecanvas = new GameCanvas(media);
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+		}		
+		
+		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas, input);
+		input.Init(controller,gui);		
+		cpu.defineGUI(gui);
 		
     	System.out.println("@BeforeClass - Setting up the CPU and all depencies for it");
     }
