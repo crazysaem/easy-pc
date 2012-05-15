@@ -16,7 +16,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.analysis.RAMAnalysisC;
@@ -31,42 +34,44 @@ import com.easypc.controller._main;
  * @author crazysaem
  * 
  */
-public class Gui implements ImageButtonCallBack 
-{
+public class Gui implements ImageButtonCallBack {
 	/*----------------------------------------------------
 	 * Attribute Section.
 	 *--------------------------------------------------*/
 
 	// The controller will get information about the input from the user via the
 	// gui events in this class
-	private Controller controller;
-	
+	private Controller controller;	
+
 	// the main gui frame
 	private GuiFrame guiFrame;
-	
+
 	// The listview containing all Games
 	private JList<String> gameList;
-	
-	//The gameCanvas is used to connected it to the Gui and enable fullscreen
+
+	// The gameCanvas is used to connected it to the Gui and enable fullscreen
 	private GameCanvas gameCanvas;
 	private Input input;
-	
-	//reference to the fullscreen frame
+
+	// reference to the fullscreen frame
 	private JFrame full;
-	
-	//JList Scrollpane
+
+	// JList Scrollpane
 	private JScrollPane scrollPane;
-
-	//The Buttons for the GUI
-	private ImageButton reset, play, pause, step, fastforward, min, close, maxi, 
-		hide_right, show_right, hide_top, show_top, hide_left, show_left, hide_bottom, show_bottom;
-
-	//Flag which resembles the fullscreen state of the gameCanvas
-	private boolean isFullScreen=false;
 	
-	//Flag which resembles whether the list or the gameCanvas is shown
-	private boolean isgameCanvasShown=false;
-	
+	private JTable registerTable;
+
+	// The Buttons for the GUI
+	private ImageButton reset, play, pause, step, fastforward, min, close,
+			maxi, hide_right, show_right, hide_top, show_top, hide_left,
+			show_left, hide_bottom, show_bottom;
+
+	// Flag which resembles the fullscreen state of the gameCanvas
+	private boolean isFullScreen = false;
+
+	// Flag which resembles whether the list or the gameCanvas is shown
+	private boolean isgameCanvasShown = false;
+
 	private RAMAnalysisC ramAnalysisC;
 	private CPUAnalysisC cpuAnalysisC;
 
@@ -79,18 +84,18 @@ public class Gui implements ImageButtonCallBack
 	 * 
 	 * @param controller
 	 */
-	public Gui(Controller controller, CPUAnalysisC cpuAnalysisC, RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, Input input) 
-	{
+	public Gui(Controller controller, CPUAnalysisC cpuAnalysisC,
+			RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, Input input) {
 		this.controller = controller;
 		this.gameCanvas = gamecanvas;
 		this.input = input;
-		
+
 		this.ramAnalysisC = ramAnalysisC;
 		this.cpuAnalysisC = cpuAnalysisC;
-		
-		//runnning keylistener for the guiFrame
-		this.input.checkKeys();		
-		
+
+		// runnning keylistener for the guiFrame
+		this.input.checkKeys();
+
 		guiFrame = new GuiFrame();
 		guiFrame.getContentPane().setBackground(Color.BLACK);
 		guiFrame.setVisible(true);
@@ -114,33 +119,35 @@ public class Gui implements ImageButtonCallBack
 		gameCanvas.addMouseMotionListener(guiFrame);
 		guiFrame.add(gameCanvas);
 
+		initRegisterView();
 		initList();
-		
+
 		ImageIcon img = new ImageIcon("src/resources/logo.png");
 		guiFrame.setIconImage(img.getImage());
-		
+
 		reset = new ImageButton(this, "src/resources/keys/reset.png",
 				"src/resources/keys/reset_glow.png", 385, 195, 0.4f);
 		guiFrame.add(reset.getLabel());
-		
+
 		play = new ImageButton(this, "src/resources/keys/play.png",
 				"src/resources/keys/play_glow.png", 425, 195, 0.4f);
 		guiFrame.add(play.getLabel());
-		
+
 		pause = new ImageButton(this, "src/resources/keys/pause.png",
 				"src/resources/keys/pause_glow.png", 465, 195, 0.4f);
 		guiFrame.add(pause.getLabel());
-		
+
 		step = new ImageButton(this, "src/resources/keys/step.png",
 				"src/resources/keys/step_glow.png", 505, 195, 0.4f);
 		guiFrame.add(step.getLabel());
-		
-		fastforward = new ImageButton(this, "src/resources/keys/fastforward.png",
+
+		fastforward = new ImageButton(this,
+				"src/resources/keys/fastforward.png",
 				"src/resources/keys/fastforward_glow.png", 545, 195, 0.4f);
 		guiFrame.add(fastforward.getLabel());
-		
+
 		maxi = new ImageButton(this, "src/resources/keys/maxi.png",
-				"src/resources/keys/maxi_glow.png", /*690*/585, 195, 0.4f);
+				"src/resources/keys/maxi_glow.png", /* 690 */585, 195, 0.4f);
 		guiFrame.add(maxi.getLabel());
 
 		close = new ImageButton(this, "src/resources/keys/close.png",
@@ -150,43 +157,43 @@ public class Gui implements ImageButtonCallBack
 		min = new ImageButton(this, "src/resources/keys/min.png",
 				"src/resources/keys/min_glow.png", 730, 190, 0.4f);
 		guiFrame.add(min.getLabel());
-		
+
 		hide_right = new ImageButton(this, "src/resources/keys/min_left.png",
 				"src/resources/keys/min_left_glow.png", 1006, 325, 0.4f);
 		guiFrame.add(hide_right.getLabel());
-		
+
 		show_right = new ImageButton(this, "src/resources/keys/min_right.png",
 				"src/resources/keys/min_right_glow.png", 802, 325, 0.4f);
 		guiFrame.add(show_right.getLabel());
 		show_right.getLabel().setVisible(false);
-		
+
 		hide_top = new ImageButton(this, "src/resources/keys/min_down.png",
 				"src/resources/keys/min_down_glow.png", 590, 0, 0.4f);
 		guiFrame.add(hide_top.getLabel());
-		
+
 		show_top = new ImageButton(this, "src/resources/keys/min_up.png",
 				"src/resources/keys/min_up_glow.png", 590, 186, 0.4f);
 		guiFrame.add(show_top.getLabel());
 		show_top.getLabel().setVisible(false);
-		
+
 		hide_left = new ImageButton(this, "src/resources/keys/min_right.png",
 				"src/resources/keys/min_right_glow.png", 0, 325, 0.4f);
 		guiFrame.add(hide_left.getLabel());
-		
+
 		show_left = new ImageButton(this, "src/resources/keys/min_left.png",
 				"src/resources/keys/min_left_glow.png", 378, 325, 0.4f);
 		guiFrame.add(show_left.getLabel());
 		show_left.getLabel().setVisible(false);
-		
+
 		hide_bottom = new ImageButton(this, "src/resources/keys/min_up.png",
 				"src/resources/keys/min_up_glow.png", 590, 657, 0.4f);
 		guiFrame.add(hide_bottom.getLabel());
-		
+
 		show_bottom = new ImageButton(this, "src/resources/keys/min_down.png",
 				"src/resources/keys/min_down_glow.png", 590, 430, 0.4f);
 		guiFrame.add(show_bottom.getLabel());
 		show_bottom.getLabel().setVisible(false);
-		
+
 		guiFrame.repaint();
 	}
 
@@ -194,81 +201,69 @@ public class Gui implements ImageButtonCallBack
 	 * Will be called when a ImageButton on the GUI is clicked
 	 */
 	@Override
-	public void ButtonCallBack(ImageButton pressedButton) 
-	{
-		//TODO: Maybe it would make sense to map the button to e.g. The F1 and F2 etc. keys ?
-		//		They would then be also usable in fullscreen mode
-		
-		if ((pressedButton == reset) && (isgameCanvasShown))
-		{
+	public void ButtonCallBack(ImageButton pressedButton) {
+		// TODO: Maybe it would make sense to map the button to e.g. The F1 and
+		// F2 etc. keys ?
+		// They would then be also usable in fullscreen mode
+
+		if ((pressedButton == reset) && (isgameCanvasShown)) {
 			controller.resetGame();
 			showList();
 		}
-		
-		if ((pressedButton == play) && (isgameCanvasShown))
-		{
-			try 
-			{
+
+		if ((pressedButton == play) && (isgameCanvasShown)) {
+			try {
 				controller.playGame();
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
 		}
-		
-		if ((pressedButton == pause) && (isgameCanvasShown))
-		{
+
+		if ((pressedButton == pause) && (isgameCanvasShown)) {
 			controller.pauseGame();
 		}
-		
-		if ((pressedButton == step) && (isgameCanvasShown))
-		{
+
+		if ((pressedButton == step) && (isgameCanvasShown)) {
 			controller.stepForwardUntilDraw();
 		}
-		
-		if ((pressedButton == fastforward) && (isgameCanvasShown))
-		{
-			//TODO: show a list which shows e.g. the entries: slow, normal, 2x speed, 5x speed, 10x speed
+
+		if ((pressedButton == fastforward) && (isgameCanvasShown)) {
+			// TODO: show a list which shows e.g. the entries: slow, normal, 2x
+			// speed, 5x speed, 10x speed
 		}
-		
-		if ((pressedButton == maxi) && (isgameCanvasShown))
-		{
+
+		if ((pressedButton == maxi) && (isgameCanvasShown)) {
 			setFullscreen();
 		}
-		
-		if (pressedButton == min) 
-		{
+
+		if (pressedButton == min) {
 			guiFrame.setState(Frame.ICONIFIED);
 		}
-		
-		if (pressedButton == close) 
-		{
+
+		if (pressedButton == close) {
 			System.exit(0);
 		}
-		
-		if (pressedButton == hide_right) 
-		{
+
+		if (pressedButton == hide_right) {
 			guiFrame.subtractShape("src/resources/shapes/right.png");
 			show_right.getLabel().setVisible(true);
 			guiFrame.repaint();
 		}
-		
-		if (pressedButton == show_right) 
-		{
+
+		if (pressedButton == show_right) {
 			guiFrame.addShape("src/resources/shapes/right.png");
 			show_right.getLabel().setVisible(false);
 			guiFrame.repaint();
 		}
-		
-		if (pressedButton == hide_top) 
-		{			
-			guiFrame.remove(cpuAnalysisC);	
+
+		if (pressedButton == hide_top) {
+			guiFrame.remove(cpuAnalysisC);
 			guiFrame.subtractShape("src/resources/shapes/top.png");
 			show_top.getLabel().setVisible(true);
 			guiFrame.repaint();
 		}
-		
-		if (pressedButton == show_top) 
-		{
+
+		if (pressedButton == show_top) {
 			guiFrame.addShape("src/resources/shapes/top.png");
 			show_top.getLabel().setVisible(false);
 			cpuAnalysisC.setBounds(409, 7, 777 - 409, 185 - 7);
@@ -276,45 +271,40 @@ public class Gui implements ImageButtonCallBack
 			cpuAnalysisC.repaint();
 			guiFrame.repaint();
 		}
-		
-		if (pressedButton == hide_left) 
-		{
-			guiFrame.remove(ramAnalysisC);	
+
+		if (pressedButton == hide_left) {
+			guiFrame.remove(ramAnalysisC);
 			guiFrame.subtractShape("src/resources/shapes/left.png");
 			show_left.getLabel().setVisible(true);
-			guiFrame.repaint();					
+			guiFrame.repaint();
 		}
-		
-		if (pressedButton == show_left) 
-		{
+
+		if (pressedButton == show_left) {
 			guiFrame.addShape("src/resources/shapes/left.png");
-			show_left.getLabel().setVisible(false);			
+			show_left.getLabel().setVisible(false);
 			ramAnalysisC.setBounds(5, 241, 373 - 5, 419 - 241);
 			guiFrame.add(ramAnalysisC);
 			ramAnalysisC.repaint();
 			guiFrame.repaint();
 		}
-		
-		if (pressedButton == hide_bottom) 
-		{
+
+		if (pressedButton == hide_bottom) {
 			guiFrame.subtractShape("src/resources/shapes/bottom.png");
 			show_bottom.getLabel().setVisible(true);
 			guiFrame.repaint();
 		}
-		
-		if (pressedButton == show_bottom) 
-		{
+
+		if (pressedButton == show_bottom) {
 			guiFrame.addShape("src/resources/shapes/bottom.png");
 			show_bottom.getLabel().setVisible(false);
 			guiFrame.repaint();
 		}
 	}
-	
+
 	/**
 	 * Initializes the list of Games which will later be displayed onto the GUI
 	 */
-	private void initList()
-	{
+	private void initList() {
 		DefaultListModel<String> listmodel = controller.getRomList();
 
 		// make gameCanvas invisible
@@ -323,52 +313,46 @@ public class Gui implements ImageButtonCallBack
 		// create JList of games called gameList and add it to the guiFrame
 		gameList = new JList<String>(listmodel);
 
-		MouseListener mouseListener = new MouseAdapter() 
-		{
-			public void mouseClicked(MouseEvent e) 
-			{
-				if (e.getClickCount() == 2) 
-				{
+		MouseListener mouseListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
 					int index = gameList.locationToIndex(e.getPoint());
-					if(_main.DEBUG)
-						System.out.println("Loading " + gameList.getModel().getElementAt(index));
-					controller.loadGame(gameList.getModel().getElementAt(index).toString());
+					if (_main.DEBUG)
+						System.out.println("Loading "
+								+ gameList.getModel().getElementAt(index));
+					controller.loadGame(gameList.getModel().getElementAt(index)
+							.toString());
 					showGameCanvas();
 					/*
-					try {
-						controller.playGame();
-					} catch (InterruptedException e1) 
-					{
-						e1.printStackTrace();
-					}*/
+					 * try { controller.playGame(); } catch
+					 * (InterruptedException e1) { e1.printStackTrace(); }
+					 */
 				}
 			}
 		};
 
-		KeyListener keylistener = new KeyListener() 
-		{
+		KeyListener keylistener = new KeyListener() {
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) 
-				{
-					if(_main.DEBUG)
-						System.out.println("Loading " + gameList.getModel().getElementAt(0));
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					if (_main.DEBUG)
+						System.out.println("Loading "
+								+ gameList.getModel().getElementAt(0));
 					controller.loadGame(gameList.getSelectedValue().toString());
 					showGameCanvas();
 					/*
-					try 
-					{
-						controller.playGame();
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}*/
+					 * try { controller.playGame(); } catch
+					 * (InterruptedException e1) { e1.printStackTrace(); }
+					 */
 				}
 			}
 
 			@Override
-			public void keyReleased(KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {
+			}
 
 			@Override
-			public void keyTyped(KeyEvent e) {}
+			public void keyTyped(KeyEvent e) {
+			}
 		};
 
 		gameList.addKeyListener(keylistener);
@@ -395,55 +379,52 @@ public class Gui implements ImageButtonCallBack
 	 * from a folder Replaces the gamecanvas and shows a JList instead
 	 * containing all games from a folder
 	 */
-	private void showList() 
-	{
+	private void showList() {
 		gameCanvas.setVisible(false);
 		gameList.setVisible(true);
 		scrollPane.setVisible(true);
 		guiFrame.repaint();
-		gameList.requestFocusInWindow();		
+		gameList.requestFocusInWindow();
 		isgameCanvasShown = false;
 	}
 
 	/**
 	 * Removes the JList game list, and shows the gamecanvas again
 	 */
-	private void showGameCanvas() 
-	{		
+	private void showGameCanvas() {
 		gameList.setVisible(false);
 		scrollPane.setVisible(false);
 		gameCanvas.setVisible(true);
 		gameCanvas.requestFocusInWindow();
 		guiFrame.repaint();
-		isgameCanvasShown = true;		
+		isgameCanvasShown = true;
 	}
 
 	/**
 	 * Creates a fullscreen JFrame with the gamecanvas on it
 	 */
-	private void setFullscreen() 
-	{	
-		if(!isFullScreen)
-		{
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	private void setFullscreen() {
+		if (!isFullScreen) {
+			GraphicsEnvironment ge = GraphicsEnvironment
+					.getLocalGraphicsEnvironment();
 			GraphicsDevice gs = ge.getDefaultScreenDevice();
 			GraphicsDevice gd = gs;
 			DisplayMode dm = gd.getDisplayMode();
 			full = new JFrame(gs.getDefaultConfiguration());
 			guiFrame.remove(gameCanvas);
-			//HACK: Instead of true fullscreen, we take the size and height + 1 to avoid flickering on certain Hardware configurations
-			gameCanvas.setBounds(0, 0, dm.getWidth(), dm.getHeight()+1);
+			// HACK: Instead of true fullscreen, we take the size and height + 1
+			// to avoid flickering on certain Hardware configurations
+			gameCanvas.setBounds(0, 0, dm.getWidth(), dm.getHeight() + 1);
 			full.getContentPane().add(gameCanvas);
 			full.setUndecorated(true);
-			if (gd.isDisplayChangeSupported()) 
-			{
+			if (gd.isDisplayChangeSupported()) {
 				gd.setDisplayMode(dm);
 			}
 			full.pack();
 			full.setVisible(true);
 			full.setAlwaysOnTop(true);
-			//This will cause flickering on certain Hardware configurations
-			//gd.setFullScreenWindow(full);
+			// This will cause flickering on certain Hardware configurations
+			// gd.setFullScreenWindow(full);
 			gameCanvas.requestFocusInWindow();
 			isFullScreen = true;
 		}
@@ -452,11 +433,9 @@ public class Gui implements ImageButtonCallBack
 	/**
 	 * resets the fullscreen view to normal view again
 	 */
-	public void resetFullscreen() 
-	{
-		if(isFullScreen)
-		{
-			isFullScreen=false;
+	public void resetFullscreen() {
+		if (isFullScreen) {
+			isFullScreen = false;
 			full.getContentPane().removeAll();
 			full.setVisible(false);
 			gameCanvas.setBounds(385, 230, 416, 200);
@@ -464,19 +443,45 @@ public class Gui implements ImageButtonCallBack
 			showGameCanvas();
 		}
 	}
-	
+
 	/**
 	 * Switches the Fullscreen mode from the current state to the opposite state
 	 */
-	public void switchFullscreen()
-	{
-		if(isFullScreen)
-		{
+	public void switchFullscreen() {
+		if (isFullScreen) {
 			resetFullscreen();
-		}
-		else
-		{
+		} else {
 			setFullscreen();
 		}
+	}
+
+	private void initRegisterView() {
+
+		String[] _header = new String[] { "Reg", "Val", "Reg", "Val" };
+		String[][] _data = new String[8][4];
+		for(int i = 0; i < 16; i++){
+			if(i%2==0) _data[i/2][0] = "V"+i;			
+			else _data[i/2][2] = "V"+i;
+		}
+		DefaultTableModel model = new DefaultTableModel(_data,_header);
+		registerTable = new JTable(model);
+		registerTable.setRowHeight(19);
+		registerTable.setBackground(Color.BLACK);
+		registerTable.getTableHeader().setBackground(Color.BLACK);
+		registerTable.setForeground(Color.WHITE);
+		registerTable.getTableHeader().setForeground(Color.WHITE);
+		JScrollPane scrollPane = new JScrollPane(registerTable);
+		scrollPane.setBounds(809, 241, 190, 175);
+		scrollPane.setVisible(true);
+		guiFrame.add(scrollPane);
+		guiFrame.repaint();
+	}
+	
+	public void UpdateRegisterView(int reg, int val){
+		TableModel model =	registerTable.getModel();
+		if(reg%2==0)
+			model.setValueAt(val, reg/2, 3);
+		else
+			model.setValueAt(val, reg/2, 1);
 	}
 }

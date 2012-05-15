@@ -57,7 +57,8 @@ public class _main
 		}		
 		
 		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas, input);
-		input.Init(controller,gui);
+		input.Init(controller,gui);		
+		cpu.defineGUI(gui);
 		
 		//FPS for every LWJGL Display:
 		Display.sync(30);

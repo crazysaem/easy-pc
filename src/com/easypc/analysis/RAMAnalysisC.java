@@ -19,12 +19,10 @@ import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
 
 import com.easypc.backend.VideoLWJGL;
 import com.easypc.chip8.CPU;
 import com.easypc.chip8.RAM;
-import com.easypc.controller._main;
 
 /**
  * Is responsible for Analyzing the RAM and Displaying everything onto a Canvas
@@ -61,7 +59,7 @@ public class RAMAnalysisC extends VideoLWJGL {
 	 * Draws stuff onto the canvas via openGL
 	 */
 	@Override
-	public void drawOpenGl() {	
+	public void drawOpenGl() {
 		this.height = (int) Math.sqrt(ram.MAX_LENGTH / 2);
 		this.width = 2 * this.height;
 		for (int i = 512; i < ram.MAX_LENGTH; i++)

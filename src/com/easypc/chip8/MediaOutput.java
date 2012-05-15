@@ -86,13 +86,13 @@ public class MediaOutput {
 	public void startBeep(int length) {
 		
 		// playx.playBeep();
-		System.out.println(playThread.getState());
-		if (!playThread.isAlive()) {
-			playThread.start();
-		}
-		playx.setBeeping(true);
-		//playx.setBeeping(false);
-		System.out.println(playThread.getState() + "\n ---");
+//		System.out.println(playThread.getState());
+//		if (!playThread.isAlive()) {
+//			playThread.start();
+//		}
+//		playx.setBeeping(true);
+//		//playx.setBeeping(false);
+//		System.out.println(playThread.getState() + "\n ---");
 		// try {
 		// Synthesizer synth = MidiSystem.getSynthesizer();
 		// synth.open();
