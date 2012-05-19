@@ -1,5 +1,6 @@
 package com.easypc.gui;
 
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.DisplayMode;
 import java.awt.Frame;
@@ -119,6 +120,7 @@ public class Gui implements ImageButtonCallBack {
 		gameCanvas.addMouseMotionListener(guiFrame);
 		guiFrame.add(gameCanvas);
 
+		initKeyboardView();
 		initRegisterView();
 		initList();
 
@@ -455,6 +457,77 @@ public class Gui implements ImageButtonCallBack {
 		}
 	}
 
+	public void initKeyboardView(){
+		Button b1 = new Button("1");
+		b1.setBounds(491,438,52,54);
+		b1.setBackground(Color.WHITE);
+		guiFrame.add(b1);
+		Button b2 = new Button("2");
+		b2.setBounds(543,438,52,54);
+		b2.setBackground(Color.WHITE);
+		guiFrame.add(b2);
+		Button b3 = new Button("3");
+		b3.setBounds(595,438,52,54);
+		b3.setBackground(Color.WHITE);
+		guiFrame.add(b3);
+		Button bC = new Button("C");
+		bC.setBounds(647,438,52,54);
+		bC.setBackground(Color.WHITE);
+		guiFrame.add(bC);
+		
+		Button b4 = new Button("4");
+		b4.setBounds(491,492,52,54);
+		b4.setBackground(Color.WHITE);
+		guiFrame.add(b4);
+		Button b5 = new Button("5");
+		b5.setBounds(543,492,52,54);
+		b5.setBackground(Color.WHITE);
+		guiFrame.add(b5);
+		Button b6 = new Button("6");
+		b6.setBounds(595,492,52,54);
+		b6.setBackground(Color.WHITE);
+		guiFrame.add(b6);
+		Button bD = new Button("D");
+		bD.setBounds(647,492,52,54);
+		bD.setBackground(Color.WHITE);
+		guiFrame.add(bD);
+		
+		Button b7 = new Button("7");
+		b7.setBounds(491,546,52,54);
+		b7.setBackground(Color.WHITE);
+		guiFrame.add(b7);
+		Button b8 = new Button("8");
+		b8.setBounds(543,546,52,54);
+		b8.setBackground(Color.WHITE);
+		guiFrame.add(b8);
+		Button b9 = new Button("9");
+		b9.setBounds(595,546,52,54);
+		b9.setBackground(Color.WHITE);
+		guiFrame.add(b9);
+		Button bE = new Button("E");
+		bE.setBounds(647,546,52,54);
+		bE.setBackground(Color.WHITE);
+		guiFrame.add(bE);
+		
+		Button bA = new Button("A");
+		bA.setBounds(491,600,52,54);
+		bA.setBackground(Color.WHITE);
+		guiFrame.add(bA);
+		Button b0 = new Button("0");
+		b0.setBounds(543,600,52,54);
+		b0.setBackground(Color.WHITE);
+		guiFrame.add(b0);
+		Button bB = new Button("B");
+		bB.setBounds(595,600,52,54);
+		bB.setBackground(Color.WHITE);
+		guiFrame.add(bB);
+		Button bF = new Button("F");
+		bF.setBounds(647,600,52,54);
+		bF.setBackground(Color.WHITE);
+		guiFrame.add(bF);
+		
+	}
+	
 	private void initRegisterView() {
 
 		String[] _header = new String[] { "Reg", "Val", "Reg", "Val" };
