@@ -5,16 +5,11 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-//import org.lwjgl.LWJGLException;
 
-import com.easypc.analysis.CPUAnalysisC;
-import com.easypc.analysis.RAMAnalysisC;
 import com.easypc.backend.Input;
 import com.easypc.chip8.CPU;
-import com.easypc.chip8.GameCanvas;
 import com.easypc.chip8.MediaOutput;
 import com.easypc.chip8.RAM;
-import com.easypc.controller.Controller;
 import com.easypc.gui.Gui;
 
 /**
@@ -31,7 +26,6 @@ public class TestOpCodes {
 	private static CPU cpu;
 	private static RAM ram;
 	private static MediaOutput media;
-	private static Gui gui;
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
