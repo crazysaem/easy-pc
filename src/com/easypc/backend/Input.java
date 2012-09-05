@@ -265,4 +265,14 @@ public class Input {
 
 		return check;
 	}
+	
+	/**
+	 * Allows the the setting of any key to any state
+	 * @param i the key which receives the state
+	 * @param state the state (true = pressed, false = unpressed)
+	 */
+	public void setKeyState(int i, boolean state)
+	{
+		keys[i] = state;
+	}
 }
