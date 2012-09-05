@@ -46,7 +46,7 @@ public class ControllerRunningThread implements Runnable {
 			/*int temp = opCode.get(1);
 			temp = temp & 0xF0;
 			temp = temp >> 4;*/
-			cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F);
+			cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F, false);
 			if (_main.DEBUG) {
 				System.out.print("DEBUG -- PC:" + cpu.getRegister(19));
 				System.out.print(", OP: ");

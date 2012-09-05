@@ -53,7 +53,7 @@ public class Controller
 	public void resetGame() 
 	{
 		controllerRunningThread.setRunning(false);
-		cpu.executeOpCode(0, 0, 0xE, 0);
+		cpu.executeOpCode(0, 0, 0xE, 0, false);
 		ram.reset();
 		cpu.reset();		
 	}
@@ -144,7 +144,7 @@ public class Controller
 			int temp = opCode.get(1);
 			temp = temp & 0xF0;
 			temp = temp >> 4;
-			cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F);
+			cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F, false);
 		}
 	}
 	
@@ -164,7 +164,7 @@ public class Controller
 				int temp = opCode.get(1);
 				temp = temp & 0xF0;
 				temp = temp >> 4;
-				cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F);
+				cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F, false);
 			} while(((opCode.get(0) & 0xF0) >> 4)!=0xD);
 		}
 	}

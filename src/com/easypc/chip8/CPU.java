@@ -91,7 +91,7 @@ public class CPU {
 	 * @param c3
 	 *            The 4th 4 Bit of the opCode (Has to be between 0 and 15)
 	 */
-	public void executeOpCode(int c0, int c1, int c2, int c3) {
+	public void executeOpCode(int c0, int c1, int c2, int c3, boolean isTest) {
 		if (c0 < 0 || c0 > 15 || c1 < 0 || c1 > 15 || c2 < 0 || c2 > 15
 				|| c3 < 0 || c3 > 15) {
 			System.err.println("The Parameters have to be between 0 and 15");
@@ -291,8 +291,9 @@ public class CPU {
 			ram.memory_count_read[i] *= .999;
 			ram.memory_count_write[i] *= .9999;
 		}
-		for (int i = 0; i < 16; i++)
-			gui.UpdateRegisterView(i, getRegister(i));
+		if(!isTest)
+			for (int i = 0; i < 16; i++)
+				gui.UpdateRegisterView(i, getRegister(i));
 	}
 
 	/**

@@ -5,7 +5,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.lwjgl.LWJGLException;
+//import org.lwjgl.LWJGLException;
 
 import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.analysis.RAMAnalysisC;
@@ -47,24 +47,21 @@ public class TestOpCodes {
 		ram = new RAM();
 
 		cpu = new CPU(media,input,ram);
-		cpu.defineGUI(gui);		
-		
+		//cpu.defineGUI(gui);		
+		/*
 		Controller controller = new Controller(cpu,ram);
 		
 		CPUAnalysisC cpuAnalysisC = null;
 		RAMAnalysisC ramAnalysisC = null;
 		GameCanvas gamecanvas = null;
-		try {
+
 			cpuAnalysisC = new CPUAnalysisC();
 			ramAnalysisC = new RAMAnalysisC(ram, cpu);
-			gamecanvas = new GameCanvas(media);
-		} catch (LWJGLException e) {
-			e.printStackTrace();
-		}		
+			gamecanvas = new GameCanvas(media);	
 		
 		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas, input);
 		input.Init(controller,gui);		
-		cpu.defineGUI(gui);
+		cpu.defineGUI(gui);*/
 		
     	System.out.println("@BeforeClass - Setting up the CPU and all depencies for it");
     }
@@ -104,7 +101,7 @@ public class TestOpCodes {
     public void testOpCode_1nnn() 
     {
     	//The interpreter sets the program counter to nnn.    	
-    	cpu.executeOpCode(1, 1, 2, 3);     	
+    	cpu.executeOpCode(1, 1, 2, 3, true);     	
     	int check = 1<<8 | 2<<4 | 3;    	
     	assertEquals(check, cpu.getRegister(19));
     	
@@ -117,7 +114,7 @@ public class TestOpCodes {
     	//The interpreter increments the stack pointer, 
     	//then puts the current PC on the top of the stack. 
     	//The PC is then set to nnn.
-    	cpu.executeOpCode(2, 1, 2, 3); 
+    	cpu.executeOpCode(2, 1, 2, 3, true); 
 		//TODO: can/must I check this: cpu.PCstack.get(cpu.PCstack.size()) ???
     	int check = 1<<8 | 2<<4 | 3;    	
     	assertEquals(check, cpu.getRegister(19));
@@ -129,7 +126,7 @@ public class TestOpCodes {
     {
     	//Skip next instruction if Vx = kk.
     	int PC =cpu.getRegister(19);
-    	cpu.executeOpCode(3, 2, 4, 2);
+    	cpu.executeOpCode(3, 2, 4, 2, true);
     	int check = 4<<4 | 2;
     	if(check==cpu.getRegister(2))
     		assertEquals(PC+4, cpu.getRegister(19));
@@ -144,7 +141,7 @@ public class TestOpCodes {
     {
     	//Skip next instruction if Vx != kk.
     	int PC =cpu.getRegister(19);
-    	cpu.executeOpCode(4, 2, 4, 2);
+    	cpu.executeOpCode(4, 2, 4, 2, true);
     	int check = 4<<4 | 2;
     	if(check!=cpu.getRegister(2))
     		assertEquals(PC+4, cpu.getRegister(19));
@@ -159,7 +156,7 @@ public class TestOpCodes {
     {
     	//Skip next instruction if Vx = Vy.
     	int PC =cpu.getRegister(19);
-    	cpu.executeOpCode(5, 2, 4, 0);
+    	cpu.executeOpCode(5, 2, 4, 0, true);
     	if(cpu.getRegister(2)==cpu.getRegister(4))
     		assertEquals(PC+4, cpu.getRegister(19));
     	else
@@ -172,7 +169,7 @@ public class TestOpCodes {
     public void testOpCode_6xkk()
     {
     	//Set Vx = kk.
-    	cpu.executeOpCode(6, 2, 4, 2);
+    	cpu.executeOpCode(6, 2, 4, 2, true);
     	int check = 4<<4 | 2;
     	assertEquals(check, cpu.getRegister(2));
     	
@@ -184,7 +181,7 @@ public class TestOpCodes {
     {
         //Set Vx = Vx + kk.
     	int tempVX = cpu.getRegister(2);
-    	cpu.executeOpCode(7, 2, 4, 2);    	
+    	cpu.executeOpCode(7, 2, 4, 2, true);    	
     	int check = 4<<4 | 2;
     	check=check+tempVX;
     	assertEquals(check, cpu.getRegister(2));
@@ -196,7 +193,7 @@ public class TestOpCodes {
     public void testOpCode_8xy0()
     {
         //Set Vx = Vy.
-    	cpu.executeOpCode(8, 2, 4, 0);
+    	cpu.executeOpCode(8, 2, 4, 0, true);
     	assertEquals(cpu.getRegister(4), cpu.getRegister(2));
     	
     	System.out.println("@Test - testOpCode_8xy0");
@@ -206,7 +203,7 @@ public class TestOpCodes {
     public void testOpCode_8xy1()
     {
         //Set Vx = Vx OR Vy.
-    	cpu.executeOpCode(8, 2, 4, 1);
+    	cpu.executeOpCode(8, 2, 4, 1, true);
     	int check=cpu.getRegister(4) | cpu.getRegister(2);
     	assertEquals(check, cpu.getRegister(2));
     	
@@ -217,7 +214,7 @@ public class TestOpCodes {
     public void testOpCode_8xy2()
     {
         //Set Vx = Vx AND Vy.
-    	cpu.executeOpCode(8, 2, 4, 2);
+    	cpu.executeOpCode(8, 2, 4, 2, true);
     	int check=cpu.getRegister(4) & cpu.getRegister(2);
     	assertEquals(check, cpu.getRegister(2));
     	
@@ -228,7 +225,7 @@ public class TestOpCodes {
     public void testOpCode_8xy3()
     {
         //Set Vx = Vx XOR Vy.
-    	cpu.executeOpCode(8, 2, 4, 3);
+    	cpu.executeOpCode(8, 2, 4, 3, true);
     	int check=cpu.getRegister(4) ^ cpu.getRegister(2);
     	assertEquals(check, cpu.getRegister(2));
     	
@@ -239,7 +236,7 @@ public class TestOpCodes {
     public void testOpCode_8xy4()
     {
         //Set Vx = Vx + Vy, set VF = carry.
-    	cpu.executeOpCode(8, 2, 4, 4);
+    	cpu.executeOpCode(8, 2, 4, 4, true);
     	int check=cpu.getRegister(4) + cpu.getRegister(2);
     	if(check>255){
     		assertEquals(1, cpu.getRegister(15));
@@ -257,7 +254,7 @@ public class TestOpCodes {
     public void testOpCode_8xy5()
     {
         //Set Vx = Vx - Vy, set VF = NOT borrow.
-    	cpu.executeOpCode(8, 2, 4, 5);
+    	cpu.executeOpCode(8, 2, 4, 5, true);
     	//TODO: This test is incomplete
     	int check=cpu.getRegister(2) - cpu.getRegister(4);
 		assertEquals(check, cpu.getRegister(2));
@@ -269,7 +266,7 @@ public class TestOpCodes {
     public void testOpCode_8xy6()
     {
         //Set Vx = Vx SHR 1.
-    	cpu.executeOpCode(8, 2, 4, 6);
+    	cpu.executeOpCode(8, 2, 4, 6, true);
     	//TODO: This test is incomplete
     	int check=cpu.getRegister(2)>>1;
 		assertEquals(check, cpu.getRegister(2));
@@ -281,7 +278,7 @@ public class TestOpCodes {
     public void testOpCode_8xy7()
     {
         //Set Vx = Vy - Vx, set VF = NOT borrow.
-    	cpu.executeOpCode(8, 2, 4, 7);
+    	cpu.executeOpCode(8, 2, 4, 7, true);
     	//TODO: This test is incomplete
     	int check=cpu.getRegister(4) - cpu.getRegister(2);
 		assertEquals(check, cpu.getRegister(2));
@@ -293,7 +290,7 @@ public class TestOpCodes {
     public void testOpCode_8xyE()
     {
         //Set Vx = Vx SHL 1.
-    	cpu.executeOpCode(8, 2, 4, 0xE);
+    	cpu.executeOpCode(8, 2, 4, 0xE, true);
     	if((cpu.getRegister(2)&128)==128)
     		assertEquals(1, cpu.getRegister(15));
     	else
@@ -309,7 +306,7 @@ public class TestOpCodes {
     {
         //Skip next instruction if Vx != Vy.
     	int PC =cpu.getRegister(19);
-    	cpu.executeOpCode(9, 2, 4, 0);
+    	cpu.executeOpCode(9, 2, 4, 0, true);
     	if(cpu.getRegister(2)!=cpu.getRegister(4))
     		assertEquals(PC+4, cpu.getRegister(19));
     	else
@@ -322,7 +319,7 @@ public class TestOpCodes {
     public void testOpCode_Annn()
     {
         //Set I = nnn.
-    	cpu.executeOpCode(0xA, 1, 2, 3);     	
+    	cpu.executeOpCode(0xA, 1, 2, 3, true);     	
     	int check = 1<<8 | 2<<4 | 3;    	
     	assertEquals(check, cpu.getRegister(16));
     	
@@ -333,7 +330,7 @@ public class TestOpCodes {
     public void testOpCode_Bnnn()
     {
         //Jump to location nnn + V0.
-    	cpu.executeOpCode(0xB, 1, 2, 3);     	
+    	cpu.executeOpCode(0xB, 1, 2, 3, true);     	
     	int check = (1<<8 | 2<<4 | 3)+cpu.getRegister(0);    	
     	assertEquals(check, cpu.getRegister(19));
     	
@@ -344,7 +341,7 @@ public class TestOpCodes {
     public void testOpCode_Cxkk()
     {
         //Set Vx = random byte AND kk.
-    	cpu.executeOpCode(0xC, 2, 15, 15);     	
+    	cpu.executeOpCode(0xC, 2, 15, 15, true);     	
     	@SuppressWarnings("unused")
 		int check = (4<<4 & 2)& (int)(Math.random()*255);  
     	//TODO: Do not think that it will be the same random number...
