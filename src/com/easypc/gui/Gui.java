@@ -25,6 +25,7 @@ import javax.swing.table.TableModel;
 import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.analysis.RAMAnalysisC;
 import com.easypc.backend.Input;
+import com.easypc.chip8.CPU;
 import com.easypc.chip8.GameCanvas;
 import com.easypc.controller.Controller;
 import com.easypc.controller._main;
@@ -59,8 +60,8 @@ public class Gui implements ImageButtonCallBack {
 
 	// JList Scrollpane
 	private JScrollPane scrollPane;
-	
 	private JTable registerTable;
+	private RegisterTableCallback registerTableCallback;
 
 	// The Buttons for the GUI
 	private ImageButton reset, play, pause, step, fastforward, min, close,
@@ -75,6 +76,8 @@ public class Gui implements ImageButtonCallBack {
 
 	private RAMAnalysisC ramAnalysisC;
 	private CPUAnalysisC cpuAnalysisC;
+	
+	private CPU cpu;
 
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -86,16 +89,18 @@ public class Gui implements ImageButtonCallBack {
 	 * @param controller
 	 */
 	public Gui(Controller controller, CPUAnalysisC cpuAnalysisC,
-			RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, Input input) {
+			RAMAnalysisC ramAnalysisC, GameCanvas gamecanvas, Input input, CPU cpu) {
 		this.controller = controller;
 		this.gameCanvas = gamecanvas;
 		this.input = input;
-
+		
 		this.ramAnalysisC = ramAnalysisC;
 		this.cpuAnalysisC = cpuAnalysisC;
 
 		// runnning keylistener for the guiFrame
 		this.input.checkKeys();
+		
+		this.cpu = cpu;
 
 		guiFrame = new GuiFrame();
 		guiFrame.getContentPane().setBackground(Color.BLACK);
@@ -544,21 +549,25 @@ public class Gui implements ImageButtonCallBack {
 		
 	}
 	
-	private void initRegisterView() {
-
+	private void initRegisterView()
+	{
 		String[] _header = new String[] { "Reg", "Val", "Reg", "Val" };
 		String[][] _data = new String[8][4];
-		for(int i = 0; i < 16; i++){
+		for(int i = 0; i < 16; i++)
+		{
 			if(i%2==0) _data[i/2][0] = "V"+i;			
 			else _data[i/2][2] = "V"+i;
 		}
-		DefaultTableModel model = new DefaultTableModel(_data,_header);
+		DefaultTableModel model = new DefaultTableModel(_data,_header);		
 		registerTable = new JTable(model);
+		registerTableCallback = new RegisterTableCallback(registerTable, cpu);
+		model.addTableModelListener(registerTableCallback);
 		registerTable.setRowHeight(19);
 		registerTable.setBackground(Color.BLACK);
 		registerTable.getTableHeader().setBackground(Color.BLACK);
 		registerTable.setForeground(Color.WHITE);
 		registerTable.getTableHeader().setForeground(Color.WHITE);
+		registerTable.getTableHeader().setReorderingAllowed(false);
 		JScrollPane scrollPane = new JScrollPane(registerTable);
 		scrollPane.setBounds(809, 241, 190, 175);
 		scrollPane.setVisible(true);
@@ -566,11 +575,18 @@ public class Gui implements ImageButtonCallBack {
 		guiFrame.repaint();
 	}
 	
-	public void UpdateRegisterView(int reg, int val){
+	public void UpdateRegisterView(int reg, int val)
+	{
 		TableModel model =	registerTable.getModel();
 		if(reg%2==0)
-			model.setValueAt(val, reg/2, 3);
-		else
+		{
+			registerTableCallback.ignoreNext();
 			model.setValueAt(val, reg/2, 1);
+		}
+		else
+		{
+			registerTableCallback.ignoreNext();
+			model.setValueAt(val, reg/2, 3);
+		}
 	}
 }
