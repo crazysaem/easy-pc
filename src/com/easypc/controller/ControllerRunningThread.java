@@ -21,6 +21,8 @@ public class ControllerRunningThread implements Runnable {
 	private RAM ram;
 	//A flag which determines whether the execution loop is running or stopped
 	private boolean isRunning;
+	
+	private int sleepTime = 2;
 
 	/**
 	 * Generates a new ControllerRunningThread
@@ -58,7 +60,7 @@ public class ControllerRunningThread implements Runnable {
 				// wait(10);
 			}
 			try {
-				Thread.sleep(2);
+				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -81,4 +83,9 @@ public class ControllerRunningThread implements Runnable {
 	public void setRunning(boolean isRunning) {
 		this.isRunning = isRunning;
 	}
+	
+	public void setSleepTime(int sleepTime)
+	{
+		this.sleepTime = sleepTime;
+	}	
 }

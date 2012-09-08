@@ -235,8 +235,7 @@ public class Gui implements ImageButtonCallBack {
 		}
 
 		if ((pressedButton == fastforward) && (isgameCanvasShown)) {
-			// TODO: show a list which shows e.g. the entries: slow, normal, 2x
-			// speed, 5x speed, 10x speed
+			controller.changeSpeed();
 		}
 
 		if ((pressedButton == maxi) && (isgameCanvasShown)) {

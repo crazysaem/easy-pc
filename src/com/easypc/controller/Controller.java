@@ -31,6 +31,8 @@ public class Controller
 	private Thread runningThread;
 	private ControllerRunningThread controllerRunningThread;
 	
+	private boolean isFast = false;
+	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
 	 *--------------------------------------------------*/
@@ -154,18 +156,20 @@ public class Controller
 	 */
 	public void stepForwardUntilDraw()
 	{
+		int count = 0;		
 		if(!controllerRunningThread.isRunning())
 		{
 			ArrayList<Integer> opCode;
 			do
 			{
+				count++;
 				int PC = cpu.getRegister(19);
 				opCode = ram.read(PC, 2);
-				int temp = opCode.get(1);
+				/*int temp = opCode.get(1);
 				temp = temp & 0xF0;
-				temp = temp >> 4;
+				temp = temp >> 4;*/
 				cpu.executeOpCode((opCode.get(0) & 0xF0) >> 4, (opCode.get(0) & 0x0F), (opCode.get(1) & 0xF0) >> 4, opCode.get(1) & 0x0F, false);
-			} while(((opCode.get(0) & 0xF0) >> 4)!=0xD);
+			} while((((opCode.get(0) & 0xF0) >> 4)!=0xD) && (count<5));
 		}
 	}
 		
@@ -232,5 +236,19 @@ public class Controller
 	    // Close the input stream and return bytes
 	    is.close();
 	    return ints;
+	}
+	
+	public void changeSpeed()
+	{
+		if(isFast)
+		{
+			isFast = false;
+			controllerRunningThread.setSleepTime(2);
+		}
+		else
+		{
+			isFast = true;
+			controllerRunningThread.setSleepTime(1);
+		}
 	}
 }
