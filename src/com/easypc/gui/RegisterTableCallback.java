@@ -35,7 +35,7 @@ public class RegisterTableCallback implements TableModelListener
 			Object val = table.getValueAt(row, col);
 			if(val instanceof Integer)
 			{
-				regvalue = (int)val;
+				regvalue = (Integer)val;
 			}
 			else
 			{
