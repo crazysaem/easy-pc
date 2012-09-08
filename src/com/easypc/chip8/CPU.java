@@ -361,7 +361,15 @@ public class CPU {
 	
 	public ArrayList<Integer> getPCStack ()
 	{
-		return PCstack;
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		
+		for(int i=0; i<PCstack.size(); i++)
+		{
+			int value = PCstack.get(i);
+			result.add(value);
+		}
+		
+		return result;
 	}
 
 	/*----------------------------------------------------
