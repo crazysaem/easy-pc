@@ -1,5 +1,7 @@
 package com.easypc.controller;
 
+import java.io.IOException;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 
@@ -54,7 +56,7 @@ public class _main
 			gamecanvas = new GameCanvas(media);
 		} catch (LWJGLException e) {
 			e.printStackTrace();
-		}		
+		}
 		
 		Gui gui = new Gui(controller, cpuAnalysisC, ramAnalysisC, gamecanvas, input, cpu);
 		input.Init(controller,gui);		

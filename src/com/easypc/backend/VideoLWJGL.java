@@ -28,8 +28,13 @@ public class VideoLWJGL extends AWTGLCanvas {
 	public VideoLWJGL() throws LWJGLException
 	{
 		super();
-	}
+	}	
 	
+	@Override
+	protected void initGL() {
+		super.initGL();
+	}
+
 	/**
 	 * Gets called all the time (srsly). So we use a trigger that we can better handle the calling
 	 */

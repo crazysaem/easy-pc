@@ -103,6 +103,7 @@ public class Gui implements ImageButtonCallBack {
 		this.cpu = cpu;
 
 		guiFrame = new GuiFrame();
+		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		guiFrame.getContentPane().setBackground(Color.BLACK);
 		guiFrame.setVisible(true);
 		guiFrame.addKeyListener(input.keylistener);
