@@ -1,7 +1,5 @@
 package com.easypc.controller;
 
-import java.io.IOException;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 

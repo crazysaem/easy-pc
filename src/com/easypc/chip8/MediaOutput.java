@@ -17,8 +17,7 @@ public class MediaOutput {
 	private boolean isBeeping;
 	// private PlayBeep playx = new
 	// PlayBeep("src/resources/sound/beep-kurz.wav");
-	private RunningPlayBeep playx = new RunningPlayBeep(
-			"src/resources/sound/beep-ukurz.wav");
+	private RunningPlayBeep playx = new RunningPlayBeep("src/resources/sound/beep-ukurz.wav");
 	private Thread playThread = new Thread(playx);
 	private int x = 0;
 

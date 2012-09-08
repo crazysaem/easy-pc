@@ -17,7 +17,6 @@ import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
 
 import com.easypc.backend.VideoLWJGL;
 import com.easypc.controller._main;

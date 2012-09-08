@@ -1,18 +1,15 @@
 package com.easypc.analysis;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 
 import java.io.IOException;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 import com.easypc.backend.VideoLWJGL;
-import com.easypc.controller._main;
 
 /**
  * Is responsible for Analyzing the opCodes and Displaying everything onto a Canvas

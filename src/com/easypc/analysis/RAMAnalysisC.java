@@ -60,13 +60,13 @@ public class RAMAnalysisC extends VideoLWJGL {
 	 */
 	@Override
 	public void drawOpenGl() {
-		this.height = (int) Math.sqrt(ram.MAX_LENGTH / 2);
+		this.height = (int) Math.sqrt(RAM.MAX_LENGTH / 2);
 		this.width = 2 * this.height;
-		for (int i = 512; i < ram.MAX_LENGTH; i++)
+		for (int i = 512; i < RAM.MAX_LENGTH; i++)
 			if (ram.memory_count_read[i] > max_read)
 				max_read = ram.memory_count_read[i];
 
-		for (int i = 512; i < ram.MAX_LENGTH; i++)
+		for (int i = 512; i < RAM.MAX_LENGTH; i++)
 			if (ram.memory_count_write[i] > max_read)
 				max_write = ram.memory_count_write[i];
 
