@@ -3,7 +3,6 @@ package com.easypc.chip8;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.backend.Input;
 import com.easypc.gui.Gui;
 
@@ -13,7 +12,7 @@ import com.easypc.gui.Gui;
  * @author crazysaem
  * 
  */
-public class CPU {
+public class ForeshadowingCPU {
 	/*----------------------------------------------------
 	 * Attribute Section.
 	 *--------------------------------------------------*/
@@ -38,20 +37,10 @@ public class CPU {
 	// will be restored after a RET statement from the Chip 8 Program
 	private ArrayList<Integer> PCstack = new ArrayList<Integer>();
 
-	// The MediaOutput Object
-	private MediaOutput media;
-
-	private Gui gui;
-
-	// The InputLWJGL Object
-	private Input input;
-
 	// The RAM Object
 	private RAM ram;
 
 	private Random random;
-	
-	private CPUAnalysisC cpuAnalysisC;
 
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -67,26 +56,15 @@ public class CPU {
 	 * @param ram
 	 *            The RAM Object
 	 */
-	public CPU(MediaOutput media, Input input, RAM ram) {
+	public ForeshadowingCPU(RAM ram) {
 		for (int i = 0; i < 16; i++)
 			V[i] = 0;
 
-		this.media = media;
-		this.input = input;
 		this.ram = ram;
 
 		random = new Random(System.currentTimeMillis());
 	}
-
-	public void defineGUI(Gui gui) {
-		this.gui = gui;
-	}
 	
-	public void defineCPUAnalysisC(CPUAnalysisC cpuAnalysisC)
-	{
-		this.cpuAnalysisC = cpuAnalysisC;
-	}
-
 	/**
 	 * Executes a Chip-8 OpCode
 	 * 
@@ -99,11 +77,11 @@ public class CPU {
 	 * @param c3
 	 *            The 4th 4 Bit of the opCode (Has to be between 0 and 15)
 	 */
-	public void executeOpCode(int c0, int c1, int c2, int c3, boolean isTest) {
+	public boolean executeOpCode(int c0, int c1, int c2, int c3) {
 		if (c0 < 0 || c0 > 15 || c1 < 0 || c1 > 15 || c2 < 0 || c2 > 15
 				|| c3 < 0 || c3 > 15) {
 			System.err.println("The Parameters have to be between 0 and 15");
-			return;
+			return false;
 		}
 
 		PC += 2;
@@ -116,7 +94,7 @@ public class CPU {
 		case 0:
 			if ((c1 == 0) && (c2 == 0xE) && (c3 == 0)) // 00E0 - CLS
 			{
-				media.clearScreen();
+				//media.clearScreen();
 			}
 
 			if ((c1 == 0) && (c2 == 0xE) && (c3 == 0xE)) // 00EE - RTN
@@ -220,24 +198,16 @@ public class CPU {
 		case 0xC: // Cxkk - RND Vx, byte
 			int r = random.nextInt(256);
 			V[c1] = get8BitValue(c2, c3) & r;
-			break;
+			return false;
 		case 0xD: // Dxyn - DRW Vx, Vy, nibble
 			Integer[] t = makeArray(ram.read(I, c3));
-			if (media.displaySprite(V[c1], V[c2], t))
-				V[0xF] = 1;
-			else
-				V[0xF] = 0;
 			break;
 		case 0xE:
 			switch (c2) {
 			case 9: // Ex9E - SKP Vx
-				if (input.checkKey(V[c1]))
-					PC += 2;
-				break;
+				return false;
 			case 0xA: // ExA1 - SKNP Vx
-				if (!input.checkKey(V[c1]))
-					PC += 2;
-				break;
+				return false;
 			}
 			break;
 		case 0xF:
@@ -246,14 +216,12 @@ public class CPU {
 				V[c1] = delay;
 				break;
 			case 0x0A: // Fx0A - LD Vx, K
-				V[c1] = input.waitforKey();
-				break;
+				return false;
 			case 0x15: // Fx15 - LD DT, Vx
 				delay = V[c1];
 				break;
 			case 0x18: // Fx18 - LD ST, Vx
 				sound = V[c1];
-				media.startBeep(sound);
 				break;
 			case 0x1E: // Fx1E - ADD I, Vx
 				I = I + V[c1];
@@ -263,13 +231,13 @@ public class CPU {
 				break;
 			case 0x33: // Fx33 - LD B, Vx
 				ArrayList<Integer> temp = getBCDValue(V[c1]);
-				ram.write(I, temp.get(0));
-				ram.write(I + 1, temp.get(1));
-				ram.write(I + 2, temp.get(2));
+				//ram.write(I, temp.get(0));
+				//ram.write(I + 1, temp.get(1));
+				//ram.write(I + 2, temp.get(2));
 				break;
 			case 0x55: // Fx55 - LD [I], Vx
 				for (int i = 0; i <= c1; i++) {
-					ram.write(I + i, V[i]);
+					//ram.write(I + i, V[i]);
 				}
 				break;
 			case 0x65: // Fx65 - LD Vx, [I]
@@ -290,20 +258,9 @@ public class CPU {
 			delay--;
 		if (sound > 0) {
 			sound--;
-		} else {
-			media.stopBeep();
 		}
-
-		for (int i = 0; i < RAM.MAX_LENGTH; i++) {
-			ram.memory_count_read[i] *= .999;
-			ram.memory_count_write[i] *= .9999;
-		}
-		if(!isTest)
-		{
-			for (int i = 0; i < 16; i++)
-				gui.UpdateRegisterView(i, getRegister(i));
-			cpuAnalysisC.nextInstruction();
-		}
+		
+		return true;
 	}
 
 	/**
@@ -359,9 +316,9 @@ public class CPU {
 
 	}
 	
-	public ArrayList<Integer> getPCStack ()
+	public void setPCStack (ArrayList<Integer> PCstack)
 	{
-		return PCstack;
+		this.PCstack = PCstack;
 	}
 
 	/*----------------------------------------------------

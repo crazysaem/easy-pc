@@ -217,6 +217,8 @@ public class Gui implements ImageButtonCallBack {
 		if ((pressedButton == reset) && (isgameCanvasShown)) {
 			controller.resetGame();
 			showList();
+			for(int i=0; i<=15; i++)
+				UpdateRegisterView(i, 0);
 		}
 
 		if ((pressedButton == play) && (isgameCanvasShown)) {
@@ -232,7 +234,8 @@ public class Gui implements ImageButtonCallBack {
 		}
 
 		if ((pressedButton == step) && (isgameCanvasShown)) {
-			controller.stepForwardUntilDraw();
+			//controller.stepForwardUntilDraw();
+			controller.stepForward();
 		}
 
 		if ((pressedButton == fastforward) && (isgameCanvasShown)) {

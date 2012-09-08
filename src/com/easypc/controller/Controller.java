@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 
+import com.easypc.analysis.CPUAnalysisC;
 import com.easypc.chip8.CPU;
 import com.easypc.chip8.RAM;
 
@@ -32,6 +33,7 @@ public class Controller
 	private ControllerRunningThread controllerRunningThread;
 	
 	private boolean isFast = false;
+	private CPUAnalysisC cpuAnalysisC;
 	
 	/*----------------------------------------------------
 	 * Public Method Section. Shows the Methods directly available from other Classes:
@@ -41,10 +43,11 @@ public class Controller
 	 * The Controller Constructor
 	 * @param cpu
 	 */
-	public Controller(CPU cpu, RAM ram)
+	public Controller(CPU cpu, RAM ram, CPUAnalysisC cpuAnalysisC)
 	{
 		this.cpu = cpu;
 		this.ram = ram;
+		this.cpuAnalysisC = cpuAnalysisC;
 		controllerRunningThread = new ControllerRunningThread(cpu, ram);		
 	}
 	
@@ -57,7 +60,8 @@ public class Controller
 		controllerRunningThread.setRunning(false);
 		cpu.executeOpCode(0, 0, 0xE, 0, false);
 		ram.reset();
-		cpu.reset();		
+		cpu.reset();	
+		cpuAnalysisC.clear();
 	}
 	
 	/**
@@ -101,6 +105,7 @@ public class Controller
 		}
 		
 		ram.write(512, rom);
+		cpuAnalysisC.reset();
 	}
 	
 	/**
