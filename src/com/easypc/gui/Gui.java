@@ -248,6 +248,7 @@ public class Gui implements ImageButtonCallBack {
 		}
 
 		if (pressedButton == close) {
+			guiFrame.dispose();
 			System.exit(0);
 		}
 
