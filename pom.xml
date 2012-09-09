@@ -11,7 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <natives.version>0.0.6</natives.version>
-        <lwjgl.version>2.8.3</lwjgl.version>
+        <lwjgl.version>2.8.4</lwjgl.version>
         <junit.version>4.8.2</junit.version>
 		<main.class>com.easypc.controller._main</main.class>
 		<finalName>${project.artifactId}-${project.version}.jar</finalName>
