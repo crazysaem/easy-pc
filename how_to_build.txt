@@ -7,13 +7,8 @@ Windows only, I have no clue about Linux/Mac:
 
 1) Download Maven: http://www.apache.org/dyn/closer.cgi/maven/binaries/apache-maven-3.0.4-bin.zip
 2) Unzip Maven
-3) Add the bin/ folder inside maven to the path Variable
+3) Add the bin/ folder inside maven to the PATH Variable
 4) Make sure JAVA_HOME points to the JDK 7 !, e.g.: JAVA_HOME=C:\Program Files\Java\jdk1.7.0_02
-5) in the root of our project, you can now simply call maven in the console with:
-	mvn install
-   This will create a target/ folder which contains a .zip file, which contains everything you need to run the application
-
-AWESOME!
 --------------------
 
 2) Add the Slick library manually to the local maven repository:
@@ -32,5 +27,5 @@ AWESOME!
 2) Execute the following command inside this folder:
 		mvn install
 3) A Build of the project will now be located inside the following folder:
-		target/
+		target/easy-PC-1.0-release.zip
 --------------------
