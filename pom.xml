@@ -6,7 +6,7 @@
 	<groupId>com.easypc</groupId>
     <artifactId>easy-PC</artifactId>
 	<packaging>jar</packaging>
-    <version>0.2</version>
+    <version>1.0</version>
 	<name>easy-PC</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -46,6 +46,11 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+		<dependency>
+            <groupId>org.newdawn.slick</groupId>
+            <artifactId>slick-util</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 

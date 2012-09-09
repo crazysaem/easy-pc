@@ -1,1 +1,1 @@
-javaw -Djava.library.path=./lib -jar easy-PC-0.2.jar
+javaw -Djava.library.path=./lib -jar easy-PC-1.0.jar

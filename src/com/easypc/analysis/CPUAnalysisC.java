@@ -33,6 +33,7 @@ public class CPUAnalysisC extends VideoLWJGL
 	private static final int SYSTEM = 5;
 	private static final int ARROW = 6;
 	private static final int UNKNWON = 7;
+	private static final int INPUTWAIT = 8;
 	
 	ArrayList<Integer> showIcons;
 	ForeshadowingCPU foreshadowingCPU;
@@ -126,7 +127,7 @@ public class CPUAnalysisC extends VideoLWJGL
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
-		textures = new Texture[8];
+		textures = new Texture[9];
 		
 		try {
 			textures[GRAPHIC] = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("src/resources/icons/graphic.png"));
@@ -137,6 +138,7 @@ public class CPUAnalysisC extends VideoLWJGL
 			textures[SYSTEM] = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("src/resources/icons/system.png"));
 			textures[ARROW] = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("src/resources/icons/arrow.png"));
 			textures[UNKNWON] = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("src/resources/icons/unknown.png"));
+			textures[INPUTWAIT] = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("src/resources/icons/inputwait.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
@@ -236,7 +238,7 @@ public class CPUAnalysisC extends VideoLWJGL
 				return MATH;
 
 			case 0x0A: // Fx0A - LD Vx, K
-				return INPUT;
+				return INPUTWAIT;
 
 			case 0x15: // Fx15 - LD DT, Vx
 				return SYSTEM;
