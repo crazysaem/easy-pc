@@ -1,4 +1,4 @@
-Travis CI: ![alt text](https://travis-ci.org/crazysaem/easy-pc.png?branch=master "Build Status")
+Travis CI: ![alt text](https://travis-ci.org/crazysaem/easy-pc.png?branch=master "Build Status")(https://travis-ci.org/crazysaem/easy-pc)
 
 HOW TO BUILD:
 
