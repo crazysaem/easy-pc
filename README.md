@@ -1,4 +1,4 @@
-Travis CI: ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+Travis CI: ![alt text](https://travis-ci.org/crazysaem/easy-pc.png?branch=master "Build Status")
 
 HOW TO BUILD:
 
