@@ -1,3 +1,4 @@
 {"ts":1358343400291,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
 {"contributors":[],"silentsave":false,"ts":1358343521666,"patch":[[{"diffs":[[1,"language: java\r\njdk:\r\n  - oraclejdk7"]],"start1":0,"start2":0,"length1":0,"length2":36}]],"length":36,"saved":false}
 {"contributors":[],"silentsave":false,"ts":1358343676998,"patch":[[{"diffs":[[0,"aclejdk7"],[1,"\r\n\r\ninstall: mvn install:install-file -DgroupId=org.newdawn.slick -DartifactId=slick-util -Dpackaging=jar -Dversion=1.0 -Dfile=libs/slick-util.jar -DgeneratePom=true"]],"start1":28,"start2":28,"length1":8,"length2":173}]],"length":201,"saved":false}
+{"ts":1358343798313,"patch":[[{"diffs":[[0,"jdk7\r\n\r\n"],[1,"before_"],[0,"install:"]],"start1":32,"start2":32,"length1":16,"length2":23}]],"length":208,"saved":false}
