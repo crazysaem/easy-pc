@@ -1,0 +1,5 @@
+language: java
+jdk:
+  - oraclejdk7
+
+install: mvn install:install-file -DgroupId=org.newdawn.slick -DartifactId=slick-util -Dpackaging=jar -Dversion=1.0 -Dfile=libs/slick-util.jar -DgeneratePom=true
